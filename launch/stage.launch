@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="model" default="  /home/jose/catkin_ws/src/navigation_experiments/env/demo.world" />
+  <arg name="model" default="  /home/jose/catkin_ws/src/navigation_experiments/cfg/demo.world" />
 
   <node pkg="stage_ros" type="stageros" respawn="false" name="stage_sim" output="screen" args= "-g $(arg model)">
   </node>
