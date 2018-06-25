@@ -8,15 +8,49 @@ clearing_rotation_allowed: false    # default : false
 oscillation_distance: 2.0           # default : 2.0
 shutdown_costmaps: false            # default : false
 
-base_global_planner: global_planner/GlobalPlanner
+#base_global_planner: global_planner/GlobalPlanner
+
+#GlobalPlanner:
+#    use_grid_path: False            # default : False
+#    use_dijkstra: True              # default : True
+#    allow_unknown: True            # default : False
+#    default_tolerance: 0.0          # default : 0.0
+#    visualize_potential: True       # default : True
+#    use_quadratic: True             # default : True
+#    use_grid_path: False            # default : False
+#    old_navfn_behavior: False       # default : False
 
 GlobalPlanner:
-    use_grid_path: False            # default : False
-    use_dijkstra: True              # default : True
-    allow_unknown: True            # default : False
-    default_tolerance: 0.0          # default : 0.0
-    visualize_potential: True       # default : True
-    use_quadratic: True             # default : True
-    use_grid_path: False            # default : False
-    old_navfn_behavior: False       # default : False
+    environment_type: XYThetaLattice
+    planner_type: ARAPlanner    # ARA* is the only planner allowing continuous replanning and search direction
+    allow_unknown: false
+    allocated_time: 1.5
+    initial_epsilon: 2.0
+    search_direction: 2         # 0: forward, 1: backward, 2: both; forward search is mandatory for continuous replanning
+    max_bidirectional_v: 0.1    # at which maximum linear speed we allow plans that force us to reverse out direction
+    lethal_obstacle: 20
+    xy_start_tolerance: 0.4     # much more generous than goal, so pre-computed and cached plans are easily usable
+    yaw_start_tolerance: 0.6    # idem
+    xy_goal_tolerance: 0.1
+    yaw_goal_tolerance: 0.2
+    search_2d_block_size: 3
+    yaw_h_threshold_dist: 0.0   # distance threshold to start applying theta heuristic combined with distance
+                            # TODO: disabled, as it doesn't work as expected
+    reuse_cached_plans: true
+    cache_calls_min_lapse: 5.0
+    # reeds-shepp shot parameters
+    reeds_shepp_max_distance: 0.5
+    reeds_shepp_turning_radius: 0.7
+    reeds_shepp_collision_checks: 1
+    reeds_shepp_segment_length: 0.04
+    adhoc_primitive_max_distance: 0.5
+    adhoc_primitive_linear_step: 0.04
+    adhoc_primitive_angular_step: 0.1
+    adhoc_primitive_collision_checks: 1
+    show_expanded_states: false
+    return_first_solution: false
+    nominalvel_mpersecs: 0.4  # 0.8
+    timetoturn45degsinplace_secs: 0.6  # 0.5
+    # so we don't fill local db with uncountable plans
+    # reuse_cached_plans: false
 

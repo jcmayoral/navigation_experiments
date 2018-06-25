@@ -25,17 +25,22 @@
 
     <!-- move_base navigation -->
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-      <!-- planner selection parameter -->
-        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
+        <!-- planner selection parameter -->
+        <param name="base_global_planner" value="sbpl_lattice_planner/SBPLLatticePlanner" />
+        <param name="base_local_planner" value="oriented_dwa_local_planner/OrientedDWAPlanner" />
+        <param name="SBPLLatticePlanner/primitive_filename" value ="$(optenv CMAN_CONFIG_DIR /opt/magazino/config)/environment/maps/sbpl.mprim" />
 
         <!-- move_base parameters -->
         <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/move_base_params.yaml" command="load" />
+        <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/footprint.yaml" command="load" />
 
         <!-- global costmap parameters -->
+        <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/footprint.yaml" command="load" ns="global_costmap"/>
         <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/costmap_common_params.yaml" command="load" ns="global_costmap"/>
         <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/global_costmap_params.yaml" command="load" />
 
         <!-- local costmap parameters -->
+        <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/footprint.yaml" command="load" ns="local_costmap"/>
         <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="/home/banos/catkin_ws/src/navigation_experiments/config/move_base/local_costmap_params.yaml" command="load" />
 
