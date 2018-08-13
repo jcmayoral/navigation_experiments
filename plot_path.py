@@ -16,9 +16,12 @@ class Plotter:
         self.y = list()
         self.odom_x = list()
         self.odom_y = list()
+        self.clear = False
+        self.busy = False
         #rospy.spin()
 
     def pathCB(self, msg):
+        self.clear = True
         self.listener.waitForTransform("map", "odom", rospy.Time.now(),rospy.Duration(.1))
         self.x = list()
         self.y = list()
@@ -34,8 +37,8 @@ class Plotter:
         self.ready = True
 
     def odomCB(self,msg):
-        self.x.append(msg.pose.pose.position.x)
-        self.y.append(msg.pose.pose.position.y)
+        self.odom_x.append(msg.pose.pose.position.x)
+        self.odom_y.append(msg.pose.pose.position.y)
         self.ready = True
 
 plt.ion()
@@ -44,8 +47,11 @@ plot = Plotter()
 
 while not rospy.is_shutdown():
     if plot.ready:
-        plt.scatter(plot.x, plot.y)
-        plt.scatter(plot.odom_x, plot.odom_y)
+        if plot.clear:
+            plt.clf()
+            plot.clear = False
+        plt.scatter(plot.x, plot.y, c='r')
+        plt.scatter(plot.odom_x, plot.odom_y, c='b')
         plot.fig.canvas.draw_idle()
-        plot.ready = False
         plt.pause(0.1)
+        plot.ready = False
