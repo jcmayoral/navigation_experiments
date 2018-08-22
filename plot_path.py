@@ -52,7 +52,7 @@ class Plotter:
 plt.ion()
 
 plot = Plotter()
-r = 0.5
+r = 0.3
 while not rospy.is_shutdown():
     if plot.ready:
         if plot.clear:
@@ -64,6 +64,10 @@ while not rospy.is_shutdown():
         plt.scatter(plot.odom_x, plot.odom_y, c='b')
         for x,y,w in zip(plot.odom_x, plot.odom_y, plot.odom_yaw):
             plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='b')
+
+        if len(plot.y) > 0:
+            plt.ylim(min(plot.y)-r, max(plot.y)+r)
+            plt.xlim(min(plot.x)-r, max(plot.x)+r)
         plot.fig.canvas.draw_idle()
         plt.pause(0.1)
         plot.ready = False
