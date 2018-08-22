@@ -17,17 +17,16 @@ class Plotter:
         self.yaw = list()
         self.odom_x = list()
         self.odom_y = list()
+        self.odom_yaw = list()
         self.clear = False
-        self.busy = False
         #rospy.spin()
 
     def pathCB(self, msg):
         self.clear = True
         self.listener.waitForTransform("map", "odom", rospy.Time.now(),rospy.Duration(.1))
-        self.x = list()
-        self.y = list()
         self.odom_x = list()
         self.odom_y = list()
+        self.odom_yaw = list()
 
         data = list()
         yaw = list()
@@ -45,6 +44,9 @@ class Plotter:
     def odomCB(self,msg):
         self.odom_x.append(msg.pose.pose.position.x)
         self.odom_y.append(msg.pose.pose.position.y)
+        explicit_quaternion = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
+        euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
+        self.odom_yaw.append(euler[2])
         self.ready = True
 
 plt.ion()
@@ -58,8 +60,10 @@ while not rospy.is_shutdown():
             plot.clear = False
         plt.scatter(plot.x, plot.y, c='r')
         for x,y,w in zip(plot.x, plot.y, plot.yaw):
-            plt.arrow(x, y,r*np.cos(w), r*np.sin(w))
+            plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='r')
         plt.scatter(plot.odom_x, plot.odom_y, c='b')
+        for x,y,w in zip(plot.odom_x, plot.odom_y, plot.odom_yaw):
+            plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='b')
         plot.fig.canvas.draw_idle()
         plt.pause(0.1)
         plot.ready = False
