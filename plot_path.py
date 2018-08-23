@@ -19,9 +19,11 @@ class Plotter:
         self.odom_y = list()
         self.odom_yaw = list()
         self.clear = False
+        self.path_received = False
         #rospy.spin()
 
     def pathCB(self, msg):
+        self.path_received = False
         self.clear = True
         self.listener.waitForTransform("map", "odom", rospy.Time.now(),rospy.Duration(.1))
         self.odom_x = list()
@@ -40,8 +42,13 @@ class Plotter:
         self.y =  [item[1] for item in data]
         self.yaw =  [i for i in yaw]
         self.ready = True
+        self.path_received = True
 
     def odomCB(self,msg):
+        if self.ready:
+            return
+        if not self.path_received:
+            return
         self.odom_x.append(msg.pose.pose.position.x)
         self.odom_y.append(msg.pose.pose.position.y)
         explicit_quaternion = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
