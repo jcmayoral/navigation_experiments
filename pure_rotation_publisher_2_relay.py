@@ -26,6 +26,7 @@ goal.pose.orientation.w = quaternion[3]
 pub.publish(goal)
 
 print goal
+rospy.sleep(5)
 
 
 
