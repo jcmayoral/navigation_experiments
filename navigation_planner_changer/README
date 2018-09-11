@@ -1,0 +1,3 @@
+This package is based on the repository https://github.com/lucasw/rqt_mypkg which a tutorial code is provided in how to create plugins
+
+And https://www.ics.com/blog/integrating-python-based-custom-widget-qt-designer for the LedWidget Code
