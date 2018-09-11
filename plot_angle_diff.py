@@ -31,7 +31,7 @@ class YawPlotter:
         self.imu_yaw = list()
         self.odom_yaw = list()
         #self.diff_yaw = list()
-3
+
     def start(self):
         self.stand_by_flag = False
 
