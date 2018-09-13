@@ -14,12 +14,12 @@ class YawPlotter:
         self.ready_to_plot = False
         self.stand_by_flag = False
         self.fig, (self.ax1, self.ax2, self.ax3) = plt.subplots(3, 1, sharex=True)
-        self.tss = ApproximateTimeSynchronizer([Subscriber("/odom",Odometry), Subscriber("/imu/data_raw_transformed", Imu)],5,0.1)
+        self.tss = ApproximateTimeSynchronizer([Subscriber("/odom",Odometry), Subscriber("/imu/data_raw", Imu)],5,0.1)
         self.tss.registerCallback(self.got_velocities)
         self.x = list()
         self.imu_yaw = list()
         self.odom_yaw = list()
-        #self.diff_yaw = list()
+        self.diff_yaw = list()
         self.clear = False
         self.path_received = False
 
@@ -30,7 +30,7 @@ class YawPlotter:
         self.x = list()
         self.imu_yaw = list()
         self.odom_yaw = list()
-        #self.diff_yaw = list()
+        self.diff_yaw = list()
 
     def start(self):
         self.stand_by_flag = False
@@ -40,7 +40,7 @@ class YawPlotter:
             return
         self.imu_yaw.append(yaw(imu.orientation))
         self.odom_yaw.append(yaw(odom.pose.pose.orientation))
-        #self.diff_yaw.append(yaw(odom.pose.pose.orientation) - yaw(imu.orientation))
+        self.diff_yaw.append(yaw(odom.pose.pose.orientation) - yaw(imu.orientation))
         self.x.append(len(self.imu_yaw))
         self.ready_to_plot = True
 
