@@ -7,7 +7,7 @@ from copy import deepcopy
 
 class Plotter:
     def __init__(self):
-        rospy.init_node("Plotter")
+        rospy.init_node("Path_Plotter")
         self.fig, self.ax = plt.subplots()
         self.ready = False
         self.x = list()
@@ -22,7 +22,7 @@ class Plotter:
         self.listener.waitForTransform("/odom", "/map", rospy.Time(0),rospy.Duration(1.0))
         rospy.sleep(4)
         rospy.Subscriber("/navigation/move_base_flex/SBPLLatticePlanner/plan", Path,self.pathCB)
-        rospy.Subscriber("/odom",Odometry,self.odomCB)
+        rospy.Subscriber("/odom",Odometry,self.odomCB, queue_size = 1)
 
     def pathCB(self, msg):
         self.odom_x = list()

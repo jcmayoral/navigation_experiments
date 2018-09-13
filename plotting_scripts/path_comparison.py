@@ -6,7 +6,7 @@ from nav_msgs.msg import Path, Odometry
 
 class Plotter:
     def __init__(self):
-        rospy.init_node("Plotter")
+        rospy.init_node("Plotter_Comparison")
         self.fig, self.ax = plt.subplots()
         self.ready = False
         self.x = list()
@@ -44,6 +44,7 @@ class Plotter:
             self.local_yaw =  [i for i in yaw]
             self.ready = True
             self.clear = True
+            print "A"
 
 plt.ion()
 
