@@ -26,7 +26,7 @@ class Plotter:
 
         data = list()
         yaw = list()
-        
+
         for p in msg.poses:
             explicit_quaternion = [p.pose.orientation.x, p.pose.orientation.y, p.pose.orientation.z, p.pose.orientation.w]
             euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
@@ -38,13 +38,12 @@ class Plotter:
             self.y =  [item[1] for item in data]
             self.yaw =  [i for i in yaw]
             self.ready = False
-            self.clear = True
         else:
             self.local_x =  [item[0] for item in data]
             self.local_y =  [item[1] for item in data]
             self.local_yaw =  [i for i in yaw]
             self.ready = True
-
+            self.clear = True
 
 plt.ion()
 
