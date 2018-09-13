@@ -8,9 +8,6 @@ class Plotter:
     def __init__(self):
         rospy.init_node("Plotter")
         self.fig, self.ax = plt.subplots()
-        rospy.Subscriber("/navigation/move_base_flex/SBPLLatticePlanner/plan", Path,self.pathCB)
-        rospy.Subscriber("/odom",Odometry,self.odomCB)
-        self.listener = tf.TransformListener()
         self.ready = False
         self.x = list()
         self.y = list()
@@ -20,29 +17,36 @@ class Plotter:
         self.odom_yaw = list()
         self.clear = False
         self.path_received = False
-        #rospy.spin()
+        self.listener = tf.TransformListener()
+        rospy.Subscriber("/navigation/move_base_flex/SBPLLatticePlanner/plan", Path,self.pathCB)
+        rospy.Subscriber("/odom",Odometry,self.odomCB)
+
 
     def pathCB(self, msg):
         self.path_received = False
-        self.clear = True
-        self.listener.waitForTransform("map", "odom", rospy.Time.now(),rospy.Duration(.1))
         self.odom_x = list()
         self.odom_y = list()
         self.odom_yaw = list()
+        self.listener.waitForTransform("/base_footprint", "/map", rospy.Time(0),rospy.Duration(1.0))
 
         data = list()
         yaw = list()
-        for p in msg.poses:
-            odom_pose = self.listener.transformPose("odom", p)
-            explicit_quaternion = [odom_pose.pose.orientation.x, odom_pose.pose.orientation.y, odom_pose.pose.orientation.z, odom_pose.pose.orientation.w]
-            euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
-            data.append([odom_pose.pose.position.x,odom_pose.pose.position.y])
-            yaw.append(euler[2])
-        self.x =  [item[0] for item in data]
-        self.y =  [item[1] for item in data]
-        self.yaw =  [i for i in yaw]
-        self.ready = True
-        self.path_received = True
+        
+        try:
+            for p in msg.poses:
+                odom_pose = self.listener.transformPose("/odom", p)
+                explicit_quaternion = [odom_pose.pose.orientation.x, odom_pose.pose.orientation.y, odom_pose.pose.orientation.z, odom_pose.pose.orientation.w]
+                euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
+                data.append([odom_pose.pose.position.x,odom_pose.pose.position.y])
+                yaw.append(euler[2])
+                self.x =  [item[0] for item in data]
+                self.y =  [item[1] for item in data]
+                self.yaw =  [i for i in yaw]
+                self.ready = True
+                self.path_received = True
+        except:
+            print "RECALLING"
+            self.pathCB(msg)
 
     def odomCB(self,msg):
         if self.ready:
@@ -54,6 +58,7 @@ class Plotter:
         explicit_quaternion = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
         euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
         self.odom_yaw.append(euler[2])
+        self.clear = True
         self.ready = True
 
 plt.ion()
