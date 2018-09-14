@@ -3,6 +3,7 @@ import rospy
 import numpy as np
 import matplotlib.pyplot as plt
 from nav_msgs.msg import Path, Odometry
+from geometry_msgs.msg import PoseStamped
 from copy import deepcopy
 
 class Plotter:
@@ -19,10 +20,10 @@ class Plotter:
         self.clear = False
         self.path_received = False
         self.listener = tf.TransformListener()
-        self.listener.waitForTransform("/odom", "/map", rospy.Time(0),rospy.Duration(1.0))
-        rospy.sleep(4)
         rospy.Subscriber("/navigation/move_base_flex/SBPLLatticePlanner/plan", Path,self.pathCB)
         rospy.Subscriber("/odom",Odometry,self.odomCB, queue_size = 1)
+        rospy.sleep(4)
+        rospy.loginfo("PLOT READY")
 
     def pathCB(self, msg):
         self.odom_x = list()
@@ -35,35 +36,41 @@ class Plotter:
         data = list()
         yaw = list()
 
-        try:
-            for p in msg.poses:
-                odom_pose = self.listener.transformPose("odom", p)
-                explicit_quaternion = [odom_pose.pose.orientation.x, odom_pose.pose.orientation.y, odom_pose.pose.orientation.z, odom_pose.pose.orientation.w]
-                euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
-                data.append([odom_pose.pose.position.x,odom_pose.pose.position.y])
-                yaw.append(euler[2])
-                self.x =  [item[0] for item in data]
-                self.y =  [item[1] for item in data]
-                self.yaw =  [i for i in yaw]
-                self.ready = True
-                self.path_received = True
-            print "HACK WORKED"
-        except:
-            print "RECALLING"
-            self.pathCB(msg)
+        for p in msg.poses:
+            explicit_quaternion = [p.pose.orientation.x, p.pose.orientation.y, p.pose.orientation.z, p.pose.orientation.w]
+            euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
+            data.append([p.pose.position.x,p.pose.position.y])
+            yaw.append(euler[2])
+
+        self.x =  [item[0] for item in data]
+        self.y =  [item[1] for item in data]
+        self.yaw =  [i for i in yaw]
+
+        self.ready = True
+        self.path_received = True
 
     def odomCB(self,msg):
         if not self.path_received:
             return
         if self.ready:
             return
+
         self.ready = False
-        self.odom_x.append(msg.pose.pose.position.x)
-        self.odom_y.append(msg.pose.pose.position.y)
-        explicit_quaternion = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
+        p = PoseStamped()
+        p.header = msg.header
+        p.header.stamp = rospy.Time.now()
+        p.pose = msg.pose.pose
+
+        self.listener.waitForTransform("map", "odom", rospy.Time.now(),rospy.Duration(1.0))
+        odom_pose = self.listener.transformPose("map", p)
+        explicit_quaternion = [odom_pose.pose.orientation.x, odom_pose.pose.orientation.y, \
+        odom_pose.pose.orientation.z, odom_pose.pose.orientation.w]
         euler = tf.transformations.euler_from_quaternion(explicit_quaternion)
+        self.odom_x.append(odom_pose.pose.position.x)
+        self.odom_y.append(odom_pose.pose.position.y)
         self.odom_yaw.append(euler[2])
         self.ready = True
+        print "HACK WORKED"
 
 plt.ion()
 
