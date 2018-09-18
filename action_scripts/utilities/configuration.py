@@ -9,15 +9,15 @@ class ResultSaver:
         self.file_name = output_file_path
 
     def save_results(self, configuration, results):
-        fout = open(self.file_name, "w")
+        fout = open(self.file_name, "a")
 
         fout.write("Configuration Params \n" )
         for k, v in configuration.items():
             fout.write(str(k) + ':'+ str(v) + '\n')
-        fout.write("Configuration Results")
+        fout.write("Configuration Results \n")
         for k, v in results.items():
             fout.write(str(k) + ':'+ str(v) + '\n')
-
+        fout.write("\n")
         fout.close()
 
 class ConfigurationManager:
@@ -29,6 +29,11 @@ class ConfigurationManager:
         for i in params:
             print i, type(i)
             self.config_params[i] = Param(**params[i])
+
+        self.default_config = copy.deepcopy(self.config_params)
+
+    def restart_params(self):
+        self.config_params = copy.deepcopy(self.default_config)
 
     def get_new_param_value(self, key):
         return self.config_params[key].get_random_value()
