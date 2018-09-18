@@ -16,6 +16,8 @@ from mag_common_py_libs.geometry import quaternion_from_yaw, pose2str
 from dynamic_reconfigure.client import Client, DynamicReconfigureCallbackException
 from move_base_flex_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, GetPathAction, GetPathGoal, GetPathActionResult
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
+from utilities.configuration import ConfigurationManager, ResultSaver
+
 from navigation_planner_changer.ROSPlannerGetter import ROSPlannerGetter
 
 __author__ = 'banos'
@@ -154,14 +156,21 @@ def update_planners(dynamic_reconfiguration_client, new_config):
     except DynamicReconfigureCallbackException:
         rospy.logerr("Something goes wrong")
 
-def execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature):
+def execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, results):
     execute_path(path_constructor, path_executter, execution_analyzer, start_to_goal_path)
-    rospy.logwarn("Start to Goal Curvature Difference " + str(calculate_curvature(path_constructor.get_path())-start_to_goal_path_curvature))
-    rospy.logwarn("accumulate_error" + str(execution_analyzer.get_accumulated_error()))
+    results["start_to_goal_curvature"] = calculate_curvature(path_constructor.get_path())-start_to_goal_path_curvature
+    rospy.logwarn("Start to Goal Curvature Difference " + str(results["start_to_goal_curvature"]))
+
+    results["start_accumulated_ang_error"] = execution_analyzer.get_accumulated_error()
+    rospy.logwarn("accumulate_error" + str(results["start_accumulated_ang_error"]))
 
     execute_path(path_constructor, path_executter, execution_analyzer, goal_to_start_path)
-    rospy.logwarn("Goal to Start Curvature Difference " + str(calculate_curvature(path_constructor.get_path())-goal_to_start_path_curvature))
-    rospy.logwarn("accumulate_error" + str(execution_analyzer.get_accumulated_error()))
+    results["goal_to_start_curvature"] = calculate_curvature(path_constructor.get_path())-goal_to_start_path_curvature
+    rospy.logwarn("Goal to Start Curvature Difference " + str(results["goal_to_start_curvature"]))
+
+    results["goal_accumulated_ang_error"] = execution_analyzer.get_accumulated_error()
+    rospy.logwarn("accumulate_error" + str(results['goal_accumulated_ang_error']))
+
 
 if __name__ == '__main__':
 
@@ -172,11 +181,13 @@ if __name__ == '__main__':
     rospy.init_node("get_exe_path")
 
     dyn_client = Client("/navigation/move_base_flex", None)
-    ros_planners = ROSPlannerGetter()
+    #ros_planners = ROSPlannerGetter()
     path_getter = GetPathClass()
     path_executter = ExePathClass()
     path_constructor = PathConstructor()
     execution_analyzer = ExecutionAnalyzer()
+    configuration_manager = ConfigurationManager()
+    result_saver = ResultSaver()
 
     robot_pose = get_robot_pose()
     start_pose = get_pose(poses, 'start_pose')
@@ -197,7 +208,14 @@ if __name__ == '__main__':
     new_planners_configurations = dict()
     cycles_number = int(sys.argv[2])
     for i in range(cycles_number):
+        new_params = dict()
+        new_results = dict()
+        configuration_manager.get_new_param_values(new_params)
+        print new_params
         rospy.loginfo("CYCLE %d of %d", i, cycles_number)
+
+        """
+        #DEPRECATED AT LEAST FOR NOW
         if planner_iteration:
             rospy.loginfo("UPDATING Planners")
             for g_pl in ros_planners.getGlobalPlanners():
@@ -205,6 +223,9 @@ if __name__ == '__main__':
                 for l_pl in ros_planners.getLocalPlanners():
                     new_planners_configurations['local_planner'] = l_pl
                     update_planners(dyn_client, new_planners_configurations)
-                    execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature)
+                    execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, new_results)
         else:
-            execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature)
+        """
+        execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, new_results)
+
+        result_saver.save_results(new_params, new_results)
