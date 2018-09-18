@@ -7,7 +7,6 @@ from sensor_msgs.msg import Imu
 from message_filters import TimeSynchronizer, Subscriber, ApproximateTimeSynchronizer
 from mag_common_py_libs.geometry import yaw
 
-
 class PathConstructor:
     def __init__(self, path_frame = "odom"):
         rospy.Subscriber("/odom",Odometry,self.odomCB)
