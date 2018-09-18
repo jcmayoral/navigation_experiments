@@ -54,7 +54,7 @@ def calculate_curvature(path):
 
     if len(path.poses) < 2:
         print "ERROR IN PATH"
-        return np.array([0,0,0,0,0,0])
+        return [0,0,0,0,0,0]
 
     for p in path.poses[1:]:
         dx.append(p.pose.position.x - p0.pose.position.x)
@@ -78,14 +78,8 @@ def calculate_curvature(path):
         dy0 = y
         dz0 = z
 
-    dx = np.sum(dx,axis=0)
-    dy = np.sum(dy,axis=0)
-    dz = np.sum(dz,axis=0)
-    ddx = np.sum(ddx, axis=0)
-    ddy = np.sum(ddy,axis=0)
-    ddz = np.sum(ddz,axis=0)
     #K = float(ddy * dx - ddx * dy) / float(np.power(dx, 2.) + np.power(dy, 2))
-    return np.array([dx,dy,dz,ddx,ddy,ddz])
+    return [sum(dx),sum(dy),sum(dz),sum(ddx),sum(ddy),sum(ddz)]
 
 def fake_path(mode = 'straigth', distance = 2.0, local_frame = "/base_link", step = 0.05):
     listener = tf.TransformListener()
