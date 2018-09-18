@@ -19,7 +19,7 @@ vx_samples:
   min_value: 2
   max_value: 20
   increment: 1
-vt_sample:
+vth_samples:
   min_value: 2
   max_value: 50
   increment: 2
