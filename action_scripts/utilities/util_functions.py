@@ -1,8 +1,10 @@
 import tf
 from geometry_msgs.msg import PoseStamped
+from nav_msgs.msg import Path
 import rospy
 from mag_common_py_libs.geometry import quaternion_from_yaw
 import numpy as np
+import copy
 
 def get_robot_pose():
     listener = tf.TransformListener()
@@ -37,9 +39,7 @@ def get_path(path_getter, start_pose, goal_pose):
     return path_getter.get_path()
 
 def calculate_curvature(path):
-    listener = tf.TransformListener()
     lenght = len(path.poses)
-    listener.waitForTransform(path.header.frame_id, "base_link", rospy.Time(0),rospy.Duration(1))
 
     p0 = path.poses[0]
     quat = [path.poses[0].pose.orientation.x, path.poses[0].pose.orientation.y, path.poses[0].pose.orientation.z, path.poses[0].pose.orientation.w]
@@ -86,3 +86,32 @@ def calculate_curvature(path):
     ddz = np.sum(ddz,axis=0)
     #K = float(ddy * dx - ddx * dy) / float(np.power(dx, 2.) + np.power(dy, 2))
     return np.array([dx,dy,dz,ddx,ddy,ddz])
+
+def fake_path(mode = 'straigth', distance = 2.0, local_frame = "/base_link", step = 0.05):
+    listener = tf.TransformListener()
+    rospy.sleep(4) #Give Time to the listener to charge the entire tf
+    print mode
+    start_to_goal_fake_path = Path()
+    goal_to_start_fake_path = Path()
+    start_to_goal_fake_path.header.frame_id = "map"
+    goal_to_start_fake_path.header.frame_id = "map"
+
+    #TODO CURVES
+    if mode is 'straigth':
+        listener.waitForTransform("/map", local_frame, rospy.Time(0),rospy.Duration(3.0))
+
+        for i in np.arange(0, distance, step):
+            new_pose = PoseStamped()
+            new_pose.header.frame_id = local_frame
+            new_pose.header.stamp = rospy.Time(0)
+            new_pose.pose.position.x = i
+            new_pose.pose.orientation = quaternion_from_yaw(0.0)
+            map_pose = listener.transformPose("map", new_pose)
+            start_to_goal_fake_path.poses.append(map_pose)
+
+    #Reverse poses to create goal to start
+    reversed_poses = copy.deepcopy(start_to_goal_fake_path.poses)
+    reversed_poses.reverse()
+    goal_to_start_fake_path.poses = reversed_poses
+    start_to_goal_fake_path.header.stamp = rospy.Time.now()
+    return [start_to_goal_fake_path.poses[0], goal_to_start_fake_path.poses[0], start_to_goal_fake_path, goal_to_start_fake_path]
