@@ -24,11 +24,11 @@ def update_configuration(dynamic_reconfiguration_client, new_config):
     except DynamicReconfigureCallbackException:
         rospy.logerr("Something goes wrong")
 
-def execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, results):
+def execute_cycle(path_constructor, path_executter, execution_analyzer, results):
     result = execute_path(path_constructor, path_executter, execution_analyzer, start_to_goal_path)
 
     if result:
-        results["start_to_goal_curvature"] = calculate_curvature(path_constructor.get_path())-start_to_goal_path_curvature
+        results["start_to_goal_curvature"] = calculate_curvature(path_constructor.get_path())
         results["start_to_goal_accumulated_error"] = execution_analyzer.get_accumulated_error()
         results["start_to_goal_accumulated_velocities"] = execution_analyzer.get_accumulated_velocities()
     else:
@@ -37,7 +37,7 @@ def execute_cycle(path_constructor, path_executter, execution_analyzer, start_to
     result = execute_path(path_constructor, path_executter, execution_analyzer, goal_to_start_path)
 
     if result:
-        results["goal_to_start_curvature"] = calculate_curvature(path_constructor.get_path())-goal_to_start_path_curvature
+        results["goal_to_start_curvature"] = calculate_curvature(path_constructor.get_path())
         results["goal_to_start_accumulated_error"] = execution_analyzer.get_accumulated_error()
         results["goal_to_start_accumulated_velocities"] = execution_analyzer.get_accumulated_velocities()
     else:
@@ -75,15 +75,7 @@ if __name__ == '__main__':
         rospy.logwarn("Poses Config File not selected... Faking Paths")
         [start_pose, goal_pose, start_to_goal_path, goal_to_start_path] = fake_path()
 
-
-    start_to_goal_path_curvature = calculate_curvature(start_to_goal_path)
-    rospy.logwarn("Start to Goal Expected Curvature " + str(start_to_goal_path_curvature))
-    goal_to_start_path_curvature = calculate_curvature(goal_to_start_path)
-    rospy.logwarn("Goal to Start Expected Curvature " + str(goal_to_start_path_curvature))
-
-    planner_iteration = False
     cycles_number = int(sys.argv[2]) if sys.argv[2] else 10
-
     execution_result = True
 
     for i in range(cycles_number):
@@ -101,5 +93,5 @@ if __name__ == '__main__':
 
         configuration_manager.get_new_param_values(new_params)
         update_configuration(dyn_client, new_params)
-        execution_result = execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, new_results)
+        execution_result = execute_cycle(path_constructor, path_executter, execution_analyzer, new_results)
         result_saver.save_results(new_params, new_results)
