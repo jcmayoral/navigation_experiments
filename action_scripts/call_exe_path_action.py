@@ -7,7 +7,7 @@ import rospy
 from dynamic_reconfigure.client import Client, DynamicReconfigureCallbackException
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
 from utilities.configuration import ConfigurationManager, ResultSaver
-from utilities.util_functions import get_pose, get_path, get_robot_pose, calculate_curvature
+from utilities.util_functions import get_pose, get_path, get_robot_pose, calculate_curvature, fake_path
 from interfaces.move_base_flex_interfaces import GetPathClass, ExePathClass
 
 __author__ = 'banos'
@@ -47,10 +47,6 @@ def execute_cycle(path_constructor, path_executter, execution_analyzer, start_to
 
 if __name__ == '__main__':
 
-    poses_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cfg/' + sys.argv[1]+".yaml")
-    file_stream = file(poses_file, 'r')
-    poses = yaml.load(file_stream)
-
     rospy.init_node("banos_experimental_manager")
 
     dyn_client = Client("/navigation/move_base_flex/OrientedDWAPlanner", None)
@@ -62,22 +58,32 @@ if __name__ == '__main__':
     result_saver = ResultSaver()
 
     robot_pose = get_robot_pose()
-    start_pose = get_pose(poses, 'start_pose')
-    goal_pose = get_pose(poses, 'goal_pose')
 
-    robot_to_start_path = get_path(path_getter, robot_pose, start_pose)
-    execute_path(path_constructor, path_executter, execution_analyzer, robot_to_start_path)
+    try:
+        poses_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cfg/' + sys.argv[1]+".yaml")
+        file_stream = file(poses_file, 'r')
+        poses = yaml.load(file_stream)
+        start_pose = get_pose(poses, 'start_pose')
+        goal_pose = get_pose(poses, 'goal_pose')
+        robot_to_start_path = get_path(path_getter, robot_pose, start_pose)
+        start_to_goal_path = get_path(path_getter, start_pose, goal_pose)
+        goal_to_start_path = get_path(path_getter, goal_pose, start_pose)
+        rospy.loginfo("Sending the robot to start pose")
+        execute_path(path_constructor, path_executter, execution_analyzer, robot_to_start_path)
 
-    start_to_goal_path = get_path(path_getter, start_pose, goal_pose)
+    except:
+        rospy.logwarn("Poses Config File not selected... Faking Paths")
+        [start_pose, goal_pose, start_to_goal_path, goal_to_start_path] = fake_path()
+
+
     start_to_goal_path_curvature = calculate_curvature(start_to_goal_path)
     rospy.logwarn("Start to Goal Expected Curvature " + str(start_to_goal_path_curvature))
-    goal_to_start_path = get_path(path_getter, goal_pose, start_pose)
     goal_to_start_path_curvature = calculate_curvature(goal_to_start_path)
     rospy.logwarn("Goal to Start Expected Curvature " + str(goal_to_start_path_curvature))
 
     planner_iteration = False
+    cycles_number = int(sys.argv[2]) if sys.argv[2] else 10
 
-    cycles_number = int(sys.argv[2])
     execution_result = True
 
     for i in range(cycles_number):
