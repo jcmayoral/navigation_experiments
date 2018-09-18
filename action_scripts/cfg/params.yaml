@@ -1,0 +1,25 @@
+sim_time:
+  min_value: 1.5
+  max_value: 2.5
+  default_value: 2.0
+sim_granularity:
+  min_value: 0.01
+  max_value: 0.15
+  increment: 0.01
+  default_value: 0.08
+path_distance_bias:
+  min_value: 10
+  max_value: 100
+  increment: 2
+goal_distance_bias:
+  min_value: 5
+  max_value: 40
+  increment: 1
+vx_samples:
+  min_value: 2
+  max_value: 20
+  increment: 1
+vt_sample:
+  min_value: 2
+  max_value: 50
+  increment: 2
