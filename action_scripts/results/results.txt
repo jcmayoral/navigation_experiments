@@ -1,0 +1,333 @@
+Configuration Params 
+vth_samples:24
+goal_distance_bias:18.0
+vx_samples:10
+path_distance_bias:47.0
+sim_time:2.1
+sim_granularity:0.07
+Configuration Results 
+goal_accumulated_error:[732.320065200322, 54.84087225332453]
+goal_to_start_curvature:[ 0.09013097 -0.02278774  0.38163212  0.0513     -0.0386      0.214     ]
+start_accumulated_velocities:[728.9603365689461, -47.619503203507776]
+start_accumulated_error:[728.9603365689461, -47.619503203507776]
+start_to_goal_curvature:[-0.06155597  0.00301725 -0.31094079 -0.0646      0.0088     -0.2099    ]
+goal_accumulated_velocities:[732.320065200322, 54.84087225332453]
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:18.0
+vx_samples:10
+path_distance_bias:45.0
+sim_time:2.0
+sim_granularity:0.08
+Configuration Results 
+goal_accumulated_error:[729.7215538248353, 51.995370953093065]
+goal_to_start_curvature:[ 0.16830974 -0.05661184  0.36460047  0.0513     -0.0386      0.214     ]
+start_accumulated_velocities:[731.301018622512, -53.583550573610545]
+start_accumulated_error:[731.301018622512, -53.583550573610545]
+start_to_goal_curvature:[-0.0974901   0.08118952 -0.57755839 -0.0646      0.0088     -0.2099    ]
+goal_accumulated_velocities:[729.7215538248353, 51.995370953093065]
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:18.0
+vx_samples:9
+path_distance_bias:45.0
+sim_time:2.0
+sim_granularity:0.07
+Configuration Results 
+goal_accumulated_error:[730.0948690354757, 53.00689752584642]
+goal_to_start_curvature:[ 0.16924123 -0.04572152  0.37988486  0.0513     -0.0386      0.214     ]
+start_accumulated_velocities:[730.3506095349732, -53.335983153620326]
+start_accumulated_error:[730.3506095349732, -53.335983153620326]
+start_to_goal_curvature:[-0.1481474   0.09065618 -0.56881275 -0.0646      0.0088     -0.2099    ]
+goal_accumulated_velocities:[730.0948690354757, 53.00689752584642]
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:19.0
+vx_samples:10
+path_distance_bias:43.0
+sim_time:2.1
+sim_granularity:0.07
+Configuration Results 
+start_accumulated_velocities:[729.8778479635658, -53.81372255749678]
+start_to_goal_curvature:[-0.14723453  0.08720917 -0.59588581 -0.0646      0.0088     -0.2099    ]
+start_accumulated_error:[729.8778479635658, -53.81372255749678]
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:17.0
+vx_samples:8
+path_distance_bias:45.0
+sim_time:2.0
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:16.0
+vx_samples:9
+path_distance_bias:47.0
+sim_time:2.1
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:16.0
+vx_samples:9
+path_distance_bias:45.0
+sim_time:1.9
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:17.0
+vx_samples:10
+path_distance_bias:43.0
+sim_time:1.9
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:16.0
+vx_samples:10
+path_distance_bias:45.0
+sim_time:1.9
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:16.0
+vx_samples:8
+path_distance_bias:45.0
+sim_time:1.9
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:18.0
+vx_samples:9
+path_distance_bias:47.0
+sim_time:2.1
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:17.0
+vx_samples:8
+path_distance_bias:47.0
+sim_time:2.1
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:18.0
+vx_samples:9
+path_distance_bias:45.0
+sim_time:2.1
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:18.0
+vx_samples:10
+path_distance_bias:43.0
+sim_time:1.9
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:16.0
+vx_samples:9
+path_distance_bias:43.0
+sim_time:1.9
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:17.0
+vx_samples:9
+path_distance_bias:47.0
+sim_time:1.9
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:16.0
+vx_samples:10
+path_distance_bias:45.0
+sim_time:1.9
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:18.0
+vx_samples:8
+path_distance_bias:43.0
+sim_time:2.0
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:16.0
+vx_samples:9
+path_distance_bias:43.0
+sim_time:2.0
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:17.0
+vx_samples:8
+path_distance_bias:45.0
+sim_time:2.0
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:17.0
+vx_samples:8
+path_distance_bias:47.0
+sim_time:1.9
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:18.0
+vx_samples:8
+path_distance_bias:43.0
+sim_time:2.0
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:17.0
+vx_samples:9
+path_distance_bias:47.0
+sim_time:2.0
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:17.0
+vx_samples:10
+path_distance_bias:45.0
+sim_time:2.1
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:18.0
+vx_samples:8
+path_distance_bias:47.0
+sim_time:2.0
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:16.0
+vx_samples:9
+path_distance_bias:47.0
+sim_time:2.1
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:18.0
+vx_samples:9
+path_distance_bias:43.0
+sim_time:2.0
+sim_granularity:0.08
+Configuration Results 
+goal_to_start_accumulated_velocities:[728.4002353936366, 53.73807009812798]
+goal_to_start_curvature:[ 0.09656869 -0.02312356  0.3873106   0.0513     -0.0386      0.214     ]
+goal_to_start_accumulated_error:[728.4002353936366, 53.73807009812798]
+start_to_goal_accumulated_velocities:[731.1108865320626, -50.67253162200654]
+start_to_goal_curvature:[-0.07677075  0.08523049 -0.07563525 -0.0646      0.0088     -0.2099    ]
+start_to_goal_accumulated_error:[731.1108865320626, -50.67253162200654]
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:18.0
+vx_samples:10
+path_distance_bias:43.0
+sim_time:2.0
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:17.0
+vx_samples:10
+path_distance_bias:47.0
+sim_time:2.0
+sim_granularity:0.09
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:17.0
+vx_samples:8
+path_distance_bias:45.0
+sim_time:1.9
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:17.0
+vx_samples:9
+path_distance_bias:47.0
+sim_time:2.1
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:24
+goal_distance_bias:18.0
+vx_samples:10
+path_distance_bias:47.0
+sim_time:1.9
+sim_granularity:0.07
+Configuration Results 
+
+Configuration Params 
+vth_samples:26
+goal_distance_bias:16.0
+vx_samples:8
+path_distance_bias:43.0
+sim_time:2.1
+sim_granularity:0.08
+Configuration Results 
+
+Configuration Params 
+vth_samples:22
+goal_distance_bias:18.0
+vx_samples:10
+path_distance_bias:45.0
+sim_time:2.1
+sim_granularity:0.08
+Configuration Results 
+

@@ -2,6 +2,7 @@ import tf
 from geometry_msgs.msg import PoseStamped
 import rospy
 from mag_common_py_libs.geometry import quaternion_from_yaw
+import numpy as np
 
 def get_robot_pose():
     listener = tf.TransformListener()
