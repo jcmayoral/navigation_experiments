@@ -8,8 +8,11 @@ class ResultSaver:
         self.configuration_queue = list()
         self.results_queue = list()
         self.file_name = output_file_path
+        self.counter = 0
 
     def save_results(self, configuration, results):
+
+        """
         fout = open(self.file_name, "a")
 
         fout.write("Configuration Params \n" )
@@ -20,6 +23,18 @@ class ResultSaver:
             fout.write(str(k) + ':'+ str(v) + '\n')
         fout.write("\n")
         fout.close()
+        """
+        current_name = "test_" + str(self.counter)
+        d = dict()
+        d[current_name] = dict()
+        print configuration, type(configuration)
+        print results, type(results)
+        d[current_name]["config"] = configuration
+        d[current_name]["results"] = results
+        with open(self.file_name, 'a') as yaml_file:
+            yaml.dump(d, yaml_file, default_flow_style=False)
+
+        self.counter+=1
 
 class ConfigurationManager:
     def __init__(self, config_name = 'cfg/params.yaml'):
@@ -32,6 +47,14 @@ class ConfigurationManager:
 
         self.default_config = copy.deepcopy(self.config_params)
         rospy.loginfo("Configuration Manager is ready")
+
+    def get_default_config(self):
+        new_param_dict = dict()
+
+        for i in self.config_params:
+            new_param_dict[i] = self.default_config[i].get_current_value()
+
+        return new_param_dict
 
     def restart_params(self):
         self.config_params = copy.deepcopy(self.default_config)
@@ -55,6 +78,9 @@ class Param:
             self.last_value = (max_value - min_value)/2 #Initializing some point in the middle
         else:
             self.last_value = default_value
+
+    def get_current_value(self):
+        return self.last_value
 
     def get_random_value(self):
         random_flag = random.randint(0,2)
