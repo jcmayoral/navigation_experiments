@@ -18,8 +18,6 @@ from move_base_flex_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, 
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
 from utilities.configuration import ConfigurationManager, ResultSaver
 
-from navigation_planner_changer.ROSPlannerGetter import ROSPlannerGetter
-
 __author__ = 'banos'
 
 class GetPathClass:
@@ -53,18 +51,22 @@ class ExePathClass:
     def __init__(self):
         self.exe_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/exe_path", ExePathAction)
         self.exe_path_ac.wait_for_server(rospy.Duration(5))
+        self.result = False
 
     def execute(self, request_path):
         goal = ExePathGoal(path=request_path)
         self.exe_path_ac.send_goal(goal, done_cb=self.execution_done_cb)
-        self.exe_path_ac.wait_for_result(timeout=rospy.Duration(100))
+        self.exe_path_ac.wait_for_result(timeout=rospy.Duration(120))
+        return self.result
 
     def execution_done_cb(self,status, result):
         if result.status == MoveBaseResult.SUCCESS:
             rospy.loginfo("Exec path action succeeded")
+            self.result = True
         else:
             rospy.logerr("Exec path action failed; status [%d], error code [%d]: %s",
                           result.status, result.error_code, result.error_msg)
+            self.result = False
 
 def get_robot_pose():
     listener = tf.TransformListener()
@@ -101,7 +103,7 @@ def get_path(path_getter, start_pose, goal_pose):
 def execute_path(path_constructor, path_executter, execution_analyzer, path):
     path_constructor.reset()
     execution_analyzer.reset()
-    path_executter.execute(path)
+    return path_executter.execute(path)
 
 def calculate_curvature(path):
     listener = tf.TransformListener()
@@ -119,6 +121,10 @@ def calculate_curvature(path):
     ddy = list()
     ddz = list()
 
+    if len(path.poses) < 2:
+        print "ERROR IN PATH"
+        return np.array([0,0,0,0,0,0])
+
     for p in path.poses[1:]:
         dx.append(p.pose.position.x - p0.pose.position.x)
         dy.append(p.pose.position.y - p0.pose.position.y)
@@ -127,6 +133,7 @@ def calculate_curvature(path):
         dz.append(yaw - yaw0)
         p0 = p
         yaw0 = yaw
+
 
     dx0 = dx[0]
     dy0 = dy[0]
@@ -149,28 +156,35 @@ def calculate_curvature(path):
     #K = float(ddy * dx - ddx * dy) / float(np.power(dx, 2.) + np.power(dy, 2))
     return np.array([dx,dy,dz,ddx,ddy,ddz])
 
-def update_planners(dynamic_reconfiguration_client, new_config):
-    rospy.loginfo("UPDATING PLANNERS %s %s" , new_config['global_planner'], new_config['local_planner'])
+def update_configuration(dynamic_reconfiguration_client, new_config):
+    rospy.loginfo(new_config)
     try:
         dynamic_reconfiguration_client.update_configuration(new_config)
     except DynamicReconfigureCallbackException:
         rospy.logerr("Something goes wrong")
 
 def execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, results):
-    execute_path(path_constructor, path_executter, execution_analyzer, start_to_goal_path)
-    results["start_to_goal_curvature"] = calculate_curvature(path_constructor.get_path())-start_to_goal_path_curvature
-    rospy.logwarn("Start to Goal Curvature Difference " + str(results["start_to_goal_curvature"]))
+    result = execute_path(path_constructor, path_executter, execution_analyzer, start_to_goal_path)
 
-    results["start_accumulated_ang_error"] = execution_analyzer.get_accumulated_error()
-    rospy.logwarn("accumulate_error" + str(results["start_accumulated_ang_error"]))
+    if result:
+        results["start_to_goal_curvature"] = calculate_curvature(path_constructor.get_path())-start_to_goal_path_curvature
+        rospy.logwarn("Start to Goal Curvature Difference " + str(results["start_to_goal_curvature"]))
+        results["start_accumulated_ang_error"] = execution_analyzer.get_accumulated_error()
+        rospy.logwarn("accumulate_error" + str(results["start_accumulated_ang_error"]))
+    else:
+        return False
 
-    execute_path(path_constructor, path_executter, execution_analyzer, goal_to_start_path)
-    results["goal_to_start_curvature"] = calculate_curvature(path_constructor.get_path())-goal_to_start_path_curvature
-    rospy.logwarn("Goal to Start Curvature Difference " + str(results["goal_to_start_curvature"]))
+    result = execute_path(path_constructor, path_executter, execution_analyzer, goal_to_start_path)
 
-    results["goal_accumulated_ang_error"] = execution_analyzer.get_accumulated_error()
-    rospy.logwarn("accumulate_error" + str(results['goal_accumulated_ang_error']))
+    if result:
+        results["goal_to_start_curvature"] = calculate_curvature(path_constructor.get_path())-goal_to_start_path_curvature
+        rospy.logwarn("Goal to Start Curvature Difference " + str(results["goal_to_start_curvature"]))
+        results["goal_accumulated_ang_error"] = execution_analyzer.get_accumulated_error()
+        rospy.logwarn("accumulate_error" + str(results['goal_accumulated_ang_error']))
+    else:
+        return False
 
+    return True
 
 if __name__ == '__main__':
 
@@ -180,8 +194,7 @@ if __name__ == '__main__':
 
     rospy.init_node("get_exe_path")
 
-    dyn_client = Client("/navigation/move_base_flex", None)
-    #ros_planners = ROSPlannerGetter()
+    dyn_client = Client("/navigation/move_base_flex/OrientedDWAPlanner", None)
     path_getter = GetPathClass()
     path_executter = ExePathClass()
     path_constructor = PathConstructor()
@@ -207,25 +220,20 @@ if __name__ == '__main__':
 
     new_planners_configurations = dict()
     cycles_number = int(sys.argv[2])
+    execution_result = True
+
     for i in range(cycles_number):
         new_params = dict()
         new_results = dict()
-        configuration_manager.get_new_param_values(new_params)
-        print new_params
         rospy.loginfo("CYCLE %d of %d", i, cycles_number)
 
-        """
-        #DEPRECATED AT LEAST FOR NOW
-        if planner_iteration:
-            rospy.loginfo("UPDATING Planners")
-            for g_pl in ros_planners.getGlobalPlanners():
-                new_planners_configurations['global_planner'] = g_pl
-                for l_pl in ros_planners.getLocalPlanners():
-                    new_planners_configurations['local_planner'] = l_pl
-                    update_planners(dyn_client, new_planners_configurations)
-                    execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, new_results)
-        else:
-        """
-        execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, new_results)
+        if not execution_result:
+            rospy.logerr("Error in Execution")
+            rospy.logerr("RESET PARAMS")
+            configuration_manager.restart_params()
 
+        configuration_manager.get_new_param_values(new_params)
+        print new_params
+        update_configuration(dyn_client, new_params)
+        execution_result = execute_cycle(path_constructor, path_executter, execution_analyzer, start_to_goal_path_curvature, goal_to_start_path_curvature, new_results)
         result_saver.save_results(new_params, new_results)
