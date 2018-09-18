@@ -51,7 +51,7 @@ if __name__ == '__main__':
     file_stream = file(poses_file, 'r')
     poses = yaml.load(file_stream)
 
-    rospy.init_node("get_exe_path")
+    rospy.init_node("banos_experimental_manager")
 
     dyn_client = Client("/navigation/move_base_flex/OrientedDWAPlanner", None)
     path_getter = GetPathClass()
