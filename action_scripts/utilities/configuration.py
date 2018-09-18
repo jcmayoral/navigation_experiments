@@ -1,6 +1,7 @@
 import random
 import yaml
 import copy
+import rospy
 
 class ResultSaver:
     def __init__(self, output_file_path = 'results/results.txt'):
