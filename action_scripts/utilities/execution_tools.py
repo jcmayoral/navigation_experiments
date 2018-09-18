@@ -1,6 +1,6 @@
+import numpy as np
 import tf
 import rospy
-import numpy as np
 from nav_msgs.msg import Path, Odometry
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import Imu
@@ -10,17 +10,8 @@ from mag_common_py_libs.geometry import yaw
 class PathConstructor:
     def __init__(self, path_frame = "odom"):
         rospy.Subscriber("/odom",Odometry,self.odomCB)
-        self.listener = tf.TransformListener()
         self.constructed_path = Path()
         self.constructed_path.header.frame_id = path_frame
-        self.x = list()
-        self.y = list()
-        self.yaw = list()
-        self.odom_x = list()
-        self.odom_y = list()
-        self.odom_yaw = list()
-        self.clear = False
-        self.path_received = False
 
     def get_path(self):
         return self.constructed_path
