@@ -27,10 +27,10 @@ class ConfigurationManager:
         self.config_params = dict()
 
         for i in params:
-            print i, type(i)
             self.config_params[i] = Param(**params[i])
 
         self.default_config = copy.deepcopy(self.config_params)
+        rospy.loginfo("Configuration Manager is ready")
 
     def restart_params(self):
         self.config_params = copy.deepcopy(self.default_config)
