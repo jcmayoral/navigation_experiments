@@ -51,7 +51,7 @@ def execute_cycle(path_constructor, path_executter, execution_analyzer, results)
         results["goal_to_start_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
         data = execution_analyzer.get_accumulated_velocities()
         results["goal_to_start_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
-        results["start_to_goal_exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
+        results["goal_to_start_exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
     else:
         return False
 
