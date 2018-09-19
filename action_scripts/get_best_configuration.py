@@ -41,15 +41,30 @@ for i in experiment_data:
 
 min_score = 10000000000
 best_results = dict()
+results_list = list()
+coefficients_list = list()
 
 for key, value in data.iteritems():
     overall_score = 0
+
     for k, results_values in value[1].iteritems():
         for v in results_values:
-            overall_score+= v
+            overall_score+= np.fabs(v)
+
+    coefficients = list()
+    for k, cfg_values in value[0].iteritems():
+        coefficients.append(cfg_values)
+    coefficients_list.append(coefficients)
+
+    results_list.append(overall_score)
     if overall_score < min_score:
         min_score = overall_score
         best_results = value[0]
 
 print "MIN Score", min_score
-print "BEST CONFIG ", best_results
+print "MIN BEST CONFIG ", best_results
+
+coefficients_arr = np.asarray(coefficients_list)
+best_coefficients = np.linalg.lstsq(coefficients_arr, results_list)[0]
+x0 = [i for i in best_results.values()]
+print "Proof ", np.sum(best_coefficients * x0)
