@@ -1,6 +1,7 @@
 import yaml
 import os
 
+from scipy.optimize import least_squares, minimize
 import numpy as np
 from utilities.configuration import ExperimentSample
 
@@ -75,3 +76,14 @@ coefficients_arr = np.asarray(coefficients_list)
 best_coefficients = np.linalg.lstsq(coefficients_arr, results_list)[0]
 x0 = [i for i in best_results.values()]
 print "Proof ", np.sum(best_coefficients * x0)
+
+f = lambda x: np.fabs(np.sum(best_coefficients*x))
+x = [15,15,15,45,2.0,0.1]
+bnd = ([10.,10.,10., 40., 1.8, 0.05], [30,30,30, 60, 4, 0.15])
+best_1 = least_squares(f, x, method='dogbox', bounds=bnd, ftol=min_score).x
+print "Optimizer 1: ", best_1
+print "Result_1 ", np.sum(best_coefficients*best_1)
+x = np.zeros(6)
+best_2 = minimize(f,x, bounds=[[10,30],[10,30],[10,30],[40,60],[1.8,2.5],[0.05,0.15]]).x
+print "Optimizer 2: ", best_2
+print "Result_2 ", np.sum(best_coefficients*best_2)
