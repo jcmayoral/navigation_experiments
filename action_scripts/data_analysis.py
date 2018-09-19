@@ -35,9 +35,11 @@ for i in experiment_data:
         complete_list.append(i.get_config_data(key))
 
     for key in i.get_result_keys():
-        for z in range(i.get_result_data(key)["lenght"]):
-            complete_list.append(i.get_result_data(key)["data"][z])
-
+        if i.get_result_data(key)["lenght"] > 1:
+            for z in range(i.get_result_data(key)["lenght"]):
+                complete_list.append(i.get_result_data(key)["data"][z])
+        else:
+            complete_list.append(i.get_result_data(key)["data"])
     data.append(complete_list)
 
 for i in experiment_data[0].get_config_keys():
