@@ -25,7 +25,9 @@ def update_configuration(dynamic_reconfiguration_client, new_config):
         rospy.logerr("Something goes wrong")
 
 def execute_cycle(path_constructor, path_executter, execution_analyzer, results):
+    start_time = rospy.Time.now()
     result = execute_path(path_constructor, path_executter, execution_analyzer, start_to_goal_path)
+    end_time = rospy.Time.now()
 
     if result:
         data = calculate_curvature(path_constructor.get_path())
@@ -34,10 +36,13 @@ def execute_cycle(path_constructor, path_executter, execution_analyzer, results)
         results["start_to_goal_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
         data = execution_analyzer.get_accumulated_velocities()
         results["start_to_goal_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
+        results["start_to_goal_exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
     else:
         return False
 
+    start_time = rospy.Time.now()
     result = execute_path(path_constructor, path_executter, execution_analyzer, goal_to_start_path)
+    end_time = rospy.Time.now()
 
     if result:
         data = calculate_curvature(path_constructor.get_path())
@@ -46,6 +51,7 @@ def execute_cycle(path_constructor, path_executter, execution_analyzer, results)
         results["goal_to_start_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
         data = execution_analyzer.get_accumulated_velocities()
         results["goal_to_start_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
+        results["start_to_goal_exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
     else:
         return False
 
