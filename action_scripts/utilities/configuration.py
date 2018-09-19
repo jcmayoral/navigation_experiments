@@ -3,6 +3,22 @@ import yaml
 import copy
 import rospy
 
+class ExperimentSample:
+    def __init__(self, config, results):
+        self.configuration = config
+        self.results = results
+
+    def get_config_data(self, key):
+        return self.configuration[key]
+
+    def get_config_keys(self):
+        return self.configuration.keys()
+
+    def get_result_keys(self):
+        return self.results.keys()
+
+    def get_result_data(self, key):
+        return self.results[key]
 
 class TestSample(object):
     def __init__(self, **kwds):

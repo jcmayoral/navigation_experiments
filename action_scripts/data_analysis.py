@@ -6,25 +6,9 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from utilities.configuration import ExperimentSample
 
 sns.set(style="white")
-
-class ExperimentSample:
-    def __init__(self, config, results):
-        self.configuration = config
-        self.results = results
-
-    def get_config_data(self, key):
-        return self.configuration[key]
-
-    def get_config_keys(self):
-        return self.configuration.keys()
-
-    def get_result_keys(self):
-        return self.results.keys()
-
-    def get_result_data(self, key):
-        return self.results[key]
 
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/results_2.txt")
 data = yaml.load(file)
@@ -45,9 +29,6 @@ data = list()
 c = 0
 
 for i in experiment_data:
-    cfg_list = list()
-    res_list = list()
-
     complete_list = list()
 
     for key in i.get_config_keys():
