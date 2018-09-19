@@ -81,7 +81,7 @@ def calculate_curvature(path):
     #K = float(ddy * dx - ddx * dy) / float(np.power(dx, 2.) + np.power(dy, 2))
     return [sum(dx),sum(dy),sum(dz),sum(ddx),sum(ddy),sum(ddz)]
 
-def fake_path(mode = 'straigth', distance = 2.0, local_frame = "/base_link", step = 0.05):
+def fake_path(mode = 'straigth', distance = 10.0, local_frame = "/base_link", step = 0.05):
     listener = tf.TransformListener()
     rospy.sleep(4) #Give Time to the listener to charge the entire tf
     print mode

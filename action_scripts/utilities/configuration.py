@@ -27,7 +27,7 @@ class TestSample(object):
         return self.__dict__
 
 class ResultSaver:
-    def __init__(self, output_file_path = 'results/results_2.txt'):
+    def __init__(self, output_file_path = 'results/results_sim.txt'):
         self.configuration_queue = list()
         self.results_queue = list()
         self.file_name = output_file_path
