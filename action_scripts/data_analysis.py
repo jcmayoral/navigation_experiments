@@ -10,7 +10,7 @@ from utilities.configuration import ExperimentSample
 
 sns.set(style="white")
 
-file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/results_2.txt")
+file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/results_sim.txt")
 data = yaml.load(file)
 
 with open(file, 'r') as stream:
@@ -66,11 +66,10 @@ mask[np.triu_indices_from(mask)] = True
 f, ax = plt.subplots(figsize=(45, 45))
 
 # Generate a custom diverging colormap
-cmap = sns.diverging_palette(0, 100, as_cmap=True)
+cmap = sns.diverging_palette(100, 130, as_cmap=True)
 
 # Draw the heatmap with the mask and correct aspect ratio
 sns.heatmap(corr, mask=mask, cmap=cmap, vmax=3, center=0,
             square=True, linewidths=.5, cbar_kws={"shrink": 1})
-
 
 plt.show()
