@@ -38,22 +38,17 @@ for i in experiment_data:
         for z in range(i.get_result_data(key)["lenght"]):
             complete_list.append(i.get_result_data(key)["data"][z])
 
-    print len(complete_list)
     data.append(complete_list)
 
 for i in experiment_data[0].get_config_keys():
     label.append(i)
 
-print label, "BEFORE"
 i = experiment_data[0]
 
 for j in i.get_result_keys():
     size = i.get_result_data(j)["lenght"]
     for z in range (size):
-        print z , " OF ", size, j
         label.append(j+str(z))
-
-print "LEN LABEL" , len(label)
 
 d = pd.DataFrame(data=data,
                  columns=label)
@@ -66,10 +61,10 @@ mask = np.zeros_like(corr, dtype=np.bool)
 mask[np.triu_indices_from(mask)] = True
 
 # Set up the matplotlib figure
-f, ax = plt.subplots(figsize=(20, 20))
+f, ax = plt.subplots(figsize=(45, 45))
 
 # Generate a custom diverging colormap
-cmap = sns.diverging_palette(20, 10, as_cmap=True)
+cmap = sns.diverging_palette(0, 100, as_cmap=True)
 
 # Draw the heatmap with the mask and correct aspect ratio
 sns.heatmap(corr, mask=mask, cmap=cmap, vmax=3, center=0,
