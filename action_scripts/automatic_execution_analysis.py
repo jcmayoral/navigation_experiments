@@ -6,7 +6,7 @@ import rospy
 
 from dynamic_reconfigure.client import Client, DynamicReconfigureCallbackException
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
-from utilities.configuration import ConfigurationManager, ResultSaver
+from utilities.configuration import ConfigurationManager, ResultSaver, TestSample
 from utilities.util_functions import get_pose, get_path, get_robot_pose, calculate_curvature, fake_path
 from interfaces.move_base_flex_interfaces import GetPathClass, ExePathClass
 
@@ -28,18 +28,24 @@ def execute_cycle(path_constructor, path_executter, execution_analyzer, results)
     result = execute_path(path_constructor, path_executter, execution_analyzer, start_to_goal_path)
 
     if result:
-        results["start_to_goal_curvature"] = calculate_curvature(path_constructor.get_path())
-        results["start_to_goal_accumulated_error"] = execution_analyzer.get_accumulated_error()
-        results["start_to_goal_accumulated_velocities"] = execution_analyzer.get_accumulated_velocities()
+        data = calculate_curvature(path_constructor.get_path())
+        results["start_to_goal_curvature"] = TestSample(lenght=len(data), data = data).get_dict()
+        data = execution_analyzer.get_accumulated_error()
+        results["start_to_goal_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
+        data = execution_analyzer.get_accumulated_velocities()
+        results["start_to_goal_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
     else:
         return False
 
     result = execute_path(path_constructor, path_executter, execution_analyzer, goal_to_start_path)
 
     if result:
-        results["goal_to_start_curvature"] = calculate_curvature(path_constructor.get_path())
-        results["goal_to_start_accumulated_error"] = execution_analyzer.get_accumulated_error()
-        results["goal_to_start_accumulated_velocities"] = execution_analyzer.get_accumulated_velocities()
+        data = calculate_curvature(path_constructor.get_path())
+        results["goal_to_start_curvature"] = TestSample(lenght=len(data), data = data).get_dict()
+        data = execution_analyzer.get_accumulated_error()
+        results["goal_to_start_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
+        data = execution_analyzer.get_accumulated_velocities()
+        results["goal_to_start_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
     else:
         return False
 

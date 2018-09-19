@@ -3,8 +3,15 @@ import yaml
 import copy
 import rospy
 
+
+class TestSample(object):
+    def __init__(self, **kwds):
+        self.__dict__.update(kwds)
+    def get_dict(self):
+        return self.__dict__
+
 class ResultSaver:
-    def __init__(self, output_file_path = 'results/results.txt'):
+    def __init__(self, output_file_path = 'results/results_2.txt'):
         self.configuration_queue = list()
         self.results_queue = list()
         self.file_name = output_file_path
