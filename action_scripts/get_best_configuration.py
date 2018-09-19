@@ -4,7 +4,7 @@ import os
 import numpy as np
 from utilities.configuration import ExperimentSample
 
-file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/results_2.txt")
+file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results/results_sim.txt")
 data = yaml.load(file)
 
 with open(file, 'r') as stream:
@@ -30,10 +30,13 @@ for i in experiment_data:
         cfg_dict[key] = i.get_config_data(key)
 
     for key in i.get_result_keys():
-        res_list = list()
-        for z in range(i.get_result_data(key)["lenght"]):
-            res_list.append(i.get_result_data(key)["data"][z])
-        res_dict[key] = res_list
+        if i.get_result_data(key)["lenght"] > 1:
+            res_list = list()
+            for z in range(i.get_result_data(key)["lenght"]):
+                res_list.append(i.get_result_data(key)["data"][z])
+            res_dict[key] = res_list
+        else:
+            res_dict[key] = i.get_result_data(key)["data"]
 
     data[str(c)] = [cfg_dict, res_dict]
     c+=1
@@ -47,9 +50,13 @@ coefficients_list = list()
 for key, value in data.iteritems():
     overall_score = 0
 
+    #TODO REMOVE TRY EXCEPT
     for k, results_values in value[1].iteritems():
-        for v in results_values:
-            overall_score+= np.fabs(v)
+        try:
+            for v in results_values:
+                overall_score+= np.fabs(v)
+        except:
+            overall_score+= np.fabs(results_values)
 
     coefficients = list()
     for k, cfg_values in value[0].iteritems():
