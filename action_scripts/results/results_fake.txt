@@ -2171,3 +2171,109 @@ test_1:
     start_to_goal_exection_time:
       data: 12.218904019
       lenght: 1
+test_0:
+  config:
+    goal_distance_bias: 16.0
+    path_distance_bias: 43.0
+    sim_granularity: 0.08
+    sim_time: 2.1
+    vth_samples: 24
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+      data:
+      - -57.61449882984158
+      - 0.15652178041636944
+      lenght: 2
+    goal_to_start_accumulated_velocities:
+      data:
+      - -57.61449882984158
+      - 0.15652178041636944
+      lenght: 2
+    goal_to_start_curvature:
+      data:
+      - 2.859860467107815
+      - -0.019056680719884866
+      - 0.010434784926474983
+      - 0.013281046486696368
+      - 0.0003511913132854261
+      - -0.007826087623834965
+      lenght: 6
+    goal_to_start_exection_time:
+      data: 11.182591915
+      lenght: 1
+    start_to_goal_accumulated_error:
+      data:
+      - 59.59834920763966
+      - 0.33913045562803745
+      lenght: 2
+    start_to_goal_accumulated_velocities:
+      data:
+      - 59.59834920763966
+      - 0.33913045562803745
+      lenght: 2
+    start_to_goal_curvature:
+      data:
+      - -2.9071431344549197
+      - 0.02724443505957197
+      - -6.264924436491921
+      - -0.013285267508820198
+      - -0.00010862292747049196
+      - 0.0026086958125235427
+      lenght: 6
+    start_to_goal_exection_time:
+      data: 11.651599169
+      lenght: 1
+test_1:
+  config:
+    goal_distance_bias: 15.0
+    path_distance_bias: 41.0
+    sim_granularity: 0.07
+    sim_time: 2.2
+    vth_samples: 24
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+      data:
+      - -58.416256955265965
+      - 1.0695652831345797
+      lenght: 2
+    goal_to_start_accumulated_velocities:
+      data:
+      - -58.416256955265965
+      - 1.0695652831345797
+      lenght: 2
+    goal_to_start_curvature:
+      data:
+      - 2.8694399554974552
+      - -0.019608714901274027
+      - -6.228402695116592
+      - 0.013276681491134923
+      - 0.0004897553516300945
+      - 0.0026086958125235427
+      lenght: 6
+    goal_to_start_exection_time:
+      data: 11.618793964
+      lenght: 1
+    start_to_goal_accumulated_error:
+      data:
+      - 57.762962049245814
+      - -0.6782609112560749
+      lenght: 2
+    start_to_goal_accumulated_velocities:
+      data:
+      - 57.762962049245814
+      - -0.6782609112560749
+      lenght: 2
+    start_to_goal_curvature:
+      data:
+      - -2.858189553771979
+      - 0.01776634226088447
+      - 6.246663565804257
+      - -0.020569416250282302
+      - 0.00028794745313120984
+      - -0.0026086958125235427
+      lenght: 6
+    start_to_goal_exection_time:
+      data: 11.533719063
+      lenght: 1

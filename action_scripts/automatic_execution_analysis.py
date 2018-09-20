@@ -8,7 +8,7 @@ from dynamic_reconfigure.client import Client, DynamicReconfigureCallbackExcepti
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
 from utilities.configuration import ConfigurationManager, ResultSaver, TestSample
 from utilities.util_functions import get_pose, get_path, get_robot_pose, calculate_curvature, fake_path
-from utilities.data_analysis import analyze_data
+from utilities.data_analysis import analyze_data, get_best_configuration
 from interfaces.move_base_flex_interfaces import GetPathClass, ExePathClass
 
 __author__ = 'banos'
@@ -115,3 +115,4 @@ if __name__ == '__main__':
     automatic_tuning.init()
     automatic_tuning.run_tests()
     analyze_data()
+    get_best_configuration()
