@@ -52,8 +52,8 @@ def calculate_curvature(path):
     ddy = list()
     ddz = list()
 
-    if len(path.poses) < 2:
-        print "ERROR IN PATH"
+    if len(path.poses) < 3:
+        rospy.logerr("Path Too Short to calculate curvature")
         return [0,0,0,0,0,0]
 
     for p in path.poses[1:]:

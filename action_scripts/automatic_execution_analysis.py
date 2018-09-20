@@ -8,14 +8,14 @@ from dynamic_reconfigure.client import Client, DynamicReconfigureCallbackExcepti
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
 from utilities.configuration import ConfigurationManager, ResultSaver, TestSample
 from utilities.util_functions import get_pose, get_path, get_robot_pose, calculate_curvature, fake_path
+from utilities.data_analysis import analyze_data
 from interfaces.move_base_flex_interfaces import GetPathClass, ExePathClass
 
 __author__ = 'banos'
 
 class AutomaticTestExecution:
-    def __init__(self, environment='fake', number_cycles=10):
+    def __init__(self, environment='fake', number_cycles=3, distance = 0):
         rospy.init_node("banos_experimental_manager")
-
         self.number_cycles = number_cycles
         self.dyn_client = Client("/navigation/move_base_flex/OrientedDWAPlanner", None)
         self.path_getter = GetPathClass()
@@ -24,6 +24,7 @@ class AutomaticTestExecution:
         self.execution_analyzer = ExecutionAnalyzer()
         self.configuration_manager = ConfigurationManager()
         self.result_saver = ResultSaver(environment)
+        self.required_distance = distance
         self.poses_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cfg/' + environment +".yaml")
 
     def init(self):
@@ -41,8 +42,7 @@ class AutomaticTestExecution:
 
         except:
             rospy.logwarn("Poses Config File not selected... Faking Paths")
-            [self.start_pose, self.goal_pose, self.start_to_goal_path, self.goal_to_start_path] = fake_path()
-
+            [self.start_pose, self.goal_pose, self.start_to_goal_path, self.goal_to_start_path] = fake_path(distance=self.required_distance)
 
     def run_tests(self):
         execution_result = True
@@ -111,6 +111,7 @@ class AutomaticTestExecution:
         return True
 
 if __name__ == '__main__':
-    automatic_tuning = AutomaticTestExecution()
+    automatic_tuning = AutomaticTestExecution(distance = 3.0)
     automatic_tuning.init()
     automatic_tuning.run_tests()
+    analyze_data()
