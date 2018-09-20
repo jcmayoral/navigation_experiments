@@ -1,333 +1,3500 @@
-Configuration Params 
-vth_samples:24
-goal_distance_bias:18.0
-vx_samples:10
-path_distance_bias:47.0
-sim_time:2.1
-sim_granularity:0.07
-Configuration Results 
-goal_accumulated_error:[732.320065200322, 54.84087225332453]
-goal_to_start_curvature:[ 0.09013097 -0.02278774  0.38163212  0.0513     -0.0386      0.214     ]
-start_accumulated_velocities:[728.9603365689461, -47.619503203507776]
-start_accumulated_error:[728.9603365689461, -47.619503203507776]
-start_to_goal_curvature:[-0.06155597  0.00301725 -0.31094079 -0.0646      0.0088     -0.2099    ]
-goal_accumulated_velocities:[732.320065200322, 54.84087225332453]
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:18.0
-vx_samples:10
-path_distance_bias:45.0
-sim_time:2.0
-sim_granularity:0.08
-Configuration Results 
-goal_accumulated_error:[729.7215538248353, 51.995370953093065]
-goal_to_start_curvature:[ 0.16830974 -0.05661184  0.36460047  0.0513     -0.0386      0.214     ]
-start_accumulated_velocities:[731.301018622512, -53.583550573610545]
-start_accumulated_error:[731.301018622512, -53.583550573610545]
-start_to_goal_curvature:[-0.0974901   0.08118952 -0.57755839 -0.0646      0.0088     -0.2099    ]
-goal_accumulated_velocities:[729.7215538248353, 51.995370953093065]
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:18.0
-vx_samples:9
-path_distance_bias:45.0
-sim_time:2.0
-sim_granularity:0.07
-Configuration Results 
-goal_accumulated_error:[730.0948690354757, 53.00689752584642]
-goal_to_start_curvature:[ 0.16924123 -0.04572152  0.37988486  0.0513     -0.0386      0.214     ]
-start_accumulated_velocities:[730.3506095349732, -53.335983153620326]
-start_accumulated_error:[730.3506095349732, -53.335983153620326]
-start_to_goal_curvature:[-0.1481474   0.09065618 -0.56881275 -0.0646      0.0088     -0.2099    ]
-goal_accumulated_velocities:[730.0948690354757, 53.00689752584642]
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:19.0
-vx_samples:10
-path_distance_bias:43.0
-sim_time:2.1
-sim_granularity:0.07
-Configuration Results 
-start_accumulated_velocities:[729.8778479635658, -53.81372255749678]
-start_to_goal_curvature:[-0.14723453  0.08720917 -0.59588581 -0.0646      0.0088     -0.2099    ]
-start_accumulated_error:[729.8778479635658, -53.81372255749678]
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:17.0
-vx_samples:8
-path_distance_bias:45.0
-sim_time:2.0
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:16.0
-vx_samples:9
-path_distance_bias:47.0
-sim_time:2.1
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:16.0
-vx_samples:9
-path_distance_bias:45.0
-sim_time:1.9
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:17.0
-vx_samples:10
-path_distance_bias:43.0
-sim_time:1.9
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:16.0
-vx_samples:10
-path_distance_bias:45.0
-sim_time:1.9
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:16.0
-vx_samples:8
-path_distance_bias:45.0
-sim_time:1.9
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:18.0
-vx_samples:9
-path_distance_bias:47.0
-sim_time:2.1
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:17.0
-vx_samples:8
-path_distance_bias:47.0
-sim_time:2.1
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:18.0
-vx_samples:9
-path_distance_bias:45.0
-sim_time:2.1
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:18.0
-vx_samples:10
-path_distance_bias:43.0
-sim_time:1.9
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:16.0
-vx_samples:9
-path_distance_bias:43.0
-sim_time:1.9
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:17.0
-vx_samples:9
-path_distance_bias:47.0
-sim_time:1.9
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:16.0
-vx_samples:10
-path_distance_bias:45.0
-sim_time:1.9
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:18.0
-vx_samples:8
-path_distance_bias:43.0
-sim_time:2.0
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:16.0
-vx_samples:9
-path_distance_bias:43.0
-sim_time:2.0
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:17.0
-vx_samples:8
-path_distance_bias:45.0
-sim_time:2.0
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:17.0
-vx_samples:8
-path_distance_bias:47.0
-sim_time:1.9
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:18.0
-vx_samples:8
-path_distance_bias:43.0
-sim_time:2.0
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:17.0
-vx_samples:9
-path_distance_bias:47.0
-sim_time:2.0
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:17.0
-vx_samples:10
-path_distance_bias:45.0
-sim_time:2.1
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:18.0
-vx_samples:8
-path_distance_bias:47.0
-sim_time:2.0
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:16.0
-vx_samples:9
-path_distance_bias:47.0
-sim_time:2.1
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:18.0
-vx_samples:9
-path_distance_bias:43.0
-sim_time:2.0
-sim_granularity:0.08
-Configuration Results 
-goal_to_start_accumulated_velocities:[728.4002353936366, 53.73807009812798]
-goal_to_start_curvature:[ 0.09656869 -0.02312356  0.3873106   0.0513     -0.0386      0.214     ]
-goal_to_start_accumulated_error:[728.4002353936366, 53.73807009812798]
-start_to_goal_accumulated_velocities:[731.1108865320626, -50.67253162200654]
-start_to_goal_curvature:[-0.07677075  0.08523049 -0.07563525 -0.0646      0.0088     -0.2099    ]
-start_to_goal_accumulated_error:[731.1108865320626, -50.67253162200654]
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:18.0
-vx_samples:10
-path_distance_bias:43.0
-sim_time:2.0
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:17.0
-vx_samples:10
-path_distance_bias:47.0
-sim_time:2.0
-sim_granularity:0.09
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:17.0
-vx_samples:8
-path_distance_bias:45.0
-sim_time:1.9
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:17.0
-vx_samples:9
-path_distance_bias:47.0
-sim_time:2.1
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:24
-goal_distance_bias:18.0
-vx_samples:10
-path_distance_bias:47.0
-sim_time:1.9
-sim_granularity:0.07
-Configuration Results 
-
-Configuration Params 
-vth_samples:26
-goal_distance_bias:16.0
-vx_samples:8
-path_distance_bias:43.0
-sim_time:2.1
-sim_granularity:0.08
-Configuration Results 
-
-Configuration Params 
-vth_samples:22
-goal_distance_bias:18.0
-vx_samples:10
-path_distance_bias:45.0
-sim_time:2.1
-sim_granularity:0.08
-Configuration Results 
-
+test_0:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.08
+    sim_time: 2.1
+    vth_samples: 24
+    vx_samples: 10
+  results:
+    goal_to_start_accumulated_error:
+    - -38.578689444065105
+    - 0.2347826212644577
+    goal_to_start_accumulated_velocities:
+    - -38.578689444065105
+    - 0.2347826212644577
+    goal_to_start_curvature:
+    - -1.8750957682567346
+    - 0.055273948793082894
+    - 0.010434783250093477
+    - -0.01236457863903695
+    - 0.0005076986252419147
+    - -0.0026086958125233553
+    start_to_goal_accumulated_error:
+    - 38.222784949839124
+    - -0.46956524811685085
+    start_to_goal_accumulated_velocities:
+    - 38.222784949839124
+    - -0.46956524811685085
+    start_to_goal_curvature:
+    - 1.9133408392995221
+    - -0.056728122580256723
+    - -0.01826087012887003
+    - 0.013083900127767834
+    - -0.0006740559244207134
+    - -0.002608695812523369
+test_1:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 45.0
+    sim_granularity: 0.07
+    sim_time: 2.2
+    vth_samples: 24
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.04545365571977
+    - -0.49565220437943935
+    goal_to_start_accumulated_velocities:
+    - -37.04545365571977
+    - -0.49565220437943935
+    goal_to_start_curvature:
+    - -1.8695051170441346
+    - 0.05448950265855146
+    - -0.01826087012887002
+    - -0.013262360014074659
+    - 0.0007873617836899882
+    - -0.002608695812523369
+    start_to_goal_accumulated_error:
+    - 38.919561618566526
+    - -0.13043480552732944
+    start_to_goal_accumulated_velocities:
+    - 38.919561618566526
+    - -0.13043480552732944
+    start_to_goal_curvature:
+    - 1.8711468857413394
+    - -0.05574170538765699
+    - -7.45058077733507e-10
+    - 0.013273436949575057
+    - -0.0005710326982040215
+    - 0.0
+test_2:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 43.0
+    sim_granularity: 0.07
+    sim_time: 2.3000000000000003
+    vth_samples: 22
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -37.43139947056771
+    - 0.28571432083845166
+    goal_to_start_accumulated_velocities:
+    - -37.43139947056771
+    - 0.28571432083845166
+    goal_to_start_curvature:
+    - -1.870463389840154
+    - 0.05456677553267042
+    - 0.005714287236332917
+    - -0.01449892912280859
+    - 0.00017355106774274986
+    - -0.008571428805589672
+    start_to_goal_accumulated_error:
+    - 37.25006607770921
+    - 0.48571432381868374
+    start_to_goal_accumulated_velocities:
+    - 37.25006607770921
+    - 0.48571432381868374
+    start_to_goal_curvature:
+    - 1.8663305974703803
+    - -0.05816444462663384
+    - 0.03714285977184774
+    - 0.0
+    - 0.0
+    - 0.0
+test_3:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 45.0
+    sim_granularity: 0.08
+    sim_time: 2.2
+    vth_samples: 24
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -36.75415281355382
+    - 0.2869565412402153
+    goal_to_start_accumulated_velocities:
+    - -36.75415281355382
+    - 0.2869565412402153
+    goal_to_start_curvature:
+    - -1.87286930876855
+    - 0.05739042428442076
+    - 0.026086957752704566
+    - -0.014489906375523276
+    - 0.0005408834590312495
+    - -0.0026086958125233553
+    start_to_goal_accumulated_error:
+    - 36.85797475576402
+    - -0.7826087586581707
+    start_to_goal_accumulated_velocities:
+    - 36.85797475576402
+    - -0.7826087586581707
+    start_to_goal_curvature:
+    - 1.8815746686993862
+    - -0.05113228415860149
+    - -0.04695652537047859
+    - 0.01446716233533607
+    - -0.0009752720906384127
+    - 0.00260869581252339
+test_4:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.07
+    sim_time: 2.1
+    vth_samples: 22
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -37.356393533945095
+    - 0.08571430295705798
+    goal_to_start_accumulated_velocities:
+    - -37.356393533945095
+    - 0.08571430295705798
+    goal_to_start_curvature:
+    - -1.884524275403109
+    - 0.055380946259010244
+    - -0.0028571423143148277
+    - -0.016188833469300334
+    - 0.0006012807582997937
+    - -0.002857143059372902
+    start_to_goal_accumulated_error:
+    - 39.13610436022283
+    - 0.2571428753435613
+    start_to_goal_accumulated_velocities:
+    - 39.13610436022283
+    - 0.2571428753435613
+    start_to_goal_curvature:
+    - 1.8774086295978947
+    - -0.05808578620536764
+    - 0.002857143059372902
+    - 0.016189262955222716
+    - -0.000589717315101268
+    - 0.0
+test_5:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 45.0
+    sim_granularity: 0.08
+    sim_time: 2.2
+    vth_samples: 22
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -37.22999675869943
+    - 0.28571430221199984
+    goal_to_start_accumulated_velocities:
+    - -37.22999675869943
+    - 0.28571430221199984
+    goal_to_start_curvature:
+    - -1.880666671625626
+    - 0.054558348303149984
+    - 0.005714286118745797
+    - -0.016183051982473273
+    - 0.0007400168902194082
+    - 0.008571428805589677
+    start_to_goal_accumulated_error:
+    - 37.636404216289534
+    - -0.11428571492433542
+    start_to_goal_accumulated_velocities:
+    - 37.636404216289534
+    - -0.11428571492433542
+    start_to_goal_curvature:
+    - 1.8782062683761964
+    - -0.05428758749766516
+    - -0.0057142857462167615
+    - 0.0
+    - 0.0
+    - 0.0
+test_6:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.07
+    sim_time: 2.1
+    vth_samples: 20
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -37.16255205571653
+    - 1.1368420943617816
+    goal_to_start_accumulated_velocities:
+    - -37.16255205571653
+    - 1.1368420943617816
+    goal_to_start_curvature:
+    - -1.8721422752194314
+    - 0.0559537071293974
+    - 0.06947368420660494
+    - -0.014497660206153284
+    - 0.0002602856474744897
+    - -0.0031578946858644603
+    start_to_goal_accumulated_error:
+    - 36.44113345444204
+    - -1.1368421539664268
+    start_to_goal_accumulated_velocities:
+    - 36.44113345444204
+    - -1.1368421539664268
+    start_to_goal_curvature:
+    - 1.8814516027107686
+    - -0.05156734397819207
+    - -0.050526318326592476
+    - 0.014450417661471704
+    - -0.0011976147729910736
+    - -0.009473684430122378
+test_7:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.07
+    sim_time: 2.2
+    vth_samples: 18
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.556176590919506
+    - 1.0941177010536194
+    goal_to_start_accumulated_velocities:
+    - -37.556176590919506
+    - 1.0941177010536194
+    goal_to_start_curvature:
+    - -1.8757384637576635
+    - 0.05333321313602468
+    - 0.060000002756714854
+    - -0.013283634459817506
+    - 0.0002347869529160107
+    - -0.003529411926865577
+    start_to_goal_accumulated_error:
+    - 36.69566479623319
+    - -1.4470588453114035
+    start_to_goal_accumulated_velocities:
+    - 36.69566479623319
+    - -1.4470588453114035
+    start_to_goal_curvature:
+    - 1.8683773254608766
+    - -0.05326057929204708
+    - -0.06000000089406965
+    - 0.013240008994678476
+    - -0.001101013712958121
+    - 0.0035294119268655666
+test_8:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.07
+    sim_time: 2.3000000000000003
+    vth_samples: 16
+    vx_samples: 10
+  results:
+    goal_to_start_accumulated_error:
+    - -37.619905379414575
+    - 1.9200000911951065
+    goal_to_start_accumulated_velocities:
+    - -37.619905379414575
+    - 1.9200000911951065
+    goal_to_start_curvature:
+    - -1.8744873086080887
+    - 0.05202739574657045
+    - 0.1000000044703484
+    - -0.012371443605346144
+    - 0.00029433451782523434
+    - 0.012000000476837162
+    start_to_goal_accumulated_error:
+    - 39.005690130591404
+    - -0.9967470967512695
+    start_to_goal_accumulated_velocities:
+    - 39.005690130591404
+    - -0.9967470967512695
+    start_to_goal_curvature:
+    - 1.8763565427990727
+    - -0.05167136463379052
+    - -0.09446683963154112
+    - 0.0
+    - 0.0
+    - 0.025533164391772473
+test_9:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 45.0
+    sim_granularity: 0.07
+    sim_time: 2.2
+    vth_samples: 16
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.602920770645156
+    - 3.3200001753866673
+    goal_to_start_accumulated_velocities:
+    - -37.602920770645156
+    - 3.3200001753866673
+    goal_to_start_curvature:
+    - -1.8724916914457665
+    - 0.049322852998145095
+    - 0.15200000815093515
+    - -0.013278815182161452
+    - -0.0004278991054498249
+    - -0.0040000002831220675
+    start_to_goal_accumulated_error:
+    - 36.75258643627168
+    - -2.1600000932812695
+    start_to_goal_accumulated_velocities:
+    - 36.75258643627168
+    - -2.1600000932812695
+    start_to_goal_curvature:
+    - 1.8757287785754428
+    - -0.05220725984150931
+    - -0.10800000503659249
+    - 0.013199739535949107
+    - -0.0015084741935247337
+    - -0.012000000476837136
+test_10:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 43.0
+    sim_granularity: 0.08
+    sim_time: 2.2
+    vth_samples: 16
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -38.42125962972642
+    - 3.840000201016665
+    goal_to_start_accumulated_velocities:
+    - -38.42125962972642
+    - 3.840000201016665
+    goal_to_start_curvature:
+    - -1.9370710580687245
+    - 0.05584861707754385
+    - 0.1840000096708536
+    - -0.01448707666973803
+    - -0.0006119072059860287
+    - 0.00400000028312205
+    start_to_goal_accumulated_error:
+    - 38.84520377516748
+    - -4.120000120252371
+    start_to_goal_accumulated_velocities:
+    - 38.84520377516748
+    - -4.120000120252371
+    start_to_goal_curvature:
+    - 1.9359200498106617
+    - -0.05041334520617369
+    - -0.16800000481307517
+    - 0.06438965087956916
+    - -0.011969044724285283
+    - 0.06000000238418576
+test_11:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 45.0
+    sim_granularity: 0.07
+    sim_time: 2.3000000000000003
+    vth_samples: 18
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.48882684111596
+    - 2.8588235788047314
+    goal_to_start_accumulated_velocities:
+    - -37.48882684111596
+    - 2.8588235788047314
+    goal_to_start_curvature:
+    - -1.8763170484302663
+    - 0.04568288230914419
+    - 0.13764706104993824
+    - -0.013284206223268313
+    - -0.0001998359148025486
+    - -0.0035294119268655805
+    start_to_goal_accumulated_error:
+    - 36.784495374560365
+    - -3.186976175311445
+    start_to_goal_accumulated_velocities:
+    - 36.784495374560365
+    - -3.186976175311445
+    start_to_goal_curvature:
+    - 1.8701951727120658
+    - -0.04849461921196152
+    - -0.1704651849865721
+    - 0.0
+    - 0.0
+    - 0.0
+test_12:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.08
+    sim_time: 2.3000000000000003
+    vth_samples: 18
+    vx_samples: 10
+  results:
+    goal_to_start_accumulated_error:
+    - -38.677723646163955
+    - 1.7294118143618107
+    goal_to_start_accumulated_velocities:
+    - -38.677723646163955
+    - 1.7294118143618107
+    goal_to_start_curvature:
+    - -1.924886613304892
+    - 0.055485224660095867
+    - 0.08470588475465779
+    - -0.01237391830120771
+    - 0.0001632623605907213
+    - -0.003529411926865577
+    start_to_goal_accumulated_error:
+    - 38.4292175486684
+    - -2.0117647126317024
+    start_to_goal_accumulated_velocities:
+    - 38.4292175486684
+    - -2.0117647126317024
+    start_to_goal_curvature:
+    - 1.9279655813319962
+    - -0.0559266267317291
+    - -0.11294117644429202
+    - 0.06279460073228904
+    - -0.008526463789301886
+    - 0.04588235616683961
+test_13:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.08
+    sim_time: 2.2
+    vth_samples: 20
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.6852880716324
+    - 3.7894737161695957
+    goal_to_start_accumulated_velocities:
+    - -37.6852880716324
+    - 3.7894737161695957
+    goal_to_start_curvature:
+    - -1.8818730128592378
+    - 0.051702773807505764
+    - 0.1736842114478348
+    - -0.013264882404300238
+    - -0.0007436340386917095
+    - -0.003157894685864464
+    start_to_goal_accumulated_error:
+    - 37.7111068069935
+    - -1.863157942891121
+    start_to_goal_accumulated_velocities:
+    - 37.7111068069935
+    - -1.863157942891121
+    start_to_goal_curvature:
+    - 1.8797869867020083
+    - -0.053189380380867846
+    - -0.1042105287313461
+    - 0.013207905197340608
+    - -0.001434815938193168
+    - -0.01578947454690935
+test_14:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.09
+    sim_time: 2.1
+    vth_samples: 20
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.71586605012418
+    - 2.5578947439789768
+    goal_to_start_accumulated_velocities:
+    - -37.71586605012418
+    - 2.5578947439789768
+    goal_to_start_curvature:
+    - -1.8787666089834048
+    - 0.03997054913496001
+    - 0.1199999999254941
+    - -0.013283708748311085
+    - -0.00023060501617422346
+    - -0.003157894685864448
+    start_to_goal_accumulated_error:
+    - 38.68061484992505
+    - -4.365857480720519
+    start_to_goal_accumulated_velocities:
+    - 38.68061484992505
+    - -4.365857480720519
+    start_to_goal_curvature:
+    - 1.8848844249060477
+    - -0.03732235146091156
+    - -0.15864349516384652
+    - 0.0
+    - 0.0
+    - 0.026162116573976324
+test_15:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.08
+    sim_time: 2.0
+    vth_samples: 18
+    vx_samples: 10
+  results:
+    goal_to_start_accumulated_error:
+    - -37.45979397296907
+    - 2.435294173657894
+    goal_to_start_accumulated_velocities:
+    - -37.45979397296907
+    - 2.435294173657894
+    goal_to_start_curvature:
+    - -1.8781435609193124
+    - 0.04821141305502863
+    - 0.12352941446006298
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.515927693247804
+    - -2.1222281950721174
+    start_to_goal_accumulated_velocities:
+    - 38.515927693247804
+    - -2.1222281950721174
+    start_to_goal_curvature:
+    - 1.871443209421237
+    - -0.048440841159131054
+    - -0.1387597915062489
+    - 0.0
+    - 0.0
+    - 0.028647685368284673
+test_16:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.08
+    sim_time: 2.0
+    vth_samples: 16
+    vx_samples: 10
+  results:
+    goal_to_start_accumulated_error:
+    - -37.34198152273895
+    - 3.080000195652247
+    goal_to_start_accumulated_velocities:
+    - -37.34198152273895
+    - 3.080000195652247
+    goal_to_start_curvature:
+    - -1.9150690874095488
+    - 0.05757852420439491
+    - 0.11600000858306882
+    - -0.012370563526303613
+    - -0.0003311085194468433
+    - -0.004000000283122071
+    start_to_goal_accumulated_error:
+    - 37.48053051084281
+    - -1.5600000731647015
+    start_to_goal_accumulated_velocities:
+    - 37.48053051084281
+    - -1.5600000731647015
+    start_to_goal_curvature:
+    - 1.9213392511326433
+    - -0.05765934635229186
+    - -0.09200000390410436
+    - 0.06277204264491587
+    - -0.008669367849634568
+    - 0.06000000238418578
+test_17:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 51.0
+    sim_granularity: 0.09
+    sim_time: 2.1
+    vth_samples: 14
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.65735719799997
+    - 2.492307774722576
+    goal_to_start_accumulated_velocities:
+    - -37.65735719799997
+    - 2.492307774722576
+    goal_to_start_curvature:
+    - -1.8729622955483762
+    - 0.05126814268762203
+    - 0.12461538873612871
+    - -0.013285570661345503
+    - -5.9866520782492216e-05
+    - 0.004615384712815286
+    start_to_goal_accumulated_error:
+    - 38.05719434916974
+    - -2.7762356960024777
+    start_to_goal_accumulated_velocities:
+    - 38.05719434916974
+    - -2.7762356960024777
+    start_to_goal_curvature:
+    - 1.8737679072520592
+    - -0.05001131794464442
+    - -0.1404072001657929
+    - 0.0
+    - 0.0
+    - 0.02864158133843503
+test_18:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.09999999999999999
+    sim_time: 2.2
+    vth_samples: 14
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.16271995604039
+    - 3.138461645692587
+    goal_to_start_accumulated_velocities:
+    - -37.16271995604039
+    - 3.138461645692587
+    goal_to_start_curvature:
+    - -1.8785727132830345
+    - 0.05294249966769726
+    - 0.15230769738554953
+    - -0.013282381619880823
+    - -0.00029717049284627706
+    - 0.004615384712815283
+    start_to_goal_accumulated_error:
+    - 37.473544669151316
+    - -2.694005676027276
+    start_to_goal_accumulated_velocities:
+    - 37.473544669151316
+    - -2.694005676027276
+    start_to_goal_curvature:
+    - 1.8699221871871288
+    - -0.051983935280404125
+    - -0.13444424602483482
+    - 0.0
+    - 0.0
+    - 0.027094221531403312
+test_19:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.09
+    sim_time: 2.3000000000000003
+    vth_samples: 12
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -37.70944249629976
+    - 3.000000193715095
+    goal_to_start_accumulated_velocities:
+    - -37.70944249629976
+    - 3.000000193715095
+    goal_to_start_curvature:
+    - -1.8835870301593616
+    - 0.047789153787949346
+    - 0.1418181911110878
+    - -0.014492602472557792
+    - -0.00046314650612799824
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.88849564492703
+    - -2.316005530665168
+    start_to_goal_accumulated_velocities:
+    - 37.88849564492703
+    - -2.316005530665168
+    start_to_goal_curvature:
+    - 1.8861292515624513
+    - -0.0503239076463835
+    - -0.13570271169428663
+    - 0.0
+    - 0.0
+    - 0.026014391723013314
+test_20:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.09
+    sim_time: 2.2
+    vth_samples: 14
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -38.06716864705087
+    - 2.3538462296128273
+    goal_to_start_accumulated_velocities:
+    - -38.06716864705087
+    - 2.3538462296128273
+    goal_to_start_curvature:
+    - -1.8654864489253526
+    - 0.039703954152837895
+    - 0.1292307734489441
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.66968973875046
+    - -2.4877340611604564
+    start_to_goal_accumulated_velocities:
+    - 37.66968973875046
+    - -2.4877340611604564
+    start_to_goal_curvature:
+    - 1.8744736120709433
+    - -0.04443783946850033
+    - -0.13654675148673293
+    - 0.0
+    - 0.0
+    - 0.025168215684551187
+test_21:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.09999999999999999
+    sim_time: 2.1
+    vth_samples: 16
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -37.85917207002641
+    - 2.280000127851963
+    goal_to_start_accumulated_velocities:
+    - -37.85917207002641
+    - 2.280000127851963
+    goal_to_start_curvature:
+    - -1.869124140287326
+    - 0.04306357630638402
+    - 0.11200000569224366
+    - -0.014499871457587687
+    - -5.956993496880614e-05
+    - -0.004000000283122063
+    start_to_goal_accumulated_error:
+    - 37.79061264097692
+    - -2.775441148772916
+    start_to_goal_accumulated_velocities:
+    - 37.79061264097692
+    - -2.775441148772916
+    start_to_goal_curvature:
+    - 1.8663760156477522
+    - -0.04238722271333373
+    - -0.135522312918883
+    - 0.0
+    - 0.0
+    - 0.026991274530480586
+test_22:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.09999999999999999
+    sim_time: 2.0
+    vth_samples: 14
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -38.17228654921056
+    - 1.7076923623681068
+    goal_to_start_accumulated_velocities:
+    - -38.17228654921056
+    - 1.7076923623681068
+    goal_to_start_curvature:
+    - -1.8833202754904121
+    - 0.04748529648446009
+    - 0.09692308008670804
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 39.067866814136515
+    - -2.076923154294491
+    start_to_goal_accumulated_velocities:
+    - 39.067866814136515
+    - -2.076923154294491
+    start_to_goal_curvature:
+    - 1.8692371708454587
+    - -0.04681971621331371
+    - -0.10615385025739668
+    - 0.016104715147385207
+    - -0.001754366599229229
+    - 0.004615384712815279
+test_23:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.09
+    sim_time: 2.0
+    vth_samples: 14
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -38.65205558538439
+    - 1.661538504064083
+    goal_to_start_accumulated_velocities:
+    - -38.65205558538439
+    - 1.661538504064083
+    goal_to_start_curvature:
+    - -1.900469129396484
+    - 0.04799542453692851
+    - 0.08769230991601937
+    - -0.018749988989142707
+    - 8.543164256025193e-07
+    - -0.004615384712815285
+    start_to_goal_accumulated_error:
+    - 37.81127691268922
+    - -1.7076923698186874
+    start_to_goal_accumulated_velocities:
+    - 37.81127691268922
+    - -1.7076923698186874
+    start_to_goal_curvature:
+    - 1.8971451758657025
+    - -0.04746632243885074
+    - -0.08307692632079124
+    - 0.0
+    - 0.0
+    - 0.0
+test_24:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.08
+    sim_time: 1.9
+    vth_samples: 14
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -38.32625054717066
+    - 1.6153846569359303
+    goal_to_start_accumulated_velocities:
+    - -38.32625054717066
+    - 1.6153846569359303
+    goal_to_start_curvature:
+    - -1.900378210572974
+    - 0.047777974978984616
+    - 0.08769230991601942
+    - -0.018749941034684525
+    - -4.241483974709581e-05
+    - 0.004615384712815286
+    start_to_goal_accumulated_error:
+    - 37.6599816441536
+    - -1.7076923660933971
+    start_to_goal_accumulated_velocities:
+    - 37.6599816441536
+    - -1.7076923660933971
+    start_to_goal_curvature:
+    - 1.9027202517844017
+    - -0.04781572980610349
+    - -0.07846154123544691
+    - 0.01868160893991444
+    - -0.0015998672567327787
+    - 0.004615384712815279
+test_25:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.08
+    sim_time: 1.9
+    vth_samples: 12
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.37445037662984
+    - 1.8545455858111377
+    goal_to_start_accumulated_velocities:
+    - -37.37445037662984
+    - 1.8545455858111377
+    goal_to_start_curvature:
+    - -1.8831168452515996
+    - 0.04877630408257616
+    - 0.1036363709717989
+    - -0.018747407968163543
+    - -0.0003118498907781486
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.633451446890845
+    - -1.6363637223839758
+    start_to_goal_accumulated_velocities:
+    - 37.633451446890845
+    - -1.6363637223839758
+    start_to_goal_curvature:
+    - 1.8939005852107655
+    - -0.046914839194087676
+    - -0.09272727780044078
+    - 0.0
+    - 0.0
+    - 0.0
+test_26:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.08
+    sim_time: 1.9
+    vth_samples: 10
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.595646452158704
+    - 2.333333447575569
+    goal_to_start_accumulated_velocities:
+    - -37.595646452158704
+    - 2.333333447575569
+    goal_to_start_curvature:
+    - -1.951133350970558
+    - 0.047863588490926645
+    - 0.10000000521540646
+    - -0.06972584007392868
+    - -0.0015085977663567007
+    - -0.060000002384185805
+    start_to_goal_accumulated_error:
+    - 37.45671165585519
+    - -2.866666778922081
+    start_to_goal_accumulated_velocities:
+    - 37.45671165585519
+    - -2.866666778922081
+    start_to_goal_curvature:
+    - 1.8857520319779724
+    - -0.04411241413791345
+    - -0.1400000058114529
+    - 0.01861877761434272
+    - -0.002214204025165145
+    - -0.006666667014360403
+test_27:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.08
+    sim_time: 1.7999999999999998
+    vth_samples: 12
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -39.24531546905638
+    - -0.4363636225461962
+    goal_to_start_accumulated_velocities:
+    - -39.24531546905638
+    - -0.4363636225461962
+    goal_to_start_curvature:
+    - -1.912287185430067
+    - 0.05222828219266873
+    - 0.010909093171358089
+    - -0.05699358592480763
+    - 1.0567803965244593e-05
+    - -0.060000002384185805
+    start_to_goal_accumulated_error:
+    - 38.527511474490176
+    - -0.7090909555554388
+    start_to_goal_accumulated_velocities:
+    - 38.527511474490176
+    - -0.7090909555554388
+    start_to_goal_curvature:
+    - 1.961346293209914
+    - -0.05748892780515291
+    - -0.03272727504372597
+    - 0.02296888575602196
+    - -0.0011955428232965915
+    - -0.0054545458406210015
+test_28:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.09
+    sim_time: 1.6999999999999997
+    vth_samples: 12
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -39.04660735279323
+    - -0.6000000350177286
+    goal_to_start_accumulated_velocities:
+    - -39.04660735279323
+    - -0.6000000350177286
+    goal_to_start_curvature:
+    - -1.9408795814098951
+    - 0.05465383736061824
+    - -0.03272727467119693
+    - -0.06974104309911411
+    - 0.0003933413104526551
+    - -0.06000000238418579
+    start_to_goal_accumulated_error:
+    - 37.578828489780435
+    - 0.5454545840620993
+    start_to_goal_accumulated_velocities:
+    - 37.578828489780435
+    - 0.5454545840620993
+    start_to_goal_curvature:
+    - 1.9030782520838727
+    - -0.05980894387063174
+    - 0.027272729203104983
+    - 0.022996310573049072
+    - -0.00041196992646064245
+    - 0.0
+test_29:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 61.0
+    sim_granularity: 0.09
+    sim_time: 1.7999999999999998
+    vth_samples: 12
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.236161460727466
+    - -0.927272792905569
+    goal_to_start_accumulated_velocities:
+    - -37.236161460727466
+    - -0.927272792905569
+    goal_to_start_curvature:
+    - -1.876798559917809
+    - 0.05402768648207257
+    - -0.04363636672496795
+    - -0.01820070300868082
+    - 0.0011964123692536077
+    - 0.005454545840621015
+    start_to_goal_accumulated_error:
+    - 39.22061147093774
+    - 0.4909091256558894
+    start_to_goal_accumulated_velocities:
+    - 39.22061147093774
+    - 0.4909091256558894
+    start_to_goal_curvature:
+    - 1.931120118452995
+    - -0.05742243516866807
+    - 0.03272727504372597
+    - 0.018746993464915818
+    - -0.0003358450623593967
+    - 0.0
+test_30:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 61.0
+    sim_granularity: 0.09
+    sim_time: 1.9
+    vth_samples: 14
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.27017565220596
+    - -0.1846153885126114
+    goal_to_start_accumulated_velocities:
+    - -37.27017565220596
+    - -0.1846153885126114
+    goal_to_start_curvature:
+    - -1.8644716868000515
+    - 0.054467013790468144
+    - -0.009230769425630583
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.441861656308184
+    - 0.8769230954349041
+    start_to_goal_accumulated_velocities:
+    - 37.441861656308184
+    - 0.8769230954349041
+    start_to_goal_curvature:
+    - 1.8794053905525345
+    - -0.05222580322356407
+    - 0.04615384712815281
+    - 0.018747779540930765
+    - -0.00028864885929635875
+    - 0.0
+test_31:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.09
+    sim_time: 1.9
+    vth_samples: 16
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.72555664405228
+    - 0.2799999713897705
+    goal_to_start_accumulated_velocities:
+    - -37.72555664405228
+    - 0.2799999713897705
+    goal_to_start_curvature:
+    - -1.8868875756766101
+    - 0.049060278157888604
+    - 0.007999997586011866
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.48305045664311
+    - -0.7200000435113907
+    start_to_goal_accumulated_velocities:
+    - 38.48305045664311
+    - -0.7200000435113907
+    start_to_goal_curvature:
+    - 1.8605138949715254
+    - -0.045948172476652616
+    - -0.028000001609325375
+    - 0.018724043471934237
+    - -0.0009862818767771842
+    - 0.0
+test_32:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.09
+    sim_time: 1.9
+    vth_samples: 16
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.05000094324352
+    - -0.9600000493228436
+    goal_to_start_accumulated_velocities:
+    - -38.05000094324352
+    - -0.9600000493228436
+    goal_to_start_curvature:
+    - -1.8901670982394307
+    - 0.05468077246681702
+    - -0.07600000351667405
+    - -0.05692896171026973
+    - 0.002713349744663418
+    - -0.060000002384185784
+    start_to_goal_accumulated_error:
+    - 37.64305000305177
+    - 0.7600000537931919
+    start_to_goal_accumulated_velocities:
+    - 37.64305000305177
+    - 0.7600000537931919
+    start_to_goal_curvature:
+    - 1.894087872715609
+    - -0.05623059267480457
+    - 0.028000001981854438
+    - 0.022996821621859453
+    - -0.0003823800267142019
+    - 0.0
+test_33:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.09999999999999999
+    sim_time: 2.0
+    vth_samples: 14
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -39.53821435496212
+    - -1.2461538575589657
+    goal_to_start_accumulated_velocities:
+    - -39.53821435496212
+    - -1.2461538575589657
+    goal_to_start_curvature:
+    - -1.9404025216564733
+    - 0.062213745028760314
+    - -0.05538461580872536
+    - -0.06943791668272326
+    - 0.006531033614962212
+    - 0.050769233703613276
+    start_to_goal_accumulated_error:
+    - 37.74642612338067
+    - 1.6615385003387928
+    start_to_goal_accumulated_velocities:
+    - 37.74642612338067
+    - 1.6615385003387928
+    start_to_goal_curvature:
+    - 1.8983276740646176
+    - -0.0604942857513997
+    - 0.09230769462883467
+    - 0.0
+    - 0.0
+    - 0.0
+test_34:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.09
+    sim_time: 2.1
+    vth_samples: 12
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.71470653116704
+    - -0.2727272920310496
+    goal_to_start_accumulated_velocities:
+    - -37.71470653116704
+    - -0.2727272920310496
+    goal_to_start_curvature:
+    - -1.8838778498928619
+    - 0.0576767693397926
+    - -0.016363637521862987
+    - -0.018743116378360014
+    - 0.0005074352913219116
+    - 0.005454545840620995
+    start_to_goal_accumulated_error:
+    - 38.02018265724183
+    - 1.2000000849366186
+    start_to_goal_accumulated_velocities:
+    - 38.02018265724183
+    - 1.2000000849366186
+    start_to_goal_curvature:
+    - 1.9213516756381637
+    - -0.057338572163061485
+    - 0.049090912565588965
+    - 0.01874959163068013
+    - -0.00012397403789066175
+    - 0.0
+test_35:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.08
+    sim_time: 2.1
+    vth_samples: 12
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -37.01146747767926
+    - 1.3090910017490385
+    goal_to_start_accumulated_velocities:
+    - -37.01146747767926
+    - 1.3090910017490385
+    goal_to_start_curvature:
+    - -1.8664257607250505
+    - 0.05284918076691625
+    - 0.07090909592807293
+    - -0.016199229788284697
+    - -0.00015797408384088385
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 36.39230898022653
+    - -0.9818182475864885
+    start_to_goal_accumulated_velocities:
+    - 36.39230898022653
+    - -0.9818182475864885
+    start_to_goal_curvature:
+    - 1.8827675894214906
+    - -0.05087417025388419
+    - -0.03818182088434696
+    - 0.01616971359163699
+    - -0.00099013327862707
+    - 0.0
+test_36:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.09
+    sim_time: 2.0
+    vth_samples: 14
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -37.52035642862322
+    - 2.5384616255760193
+    goal_to_start_accumulated_velocities:
+    - -37.52035642862322
+    - 2.5384616255760193
+    goal_to_start_curvature:
+    - -1.8793772237382385
+    - 0.04505620705815616
+    - 0.12923077382147308
+    - -0.01619675123309605
+    - -0.0003238852203999443
+    - -0.004615384712815286
+    start_to_goal_accumulated_error:
+    - 38.027878466248524
+    - -2.326079498124258
+    start_to_goal_accumulated_velocities:
+    - 38.027878466248524
+    - -2.326079498124258
+    start_to_goal_curvature:
+    - 1.8814749608430716
+    - -0.04527145282281708
+    - -0.12244969328938476
+    - 0.0
+    - 0.0
+    - 0.0252426201284075
+test_37:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.08
+    sim_time: 2.1
+    vth_samples: 16
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -37.31316437721254
+    - 1.6000000834465027
+    goal_to_start_accumulated_velocities:
+    - -37.31316437721254
+    - 1.6000000834465027
+    goal_to_start_curvature:
+    - -1.8801519264973692
+    - 0.04665177319154523
+    - 0.09600000418722632
+    - -0.014499752654224096
+    - 8.362912116410826e-05
+    - -0.004000000283122063
+    start_to_goal_accumulated_error:
+    - 39.8526213258505
+    - -2.1461625038197125
+    start_to_goal_accumulated_velocities:
+    - 39.8526213258505
+    - -2.1461625038197125
+    start_to_goal_curvature:
+    - 1.8761234330050485
+    - -0.046931335539078134
+    - -0.1213002861441978
+    - 0.0
+    - 0.0
+    - 0.026939050748563786
+test_38:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.08
+    sim_time: 2.2
+    vth_samples: 18
+    vx_samples: 9
+  results:
+    goal_to_start_accumulated_error:
+    - -37.54009502828123
+    - 2.294117722660303
+    goal_to_start_accumulated_velocities:
+    - -37.54009502828123
+    - 2.294117722660303
+    goal_to_start_curvature:
+    - -1.8688922586724601
+    - 0.05151562220472172
+    - 0.10941176824271677
+    - -0.013285664617768589
+    - 3.442440161549598e-05
+    - -0.003529411926865578
+    start_to_goal_accumulated_error:
+    - 38.91204831302167
+    - -1.3764705955982208
+    start_to_goal_accumulated_velocities:
+    - 38.91204831302167
+    - -1.3764705955982208
+    start_to_goal_curvature:
+    - 1.8735502450745756
+    - -0.050831918012931965
+    - -0.10588235482573506
+    - 0.013194417710984396
+    - -0.0015548024451028652
+    - 0.0035294119268655666
+test_39:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.08
+    sim_time: 2.3000000000000003
+    vth_samples: 18
+    vx_samples: 8
+  results:
+    goal_to_start_accumulated_error:
+    - -37.79677186906339
+    - 2.541176550090313
+    goal_to_start_accumulated_velocities:
+    - -37.79677186906339
+    - 2.541176550090313
+    goal_to_start_curvature:
+    - -1.883023182843253
+    - 0.05261380460894571
+    - 0.12000000402331357
+    - -0.014499989045120287
+    - -1.360571398834054e-05
+    - -0.0035294119268655787
+    start_to_goal_accumulated_error:
+    - 37.263624349236494
+    - -2.011764746159315
+    start_to_goal_accumulated_velocities:
+    - 37.263624349236494
+    - -2.011764746159315
+    start_to_goal_curvature:
+    - 1.8727937817264788
+    - -0.05047468963195456
+    - -0.1164705906063318
+    - 0.014406214592376898
+    - -0.001646067747785196
+    - -0.01058823540806772
+test_40:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.07
+    sim_time: 2.3000000000000003
+    vth_samples: 20
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -37.891422364115726
+    - 2.557894747704267
+    goal_to_start_accumulated_velocities:
+    - -37.891422364115726
+    - 2.557894747704267
+    goal_to_start_curvature:
+    - -1.8742199624111606
+    - 0.0498462248932654
+    - 0.13578947447240342
+    - -0.01619820393466398
+    - -0.0002408884914366638
+    - 0.0031578946858644447
+    start_to_goal_accumulated_error:
+    - 37.58404988944531
+    - -2.2736842520534988
+    start_to_goal_accumulated_velocities:
+    - 37.58404988944531
+    - -2.2736842520534988
+    start_to_goal_curvature:
+    - 1.8773865158976477
+    - -0.04927208784562964
+    - -0.11684210747480386
+    - 0.0
+    - 0.0
+    - 0.0
+test_41:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.060000000000000005
+    sim_time: 2.2
+    vth_samples: 20
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.213455545902264
+    - 1.5473684445023537
+    goal_to_start_accumulated_velocities:
+    - -37.213455545902264
+    - 1.5473684445023537
+    goal_to_start_curvature:
+    - -1.8802951164826354
+    - 0.03853628307332002
+    - 0.09473684430122371
+    - -0.01874993713718709
+    - 4.684135808474821e-05
+    - -0.0031578946858644478
+    start_to_goal_accumulated_error:
+    - 37.023576644063006
+    - -2.368421103805303
+    start_to_goal_accumulated_velocities:
+    - 37.023576644063006
+    - -2.368421103805303
+    start_to_goal_curvature:
+    - 1.8768936587634215
+    - -0.043138075351365046
+    - -0.11684210784733293
+    - 0.01865707036222375
+    - -0.0018644788490078668
+    - 0.0
+test_42:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.07
+    sim_time: 2.2
+    vth_samples: 22
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.08595551773907
+    - 1.0571429319679737
+    goal_to_start_accumulated_velocities:
+    - -37.08595551773907
+    - 1.0571429319679737
+    goal_to_start_curvature:
+    - -1.880554456934064
+    - 0.046091804054299246
+    - 0.057142860814929
+    - -0.01874811903099527
+    - 0.0002653475274563277
+    - -0.0028571430593729054
+    start_to_goal_accumulated_error:
+    - 37.43639039695264
+    - -1.1142857521772385
+    start_to_goal_accumulated_velocities:
+    - 37.43639039695264
+    - -1.1142857521772385
+    start_to_goal_curvature:
+    - 1.8770088283144943
+    - -0.04453364477687316
+    - -0.06857143118977545
+    - 0.0
+    - 0.0
+    - 0.0
+test_43:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.060000000000000005
+    sim_time: 2.3000000000000003
+    vth_samples: 20
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.747676052153125
+    - 0.4880215555045814
+    goal_to_start_accumulated_velocities:
+    - -38.747676052153125
+    - 0.4880215555045814
+    goal_to_start_curvature:
+    - -1.8956541447732533
+    - 0.041051950914216206
+    - 0.10736842080950737
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.09001148045064
+    - -0.6947368532419205
+    start_to_goal_accumulated_velocities:
+    - 37.09001148045064
+    - -0.6947368532419205
+    start_to_goal_curvature:
+    - 1.881664972764419
+    - -0.045270657242038936
+    - -0.034736842662096014
+    - 0.02297276492846123
+    - -0.001118821265933434
+    - -0.00315789468586445
+test_44:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.060000000000000005
+    sim_time: 2.2
+    vth_samples: 18
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.95958168506624
+    - 2.682353001087904
+    goal_to_start_accumulated_velocities:
+    - -37.95958168506624
+    - 2.682353001087904
+    goal_to_start_curvature:
+    - -1.8794075068651352
+    - 0.04177584853713867
+    - 0.13764706179499625
+    - -0.01874378638189711
+    - -0.0004824461021364357
+    - -0.003529411926865584
+    start_to_goal_accumulated_error:
+    - 38.61467686295511
+    - -2.722854337841584
+    start_to_goal_accumulated_velocities:
+    - 38.61467686295511
+    - -2.722854337841584
+    start_to_goal_curvature:
+    - 1.903853024796284
+    - -0.0375659587865762
+    - -0.17089719178491922
+    - 0.0
+    - 0.0
+    - 0.05248920558450895
+test_45:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.05
+    sim_time: 2.3000000000000003
+    vth_samples: 20
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.06767604872586
+    - 1.1447239540339065
+    goal_to_start_accumulated_velocities:
+    - -38.06767604872586
+    - 1.1447239540339065
+    goal_to_start_curvature:
+    - -1.8948942941838496
+    - 0.042399958230440404
+    - -0.025263159722089784
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 36.96501148045064
+    - -2.2421053126454353
+    start_to_goal_accumulated_velocities:
+    - 36.96501148045064
+    - -2.2421053126454353
+    start_to_goal_curvature:
+    - 1.8843916033309682
+    - -0.03988392157098275
+    - -0.11368421204388143
+    - 0.022919815834171686
+    - -0.0019180964373965992
+    - -0.009473684430122364
+test_46:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.04
+    sim_time: 2.4000000000000004
+    vth_samples: 22
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.11017880663277
+    - -0.8000000305473802
+    goal_to_start_accumulated_velocities:
+    - -38.11017880663277
+    - -0.8000000305473802
+    goal_to_start_curvature:
+    - -1.914419246264977
+    - 0.05572768640445247
+    - 0.017142858356237422
+    - -0.024483269797165974
+    - -0.0008969488715813156
+    - -0.020000000298023218
+    start_to_goal_accumulated_error:
+    - 38.21750051379205
+    - 2.142857253551483
+    start_to_goal_accumulated_velocities:
+    - 38.21750051379205
+    - 2.142857253551483
+    start_to_goal_curvature:
+    - 1.8862136192033745
+    - -0.06652784695722858
+    - 0.12033706366837577
+    - 0.0
+    - 0.0
+    - 0.0
+test_47:
+  config:
+    goal_distance_bias: 22.0
+    path_distance_bias: 51.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 22
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -39.710000106692334
+    - 3.08571444824338
+    goal_to_start_accumulated_velocities:
+    - -39.710000106692334
+    - 3.08571444824338
+    goal_to_start_curvature:
+    - -1.9223848950400537
+    - 0.039952711453878464
+    - 0.06285714730620387
+    - -0.00599791767798763
+    - 0.00014026409361633796
+    - 0.04857143163681034
+    start_to_goal_accumulated_error:
+    - 39.94333353862167
+    - -0.4285714477300644
+    start_to_goal_accumulated_velocities:
+    - 39.94333353862167
+    - -0.4285714477300644
+    start_to_goal_curvature:
+    - 1.9552616288249354
+    - -0.029547741133580274
+    - -0.07142857499420643
+    - 0.0
+    - 0.0
+    - 0.0
+test_48:
+  config:
+    goal_distance_bias: 22.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.04
+    sim_time: 2.4
+    vth_samples: 22
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -37.910011235624566
+    - 1.628571517765522
+    goal_to_start_accumulated_velocities:
+    - -37.910011235624566
+    - 1.628571517765522
+    goal_to_start_curvature:
+    - -1.9089726302057102
+    - 0.04596269019034338
+    - 0.025714287906885132
+    - -0.05699043074868371
+    - 0.0005997927359402411
+    - -0.0600000023841858
+    start_to_goal_accumulated_error:
+    - 38.256275945901876
+    - -1.9428572207689285
+    start_to_goal_accumulated_velocities:
+    - 38.256275945901876
+    - -1.9428572207689285
+    start_to_goal_curvature:
+    - 1.8843679018161907
+    - -0.04493723564516472
+    - -0.09428571797907348
+    - 0.022911621283164152
+    - -0.0020137527881054496
+    - 0.008571428805589684
+test_49:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 24
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.141731399297726
+    - 0.28695654310286045
+    goal_to_start_accumulated_velocities:
+    - -37.141731399297726
+    - 0.28695654310286045
+    goal_to_start_curvature:
+    - -1.8841314332697294
+    - 0.0523057560873923
+    - 0.018260870873928064
+    - -0.018748830488476642
+    - 0.00020954997937394637
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.69824389815332
+    - 0.39130437187850475
+    start_to_goal_accumulated_velocities:
+    - 38.69824389815332
+    - 0.39130437187850475
+    start_to_goal_curvature:
+    - 1.9024105445946446
+    - -0.061881772033274274
+    - 0.02608695812523363
+    - 0.018741878235957188
+    - -0.0005518659872905118
+    - 0.0
+test_50:
+  config:
+    goal_distance_bias: 22.0
+    path_distance_bias: 45.0
+    sim_granularity: 0.04
+    sim_time: 2.4
+    vth_samples: 24
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -36.52731153964998
+    - 0.20869566686451435
+    goal_to_start_accumulated_velocities:
+    - -36.52731153964998
+    - 0.20869566686451435
+    goal_to_start_curvature:
+    - -1.8742070343829766
+    - 0.050767537246436234
+    - 0.013043479062616811
+    - -0.018739975047608937
+    - 0.0006129776211949434
+    - -0.002608695812523369
+    start_to_goal_accumulated_error:
+    - 37.16018264293672
+    - -0.6000000312924385
+    start_to_goal_accumulated_velocities:
+    - 37.16018264293672
+    - -0.6000000312924385
+    start_to_goal_curvature:
+    - 1.8861364762906447
+    - -0.047756362550916975
+    - -0.03652174063026905
+    - 0.018726887548083937
+    - -0.0009306390870733594
+    - 0.002608695812523369
+test_51:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.03
+    sim_time: 2.4
+    vth_samples: 26
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -38.56118683218958
+    - -0.09600000455975537
+    goal_to_start_accumulated_velocities:
+    - -38.56118683218958
+    - -0.09600000455975537
+    goal_to_start_curvature:
+    - -1.8672839158610586
+    - 0.052237841853553846
+    - -0.004800000041723242
+    - -0.01873987948580691
+    - 0.0006159108492411747
+    - -0.0024000000208616312
+    start_to_goal_accumulated_error:
+    - 37.52421157658101
+    - 0.2160000018775462
+    start_to_goal_accumulated_velocities:
+    - 37.52421157658101
+    - 0.2160000018775462
+    start_to_goal_curvature:
+    - 1.8659932842835119
+    - -0.05342287459135875
+    - 0.004800000041723249
+    - 0.01874164625969854
+    - -0.0005596886237668741
+    - 0.0
+test_52:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 47.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 26
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.67398259937765
+    - 0.21600000932812685
+    goal_to_start_accumulated_velocities:
+    - -37.67398259937765
+    - 0.21600000932812685
+    goal_to_start_curvature:
+    - -1.8807833640551124
+    - 0.0524258751744604
+    - 0.007200000435113889
+    - -0.01874323761175134
+    - 0.0005034611666019373
+    - 0.0024000000208616173
+    start_to_goal_accumulated_error:
+    - 37.51387680172921
+    - -1.490116127017549e-08
+    start_to_goal_accumulated_velocities:
+    - 37.51387680172921
+    - -1.490116127017549e-08
+    start_to_goal_curvature:
+    - 1.8692464877522141
+    - -0.04936689759130175
+    - 0.002399999275803564
+    - 0.018740249031921508
+    - -0.0006046669340662447
+    - 0.0
+test_53:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 24
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.739730319380776
+    - 0.1304347664117813
+    goal_to_start_accumulated_velocities:
+    - -37.739730319380776
+    - 0.1304347664117813
+    goal_to_start_curvature:
+    - -1.884167219515902
+    - 0.049679422606661916
+    - 0.007826086319983012
+    - -0.018743802537514398
+    - 0.00048194686824842847
+    - -0.0026086958125233622
+    start_to_goal_accumulated_error:
+    - 36.90546269714834
+    - -0.31304349936544895
+    start_to_goal_accumulated_velocities:
+    - 36.90546269714834
+    - -0.31304349936544895
+    start_to_goal_curvature:
+    - 1.8879472054407316
+    - -0.05239083578862136
+    - -0.010434783250093449
+    - 0.018738195021910542
+    - -0.0006652843002967757
+    - 0.0
+test_54:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 22
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.808214400708685
+    - 0.11428573727607748
+    goal_to_start_accumulated_velocities:
+    - -38.808214400708685
+    - 0.11428573727607748
+    goal_to_start_curvature:
+    - -1.919991391567521
+    - 0.05168412821073076
+    - 0.057142860814929024
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.55392611622811
+    - 0.0285714343190194
+    start_to_goal_accumulated_velocities:
+    - 37.55392611622811
+    - 0.0285714343190194
+    start_to_goal_curvature:
+    - 1.8845240401561654
+    - -0.05162597411177927
+    - -0.011428571864962562
+    - 0.022987679564266728
+    - -0.0007511180765504832
+    - -0.00857142880558966
+test_55:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 49.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 24
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -38.02571164369584
+    - 1.9826087821274996
+    goal_to_start_accumulated_velocities:
+    - -38.02571164369584
+    - 1.9826087821274996
+    goal_to_start_curvature:
+    - -1.8725052020817472
+    - 0.03578377764273455
+    - 0.1200000043958426
+    - -0.018749623744959365
+    - -0.00011838822236143187
+    - -0.002608695812523365
+    start_to_goal_accumulated_error:
+    - 37.96331160068513
+    - -2.960611874486857
+    start_to_goal_accumulated_velocities:
+    - 37.96331160068513
+    - -2.960611874486857
+    start_to_goal_curvature:
+    - 1.9198880445033524
+    - -0.03073304240797725
+    - -0.13369354441991077
+    - 0.0
+    - 0.0
+    - 0.0
+test_56:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 51.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.5
+    vth_samples: 26
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -38.16208445429803
+    - 2.7120001167058945
+    goal_to_start_accumulated_velocities:
+    - -38.16208445429803
+    - 2.7120001167058945
+    goal_to_start_curvature:
+    - -1.8745535983364405
+    - 0.047901171773649054
+    - 0.1402564980758968
+    - -0.016197999078315206
+    - -0.00025293694704942027
+    - -0.0072000004351139065
+    start_to_goal_accumulated_error:
+    - 37.203047439456
+    - -2.485435194597898
+    start_to_goal_accumulated_velocities:
+    - 37.203047439456
+    - -2.485435194597898
+    start_to_goal_curvature:
+    - 1.8693647465436953
+    - -0.04652789362422283
+    - -0.13440000638365746
+    - 0.0
+    - 0.0
+    - 0.0
+test_57:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.5
+    vth_samples: 26
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.83753275573255
+    - 2.2800001315772533
+    goal_to_start_accumulated_velocities:
+    - -37.83753275573255
+    - 2.2800001315772533
+    goal_to_start_curvature:
+    - -1.9000801630558612
+    - 0.03931405195635307
+    - 0.1272000074386596
+    - -0.01874805035285476
+    - -0.0002702541091323951
+    - -0.002400000020861626
+    start_to_goal_accumulated_error:
+    - 37.08408908545972
+    - -2.5440001152455807
+    start_to_goal_accumulated_velocities:
+    - 37.08408908545972
+    - -2.5440001152455807
+    start_to_goal_curvature:
+    - 1.8862683151521864
+    - -0.04323307533395848
+    - -0.12480000555515289
+    - 0.01863831753448153
+    - -0.0020431682019683706
+    - -0.0072000004351138736
+test_58:
+  config:
+    goal_distance_bias: 22.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 24
+    vx_samples: 7
+  results:
+    goal_to_start_accumulated_error:
+    - -36.79855512678624
+    - 2.6086958087980747
+    goal_to_start_accumulated_velocities:
+    - -36.79855512678624
+    - 2.6086958087980747
+    goal_to_start_curvature:
+    - -1.8668992495543648
+    - 0.04760307324910684
+    - 0.12521739844232788
+    - -0.016199288003114987
+    - -0.00015151934912438492
+    - -0.002608695812523364
+    start_to_goal_accumulated_error:
+    - 37.7930935561657
+    - -2.2695653196424246
+    start_to_goal_accumulated_velocities:
+    - 37.7930935561657
+    - -2.2695653196424246
+    start_to_goal_curvature:
+    - 1.8878120244878218
+    - -0.043127711769422206
+    - -0.13043478876352316
+    - 0.016105461228150375
+    - -0.0017468055381186787
+    - -0.01304347813129425
+test_59:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.04
+    sim_time: 2.5
+    vth_samples: 24
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -38.222711542248746
+    - 1.3826087787747383
+    goal_to_start_accumulated_velocities:
+    - -38.222711542248746
+    - 1.3826087787747383
+    goal_to_start_curvature:
+    - -1.883647519992934
+    - 0.044809775895622295
+    - 0.07826087400317185
+    - -0.018748900774340882
+    - -0.00019982457676448462
+    - -0.007826087623834608
+    start_to_goal_accumulated_error:
+    - 36.95505043566229
+    - -1.5391305088996887
+    start_to_goal_accumulated_velocities:
+    - 36.95505043566229
+    - -1.5391305088996887
+    start_to_goal_curvature:
+    - 1.8756354308668364
+    - -0.05101935419434511
+    - -0.08086957037448883
+    - 0.01870713626074405
+    - -0.0012665950534085368
+    - -0.00782608762383459
+test_60:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.04
+    sim_time: 2.5
+    vth_samples: 22
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -37.92955124452711
+    - -1.2000000290572643
+    goal_to_start_accumulated_velocities:
+    - -37.92955124452711
+    - -1.2000000290572643
+    goal_to_start_curvature:
+    - -1.878356839487644
+    - 0.04306007341071094
+    - -0.05428571589291098
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.546261304616934
+    - -1.171428620815277
+    start_to_goal_accumulated_velocities:
+    - 37.546261304616934
+    - -1.171428620815277
+    start_to_goal_curvature:
+    - 1.8854389611577318
+    - -0.0405940982283326
+    - -0.06000000238418578
+    - 0.022967614274186587
+    - -0.0012200179698993452
+    - -0.002857143059372895
+test_61:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 22
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -35.80666679739953
+    - -0.4000000171363354
+    goal_to_start_accumulated_velocities:
+    - -35.80666679739953
+    - -0.4000000171363354
+    goal_to_start_curvature:
+    - -1.8895436366832286
+    - 0.05157212343912576
+    - -0.057142859324812896
+    - -0.0059992641962480775
+    - 2.6983354583620667e-05
+    - -0.0600000023841858
+    start_to_goal_accumulated_error:
+    - 38.496666908264174
+    - 2.4857143945991993
+    start_to_goal_accumulated_velocities:
+    - 38.496666908264174
+    - 2.4857143945991993
+    start_to_goal_curvature:
+    - 1.8928120821050598
+    - -0.06388823519601416
+    - 0.1171428624540567
+    - 0.030665771029035227
+    - 0.000234447776428226
+    - 0.0
+test_62:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.03
+    sim_time: 2.4
+    vth_samples: 22
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -37.856666757166394
+    - -1.142857223749161
+    goal_to_start_accumulated_velocities:
+    - -37.856666757166394
+    - -1.142857223749161
+    goal_to_start_curvature:
+    - -1.912803846758976
+    - 0.04589650716547311
+    - 0.014285713061690332
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.00000025033952
+    - 1.028571493923664
+    start_to_goal_accumulated_velocities:
+    - 37.00000025033952
+    - 1.028571493923664
+    start_to_goal_curvature:
+    - 1.8739800231027957
+    - -0.047088142663206156
+    - 0.04000000245869159
+    - 0.03066528405649649
+    - -0.0002912598475006689
+    - 0.0
+test_63:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.4
+    vth_samples: 20
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -36.05333349034191
+    - -1.3921857834258458
+    goal_to_start_accumulated_velocities:
+    - -36.05333349034191
+    - -1.3921857834258458
+    goal_to_start_curvature:
+    - -1.8391844292833
+    - 0.04096681557795634
+    - -0.07894737124443055
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.80000025033952
+    - -0.5368421003222464
+    start_to_goal_accumulated_velocities:
+    - 37.80000025033952
+    - -0.5368421003222464
+    start_to_goal_curvature:
+    - 1.9050453394992743
+    - -0.02890050259100363
+    - -0.03789473660290241
+    - 0.030652171171055898
+    - -0.000942493987057702
+    - -0.0031578946858644395
+test_64:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.4
+    vth_samples: 22
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -37.4300001680851
+    - -1.8000000789761543
+    goal_to_start_accumulated_velocities:
+    - -37.4300001680851
+    - -1.8000000789761543
+    goal_to_start_curvature:
+    - -1.8955712377888219
+    - 0.050548605704666016
+    - -0.03714285902678964
+    - -0.005992063752351839
+    - 0.00029507793157534934
+    - 0.06000000238418579
+    start_to_goal_accumulated_error:
+    - 37.05500015765429
+    - 2.171463120428083
+    start_to_goal_accumulated_velocities:
+    - 37.05500015765429
+    - 2.171463120428083
+    start_to_goal_curvature:
+    - 1.8905463085759848
+    - -0.06250419410079289
+    - 0.14499195940396406
+    - 0.04296658754737592
+    - 0.001692313727467365
+    - -0.008571428805589677
+test_65:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.01
+    sim_time: 2.3
+    vth_samples: 24
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -37.47999996468426
+    - -3.0366341888478674
+    goal_to_start_accumulated_velocities:
+    - -37.47999996468426
+    - -3.0366341888478674
+    goal_to_start_curvature:
+    - -1.8866424548551777
+    - 0.023133114238181207
+    - -0.1523590634348122
+    - 0.0
+    - 0.0
+    - 0.025032247532692772
+    start_to_goal_accumulated_error:
+    - 37.769999903440485
+    - -0.06284417907690065
+    start_to_goal_accumulated_velocities:
+    - 37.769999903440485
+    - -0.06284417907690065
+    start_to_goal_curvature:
+    - 1.8537265217177605
+    - -0.025896132983600495
+    - 0.04536155922763002
+    - 0.0
+    - 0.0
+    - -0.025073227151707317
+test_66:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.01
+    sim_time: 2.1999999999999997
+    vth_samples: 26
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -39.749999948591
+    - -3.1200001724064355
+    goal_to_start_accumulated_velocities:
+    - -39.749999948591
+    - -3.1200001724064355
+    goal_to_start_curvature:
+    - -1.887187309112143
+    - 0.030086488187087923
+    - -0.014400001615285908
+    - -0.005999526220392681
+    - 5.910436444267475e-05
+    - 0.031200000643730165
+    start_to_goal_accumulated_error:
+    - 38.49999992176892
+    - 0.4478240039879166
+    start_to_goal_accumulated_velocities:
+    - 38.49999992176892
+    - 0.4478240039879166
+    start_to_goal_curvature:
+    - 1.8856300793988368
+    - -0.036265180401660047
+    - 0.13915136042823908
+    - 0.0
+    - 0.0
+    - -0.0252278048923071
+test_67:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.01
+    sim_time: 2.3
+    vth_samples: 24
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -38.79500012993813
+    - -2.008695736527443
+    goal_to_start_accumulated_velocities:
+    - -38.79500012993813
+    - -2.008695736527443
+    goal_to_start_curvature:
+    - -1.9534993345373408
+    - 0.020400969442231798
+    - 0.010434782318770881
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.5500001475215
+    - -1.2260870393365622
+    start_to_goal_accumulated_velocities:
+    - 37.5500001475215
+    - -1.2260870393365622
+    start_to_goal_curvature:
+    - 1.9437995673311264
+    - -0.013013803407229574
+    - -0.0052173921838402845
+    - 0.0429891215317042
+    - 0.0009470777731159785
+    - -0.018260870873928074
+test_68:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.01
+    sim_time: 2.4
+    vth_samples: 24
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -38.41000013872983
+    - 1.1739130951464176
+    goal_to_start_accumulated_velocities:
+    - -38.41000013872983
+    - 1.1739130951464176
+    goal_to_start_curvature:
+    - -1.8697734253989537
+    - 0.040323417493542735
+    - 0.010434781946241825
+    - -0.005994372653930213
+    - 0.0002590599933292026
+    - 0.013043478131294237
+    start_to_goal_accumulated_error:
+    - 37.53333356380464
+    - -1.4086957536637783
+    start_to_goal_accumulated_velocities:
+    - 37.53333356380464
+    - -1.4086957536637783
+    start_to_goal_curvature:
+    - 1.9050163308117831
+    - -0.022652898961361245
+    - -0.06260870005935432
+    - 0.03063976330514606
+    - -0.0012841273961150534
+    - -0.002608695812523369
+test_69:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.01
+    sim_time: 2.3
+    vth_samples: 22
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.66732147783043
+    - 1.455532766823719
+    goal_to_start_accumulated_velocities:
+    - -38.66732147783043
+    - 1.455532766823719
+    goal_to_start_curvature:
+    - -1.864047980863269
+    - 0.04987515411554355
+    - 0.0856149541966876
+    - 0.0
+    - 0.0
+    - -0.02581362176609433
+    start_to_goal_accumulated_error:
+    - 37.63303600549699
+    - -0.11428571492433537
+    start_to_goal_accumulated_velocities:
+    - 37.63303600549699
+    - -0.11428571492433537
+    start_to_goal_curvature:
+    - 1.8501349674373415
+    - -0.056065416132224044
+    - -0.0057142857462167684
+    - 0.02298765684104609
+    - -0.000751813190127848
+    - -0.00857142880558968
+test_70:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.01
+    sim_time: 2.3
+    vth_samples: 20
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.0280331991613
+    - 2.1157895289361477
+    goal_to_start_accumulated_velocities:
+    - -38.0280331991613
+    - 2.1157895289361477
+    goal_to_start_curvature:
+    - -1.9034805271275772
+    - 0.03903713625945571
+    - 0.08526315838098521
+    - -0.024491049571246037
+    - 0.0006596568930206104
+    - 0.009473684430122378
+    start_to_goal_accumulated_error:
+    - 37.7938731044531
+    - -3.1894737407565117
+    start_to_goal_accumulated_velocities:
+    - 37.7938731044531
+    - -3.1894737407565117
+    start_to_goal_curvature:
+    - 1.8880474686595932
+    - -0.032195674429772225
+    - -0.15157894976437084
+    - 0.022899908562834526
+    - -0.0021414864742972384
+    - -0.01578947454690932
+test_71:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.01
+    sim_time: 2.3
+    vth_samples: 18
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -36.78444388508798
+    - 1.4470588639378548
+    goal_to_start_accumulated_velocities:
+    - -36.78444388508798
+    - 1.4470588639378548
+    goal_to_start_curvature:
+    - -1.8817362004488416
+    - 0.04647766857455693
+    - 0.0564705900847912
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 40.49030281305315
+    - -0.8823529556393624
+    start_to_goal_accumulated_velocities:
+    - 40.49030281305315
+    - -0.8823529556393624
+    start_to_goal_curvature:
+    - 1.8890498569429681
+    - -0.050717897353717234
+    - -0.04588235355913638
+    - 0.018709542557530767
+    - -0.0012310861738100698
+    - 0.0
+test_72:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.01
+    sim_time: 2.1999999999999997
+    vth_samples: 16
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -36.78492670059205
+    - 0.24000001326203346
+    goal_to_start_accumulated_velocities:
+    - -36.78492670059205
+    - 0.24000001326203346
+    goal_to_start_curvature:
+    - -1.8845829777551018
+    - 0.04675991155442816
+    - 0.032000001519918456
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.94567091464998
+    - -1.0400000661611557
+    start_to_goal_accumulated_velocities:
+    - 37.94567091464998
+    - -1.0400000661611557
+    start_to_goal_curvature:
+    - 1.8798845919661247
+    - -0.04700526948389694
+    - -0.04400000311434267
+    - 0.0
+    - 0.0
+    - 0.0
+test_73:
+  config:
+    goal_distance_bias: 16.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.02
+    sim_time: 2.1999999999999997
+    vth_samples: 16
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.0078567273915
+    - 1.6855818059376737
+    goal_to_start_accumulated_velocities:
+    - -38.0078567273915
+    - 1.6855818059376737
+    goal_to_start_curvature:
+    - -1.8882945178401513
+    - 0.04714433798625706
+    - 0.10000000707805162
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.69742231070996
+    - -0.4800000339746475
+    start_to_goal_accumulated_velocities:
+    - 38.69742231070996
+    - -0.4800000339746475
+    start_to_goal_curvature:
+    - 1.8994304218789395
+    - -0.04572180524988312
+    - -0.020000001415610313
+    - 0.022980449823165827
+    - -0.0009481271631130994
+    - 0.0
+test_74:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.01
+    sim_time: 2.1999999999999997
+    vth_samples: 18
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.061060654371985
+    - 2.223529454320669
+    goal_to_start_accumulated_velocities:
+    - -38.061060654371985
+    - 2.223529454320669
+    goal_to_start_curvature:
+    - -1.9035636144261474
+    - 0.03272566766247209
+    - 0.09176470674574377
+    - -0.024485353232449825
+    - 0.0008401294278250759
+    - 0.017647059261798874
+    start_to_goal_accumulated_error:
+    - 37.74678602516653
+    - -2.7311974676856363
+    start_to_goal_accumulated_velocities:
+    - 37.74678602516653
+    - -2.7311974676856363
+    start_to_goal_curvature:
+    - 1.8785912006956522
+    - -0.02946499892705745
+    - -0.17159287000012674
+    - 0.0
+    - 0.0
+    - 0.025260730925757327
+test_75:
+  config:
+    goal_distance_bias: 16.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.02
+    sim_time: 2.1999999999999997
+    vth_samples: 18
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -37.39000012651087
+    - 1.0021099654996641
+    goal_to_start_accumulated_velocities:
+    - -37.39000012651087
+    - 1.0021099654996641
+    goal_to_start_curvature:
+    - -1.8698050353562436
+    - 0.04127112796023624
+    - 0.0966585877818809
+    - 0.0
+    - 0.0
+    - -0.02687082891335628
+    start_to_goal_accumulated_error:
+    - 38.60000025033952
+    - -0.6705882586538792
+    start_to_goal_accumulated_velocities:
+    - 38.60000025033952
+    - -0.6705882586538792
+    start_to_goal_curvature:
+    - 1.9047858333847074
+    - -0.045021116329131416
+    - -0.02117647156119349
+    - 0.030642622818724874
+    - -0.0012138423185525937
+    - -0.0035294119268655735
+test_76:
+  config:
+    goal_distance_bias: 16.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.03
+    sim_time: 2.0999999999999996
+    vth_samples: 20
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -38.650000121444464
+    - 2.2351741901793787e-08
+    goal_to_start_accumulated_velocities:
+    - -38.650000121444464
+    - 2.2351741901793787e-08
+    goal_to_start_curvature:
+    - -1.8865152908430147
+    - 0.030841500632778462
+    - 0.0252631593495607
+    - -0.0059970273412730535
+    - 0.00017081381868777612
+    - -0.05368421077728271
+    start_to_goal_accumulated_error:
+    - 36.33000019639731
+    - -3.63157906755805
+    start_to_goal_accumulated_velocities:
+    - 36.33000019639731
+    - -3.63157906755805
+    start_to_goal_curvature:
+    - 1.870702611829536
+    - -0.02877412638349952
+    - -0.14842105656862262
+    - 0.0
+    - 0.0
+    - 0.0
+test_77:
+  config:
+    goal_distance_bias: 15.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.04
+    sim_time: 2.0999999999999996
+    vth_samples: 20
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -38.740000130981215
+    - -0.7578947357833381
+    goal_to_start_accumulated_velocities:
+    - -38.740000130981215
+    - -0.7578947357833381
+    goal_to_start_curvature:
+    - -1.898252984351899
+    - 0.05703304686977617
+    - 0.02526316046714777
+    - -0.005999428547646346
+    - 1.9271594943859327e-05
+    - -0.05368421077728272
+    start_to_goal_accumulated_error:
+    - 38.10000018104911
+    - 1.7052631452679632
+    start_to_goal_accumulated_velocities:
+    - 38.10000018104911
+    - 1.7052631452679632
+    start_to_goal_curvature:
+    - 1.8851042500828257
+    - -0.06485419344501508
+    - -5.215406481684504e-09
+    - 0.042876265636976996
+    - -0.0032581489750072024
+    - 0.009473684430122364
+test_78:
+  config:
+    goal_distance_bias: 16.0
+    path_distance_bias: 51.0
+    sim_granularity: 0.04
+    sim_time: 2.1999999999999997
+    vth_samples: 22
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -37.52999995648862
+    - -3.5327550457217756
+    goal_to_start_accumulated_velocities:
+    - -37.52999995648862
+    - -3.5327550457217756
+    goal_to_start_curvature:
+    - -1.9097375418021727
+    - 0.021758303104054022
+    - -0.17393837664123307
+    - 0.0
+    - 0.0
+    - 0.026061631181876557
+    start_to_goal_accumulated_error:
+    - 35.54999993070962
+    - 1.6998174480872565
+    start_to_goal_accumulated_velocities:
+    - 35.54999993070962
+    - 1.6998174480872565
+    start_to_goal_curvature:
+    - 1.9102820323035843
+    - -0.03797935954593967
+    - 0.0987575034858798
+    - 0.0
+    - 0.0
+    - -0.028008056255248888
+test_79:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 53.0
+    sim_granularity: 0.05
+    sim_time: 2.3
+    vth_samples: 24
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -37.299999961256994
+    - -4.3294431970156175
+    goal_to_start_accumulated_velocities:
+    - -37.299999961256994
+    - -4.3294431970156175
+    goal_to_start_curvature:
+    - -1.8864198998702548
+    - 0.0361139488314528
+    - -0.1537802602878423
+    - 0.0
+    - 0.0
+    - 0.0249537130970537
+    start_to_goal_accumulated_error:
+    - 36.66999993845822
+    - 3.117324475147583
+    start_to_goal_accumulated_velocities:
+    - 36.66999993845822
+    - 3.117324475147583
+    start_to_goal_curvature:
+    - 1.8795215085984225
+    - -0.043356754093792915
+    - 0.16889994536873998
+    - 0.0
+    - 0.0
+    - -0.028232036764515647
+test_80:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.04
+    sim_time: 2.3
+    vth_samples: 26
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -35.70999993234874
+    - -0.8160000480711458
+    goal_to_start_accumulated_velocities:
+    - -35.70999993234874
+    - -0.8160000480711458
+    goal_to_start_curvature:
+    - -1.8635617492735363
+    - 0.053886460459992236
+    - -0.04080000407993791
+    - -0.005999322247312477
+    - 5.6187876786850666e-06
+    - -0.0600000023841858
+    start_to_goal_accumulated_error:
+    - 40.71999993771315
+    - 3.192000165581703
+    start_to_goal_accumulated_velocities:
+    - 40.71999993771315
+    - 3.192000165581703
+    start_to_goal_curvature:
+    - 1.8861725429988994
+    - -0.033931415200800785
+    - 0.09840000569820401
+    - 0.0
+    - 0.0
+    - 0.0
+test_81:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.04
+    sim_time: 2.3
+    vth_samples: 24
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -36.21999995782973
+    - 1.6410745788384864
+    goal_to_start_accumulated_velocities:
+    - -36.21999995782973
+    - 1.6410745788384864
+    goal_to_start_curvature:
+    - -1.8242698862105016
+    - 0.04604343309677006
+    - 0.06782608740031723
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 36.61999993026258
+    - 0.9652174934744835
+    start_to_goal_accumulated_velocities:
+    - 36.61999993026258
+    - 0.9652174934744835
+    start_to_goal_curvature:
+    - 1.853207187738093
+    - -0.03849537149560689
+    - 0.026086958684027182
+    - 0.0059996906456234456
+    - 3.3509648758922594e-05
+    - -0.03391304612159728
+test_82:
+  config:
+    goal_distance_bias: 17.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.03
+    sim_time: 2.3
+    vth_samples: 22
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -36.66999990269543
+    - 0.013128234227064217
+    goal_to_start_accumulated_velocities:
+    - -36.66999990269543
+    - 0.013128234227064217
+    goal_to_start_curvature:
+    - -1.8580559140677195
+    - 0.021737429711908618
+    - -0.04648827182111451
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 36.73999992758037
+    - -2.714285831898451
+    start_to_goal_accumulated_velocities:
+    - 36.73999992758037
+    - -2.714285831898451
+    start_to_goal_curvature:
+    - 1.8364425228829688
+    - -0.03138377000668058
+    - -0.11204161982964089
+    - 0.005993861424137492
+    - -0.00026858124331141653
+    - 0.0006130427492719095
+test_83:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.1999999999999997
+    vth_samples: 24
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -38.49999992921949
+    - -1.6173913702368736
+    goal_to_start_accumulated_velocities:
+    - -38.49999992921949
+    - -1.6173913702368736
+    goal_to_start_curvature:
+    - -1.8642141039764155
+    - 0.038966467407213656
+    - -0.04434782583266499
+    - -0.0059991250424999976
+    - 4.896654254693544e-05
+    - -0.06000000238418581
+    start_to_goal_accumulated_error:
+    - 37.01999991089107
+    - 3.3652176037430763
+    start_to_goal_accumulated_velocities:
+    - 37.01999991089107
+    - 3.3652176037430763
+    start_to_goal_curvature:
+    - 1.8628345814224971
+    - -0.049412655986287746
+    - 0.1017391420900822
+    - 0.005999361051578944
+    - 7.624076551948633e-05
+    - -0.028695651888847346
+test_84:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.03
+    sim_time: 2.0999999999999996
+    vth_samples: 24
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -39.019999910891066
+    - -4.147826300933957
+    goal_to_start_accumulated_velocities:
+    - -39.019999910891066
+    - -4.147826300933957
+    goal_to_start_curvature:
+    - -1.9272211700834134
+    - 0.02063173969614951
+    - -0.1252173962071538
+    - -0.0059878311535896955
+    - 0.0003774008436430165
+    - -0.03913043737411497
+    start_to_goal_accumulated_error:
+    - 37.30999992042781
+    - 0.7565217763185501
+    start_to_goal_accumulated_velocities:
+    - 37.30999992042781
+    - 0.7565217763185501
+    start_to_goal_curvature:
+    - 1.9099282307007428
+    - -0.021628998013753176
+    - 0.08608696088194846
+    - 0.07995131950048773
+    - 0.002789944087943752
+    - -0.0026086958125233622
+test_85:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.1999999999999997
+    vth_samples: 24
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -38.44999998509885
+    - -4.56521762534976
+    goal_to_start_accumulated_velocities:
+    - -38.44999998509885
+    - -4.56521762534976
+    goal_to_start_curvature:
+    - -1.8870431537203132
+    - 0.027587003183491277
+    - -0.1382608795538545
+    - -0.005990911853530179
+    - 0.00031972085295350894
+    - -0.054782611131668095
+    start_to_goal_accumulated_error:
+    - 39.46999991834164
+    - 1.8342395931043995
+    start_to_goal_accumulated_velocities:
+    - 39.46999991834164
+    - 1.8342395931043995
+    start_to_goal_curvature:
+    - 1.8862082160894147
+    - -0.03435369261605814
+    - 0.13614939259565226
+    - 0.0
+    - 0.0
+    - -0.027497379735686202
+test_86:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.03
+    sim_time: 2.3
+    vth_samples: 26
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -39.335000187158585
+    - -2.6640001833438873
+    goal_to_start_accumulated_velocities:
+    - -39.335000187158585
+    - -2.6640001833438873
+    goal_to_start_curvature:
+    - -1.8285342544506378
+    - 0.060284660689326586
+    - -0.10320000872015969
+    - -0.005970183522869377
+    - 0.0005905994422157335
+    - 0.060000002384185784
+    start_to_goal_accumulated_error:
+    - 37.04500016272069
+    - 2.9040001779794693
+    start_to_goal_accumulated_velocities:
+    - 37.04500016272069
+    - 2.9040001779794693
+    start_to_goal_curvature:
+    - 1.86775905613775
+    - -0.03886635156836249
+    - 0.14400001056492331
+    - 0.0
+    - 0.0
+    - 0.0
+test_87:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.03
+    sim_time: 2.4
+    vth_samples: 28
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -37.600000201165685
+    - -2.3807799149884272
+    goal_to_start_accumulated_velocities:
+    - -37.600000201165685
+    - -2.3807799149884272
+    goal_to_start_curvature:
+    - -1.8556742865242697
+    - 0.03916082269570609
+    - -0.14154705342513813
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.380000117421154
+    - 0.15800676295459726
+    start_to_goal_accumulated_velocities:
+    - 38.380000117421154
+    - 0.15800676295459726
+    start_to_goal_curvature:
+    - 1.837129283644451
+    - -0.04343904654020747
+    - 0.0968554140119712
+    - 0.0
+    - 0.0
+    - -0.0253668122873743
+test_88:
+  config:
+    goal_distance_bias: 21.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.03
+    sim_time: 2.4
+    vth_samples: 26
+    vx_samples: 2
+  results:
+    goal_to_start_accumulated_error:
+    - -37.01999991461636
+    - -2.1270152199265566
+    goal_to_start_accumulated_velocities:
+    - -37.01999991461636
+    - -2.1270152199265566
+    goal_to_start_curvature:
+    - -1.910072977560418
+    - 0.03680425850914659
+    - 0.04320000782608988
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.4399999074638
+    - 1.8000001087784767
+    start_to_goal_accumulated_velocities:
+    - 38.4399999074638
+    - 1.8000001087784767
+    start_to_goal_curvature:
+    - 1.9031167864111538
+    - -0.03986823086432878
+    - 0.11760000959038727
+    - 0.0799850941480571
+    - 0.0015442519635513463
+    - 0.0
+test_89:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.5
+    vth_samples: 28
+    vx_samples: 3
+  results:
+    goal_to_start_accumulated_error:
+    - -39.14000014290214
+    - -1.0666667930781841
+    goal_to_start_accumulated_velocities:
+    - -39.14000014290214
+    - -1.0666667930781841
+    goal_to_start_curvature:
+    - -1.9306832382064485
+    - 0.022919580416512986
+    - -0.044444452039897456
+    - -0.00599510289177374
+    - 0.00023564526752295478
+    - -0.037777778506279
+    start_to_goal_accumulated_error:
+    - 39.87500018924476
+    - -0.5333333425223826
+    start_to_goal_accumulated_velocities:
+    - 39.87500018924476
+    - -0.5333333425223826
+    start_to_goal_curvature:
+    - 1.9288706950866583
+    - -0.017287137825586996
+    - -0.08567930682745784
+    - 0.0429950990430612
+    - -0.0006381636546315406
+    - -0.011111111193895339
+test_90:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 55.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.5
+    vth_samples: 28
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -38.25666679292919
+    - 0.6222222726792094
+    goal_to_start_accumulated_velocities:
+    - -38.25666679292919
+    - 0.6222222726792094
+    goal_to_start_curvature:
+    - -1.9011753919513126
+    - 0.058946264483253685
+    - -0.022222222201526184
+    - -0.005987662580587028
+    - 0.0003754346992401736
+    - 0.05555555820465087
+    start_to_goal_accumulated_error:
+    - 37.696666896343245
+    - 1.1333333663642406
+    start_to_goal_accumulated_velocities:
+    - 37.696666896343245
+    - 1.1333333663642406
+    start_to_goal_curvature:
+    - 1.8939253100807534
+    - -0.050534560150801155
+    - 0.06888889074325563
+    - 0.03066664251177542
+    - 3.893096202745028e-05
+    - 0.0
+test_91:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.03
+    sim_time: 2.5
+    vth_samples: 26
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -37.313333431631335
+    - -1.5599999837577343
+    goal_to_start_accumulated_velocities:
+    - -37.313333431631335
+    - -1.5599999837577343
+    goal_to_start_curvature:
+    - -1.9189248115725235
+    - 0.04644905696165935
+    - -0.016799992695450794
+    - -0.005999370120555625
+    - 4.2912583317900044e-05
+    - -0.05040000081062317
+    start_to_goal_accumulated_error:
+    - 38.60000025033952
+    - -0.28800000995397557
+    start_to_goal_accumulated_velocities:
+    - 38.60000025033952
+    - -0.28800000995397557
+    start_to_goal_curvature:
+    - 1.9046730833040257
+    - -0.04998969354850047
+    - -0.007200000062584869
+    - 0.030654515186739673
+    - -0.0008632364859550989
+    - 0.0
+test_92:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.03
+    sim_time: 2.4
+    vth_samples: 26
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -37.63532660305501
+    - 0.07793024670369159
+    goal_to_start_accumulated_velocities:
+    - -37.63532660305501
+    - 0.07793024670369159
+    goal_to_start_curvature:
+    - -1.8752448285624723
+    - 0.05168967089285914
+    - -0.0866155693546158
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 37.29267682135106
+    - 0.04799999669194224
+    start_to_goal_accumulated_velocities:
+    - 37.29267682135106
+    - 0.04799999669194224
+    start_to_goal_curvature:
+    - 1.890597365632722
+    - -0.04790603188673259
+    - 0.012000000104308121
+    - 0.022987513901753687
+    - -0.0007577755667114161
+    - 0.0
+test_93:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.03
+    sim_time: 2.4
+    vth_samples: 28
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.97910742014648
+    - -0.6000000294297934
+    goal_to_start_accumulated_velocities:
+    - -38.97910742014648
+    - -0.6000000294297934
+    goal_to_start_curvature:
+    - -1.9260746576875718
+    - 0.06498282786433762
+    - -0.0666666688397527
+    - 0.0
+    - 0.0
+    - 0.0
+    start_to_goal_accumulated_error:
+    - 38.2960298061371
+    - 3.0000001210719347
+    start_to_goal_accumulated_velocities:
+    - 38.2960298061371
+    - 3.0000001210719347
+    start_to_goal_curvature:
+    - 1.8731547147794245
+    - -0.06625951354436665
+    - 0.14222222846001387
+    - 0.02299409886198589
+    - 0.0005209958908025669
+    - 0.0
+test_94:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.5
+    vth_samples: 30
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -38.58000014126302
+    - 1.510344877839088
+    goal_to_start_accumulated_velocities:
+    - -38.58000014126302
+    - 1.510344877839088
+    goal_to_start_curvature:
+    - -1.8709947859585654
+    - 0.05404908272531017
+    - 0.01862068884074685
+    - -0.005994007295726078
+    - 0.00025466468544621534
+    - 0.05586206912994385
+    start_to_goal_accumulated_error:
+    - 39.58666690587999
+    - 0.35172414407134067
+    start_to_goal_accumulated_velocities:
+    - 39.58666690587999
+    - 0.35172414407134067
+    start_to_goal_curvature:
+    - 1.9539258062534017
+    - -0.05023682732064216
+    - 0.024827586859464627
+    - 0.030660069749515628
+    - -0.000635885142507675
+    - 0.0020689655095338794
+test_95:
+  config:
+    goal_distance_bias: 18.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.4
+    vth_samples: 32
+    vx_samples: 4
+  results:
+    goal_to_start_accumulated_error:
+    - -39.370000137388715
+    - 1.8580646440386763
+    goal_to_start_accumulated_velocities:
+    - -39.370000137388715
+    - 1.8580646440386763
+    goal_to_start_curvature:
+    - -1.894857680646787
+    - 0.02985663694557772
+    - 0.034838714078068704
+    - -0.0059970602464574085
+    - -0.00016786513327815555
+    - -0.05612903237342839
+    start_to_goal_accumulated_error:
+    - 39.40000025033952
+    - -1.1806451976299286
+    start_to_goal_accumulated_velocities:
+    - 39.40000025033952
+    - -1.1806451976299286
+    start_to_goal_curvature:
+    - 1.8555690968559233
+    - -0.03682242058551566
+    - -0.04838709793984891
+    - 0.030632074386367947
+    - -0.0014561171538254314
+    - -0.0019354838877916267
+test_96:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.019999999999999997
+    sim_time: 2.4
+    vth_samples: 34
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -38.98089309036733
+    - 2.2545455247163773
+    goal_to_start_accumulated_velocities:
+    - -38.98089309036733
+    - 2.2545455247163773
+    goal_to_start_curvature:
+    - -1.8820588958659101
+    - 0.04883348047229674
+    - 0.056363639235496546
+    - -0.024495523420689835
+    - -0.00046716115503286915
+    - -0.005454545840620998
+    start_to_goal_accumulated_error:
+    - 38.581070682406434
+    - -0.20000001415610305
+    start_to_goal_accumulated_velocities:
+    - 38.581070682406434
+    - -0.20000001415610305
+    start_to_goal_curvature:
+    - 1.8904030591424217
+    - -0.046876909008947365
+    - -0.027272728830575965
+    - 0.022980306422695662
+    - -0.0009515965068800369
+    - 0.0
+test_97:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 57.0
+    sim_granularity: 0.01
+    sim_time: 2.5
+    vth_samples: 36
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -37.79375393167139
+    - 1.6971429623663425
+    goal_to_start_accumulated_velocities:
+    - -37.79375393167139
+    - 1.6971429623663425
+    goal_to_start_curvature:
+    - -1.8831569741783696
+    - 0.043368265244875914
+    - 0.09942857697606092
+    - -0.005998837533404355
+    - 0.00011326597312688591
+    - 0.022285714745521556
+    start_to_goal_accumulated_error:
+    - 37.83000029921533
+    - -2.3485715351998806
+    start_to_goal_accumulated_velocities:
+    - 37.83000029921533
+    - -2.3485715351998806
+    start_to_goal_curvature:
+    - 1.8873870401642066
+    - -0.035559116492702714
+    - -0.11657143384218217
+    - 0.02291185454081557
+    - -0.0020087767480596597
+    - -0.018857143819332123
+test_98:
+  config:
+    goal_distance_bias: 19.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.02
+    sim_time: 2.4
+    vth_samples: 38
+    vx_samples: 5
+  results:
+    goal_to_start_accumulated_error:
+    - -39.012143117189424
+    - 0.3567567560821773
+    goal_to_start_accumulated_velocities:
+    - -39.012143117189424
+    - 0.3567567560821773
+    goal_to_start_curvature:
+    - -1.9057295041318625
+    - 0.04633359029258699
+    - -0.021081081964075564
+    - -0.05695556631988552
+    - 0.0021331318270263466
+    - -0.050270271301269515
+    start_to_goal_accumulated_error:
+    - 38.079509246349346
+    - -1.151351410895586
+    start_to_goal_accumulated_velocities:
+    - 38.079509246349346
+    - -1.151351410895586
+    start_to_goal_curvature:
+    - 1.890359819245738
+    - -0.0505923346091528
+    - -0.051891894824802894
+    - 0.022964873895610083
+    - -0.0012706294535789198
+    - 0.001621621660888202
+test_99:
+  config:
+    goal_distance_bias: 20.0
+    path_distance_bias: 59.0
+    sim_granularity: 0.02
+    sim_time: 2.5
+    vth_samples: 36
+    vx_samples: 6
+  results:
+    goal_to_start_accumulated_error:
+    - -37.22511272728444
+    - -0.13714287057518965
+    goal_to_start_accumulated_velocities:
+    - -37.22511272728444
+    - -0.13714287057518965
+    goal_to_start_curvature:
+    - -1.8759946313548355
+    - 0.05443818700735292
+    - -0.012000000849366192
+    - -0.0059972746667824595
+    - 0.00018079919679081513
+    - 0.0017142858356237398
+    start_to_goal_accumulated_error:
+    - 39.33995692431928
+    - 1.2685715071856976
+    start_to_goal_accumulated_velocities:
+    - 39.33995692431928
+    - 1.2685715071856976
+    start_to_goal_curvature:
+    - 1.8884871144114967
+    - -0.058479115051625286
+    - 0.05828571803867821
+    - 0.018747339131849117
+    - -0.00031596100242836656
+    - 0.0
