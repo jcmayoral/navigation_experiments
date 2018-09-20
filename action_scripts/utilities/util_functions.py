@@ -39,7 +39,10 @@ def get_path(path_getter, start_pose, goal_pose):
     return path_getter.get_path()
 
 def calculate_curvature(path):
-    lenght = len(path.poses)
+
+    if len(path.poses) < 3:
+        rospy.logerr("Path Too Short to calculate curvature")
+        return [0,0,0,0,0,0]
 
     p0 = path.poses[0]
     quat = [path.poses[0].pose.orientation.x, path.poses[0].pose.orientation.y, path.poses[0].pose.orientation.z, path.poses[0].pose.orientation.w]
@@ -51,10 +54,6 @@ def calculate_curvature(path):
     ddx = list()
     ddy = list()
     ddz = list()
-
-    if len(path.poses) < 3:
-        rospy.logerr("Path Too Short to calculate curvature")
-        return [0,0,0,0,0,0]
 
     for p in path.poses[1:]:
         dx.append(p.pose.position.x - p0.pose.position.x)

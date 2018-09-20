@@ -34,24 +34,9 @@ class ResultSaver:
         self.counter = 0
 
     def save_results(self, configuration, results):
-
-        """
-        fout = open(self.file_name, "a")
-
-        fout.write("Configuration Params \n" )
-        for k, v in configuration.items():
-            fout.write(str(k) + ':'+ str(v) + '\n')
-        fout.write("Configuration Results \n")
-        for k, v in results.items():
-            fout.write(str(k) + ':'+ str(v) + '\n')
-        fout.write("\n")
-        fout.close()
-        """
         current_name = "test_" + str(self.counter)
         d = dict()
         d[current_name] = dict()
-        print configuration, type(configuration)
-        print results, type(results)
         d[current_name]["config"] = configuration
         d[current_name]["results"] = results
         with open(self.file_name, 'a') as yaml_file:

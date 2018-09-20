@@ -25,6 +25,7 @@ class AutomaticTestExecution:
         self.configuration_manager = ConfigurationManager()
         self.result_saver = ResultSaver(environment)
         self.required_distance = distance
+        self.paths = dict()
         self.poses_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cfg/' + environment +".yaml")
 
     def init(self):
@@ -35,14 +36,14 @@ class AutomaticTestExecution:
             self.start_pose = get_pose(poses, 'start_pose')
             self.goal_pose = get_pose(poses, 'goal_pose')
             robot_to_start_path = get_path(self.path_getter, robot_pose, self.start_pose)
-            self.start_to_goal_path = get_path(self.path_getter, self.start_pose, self.goal_pose)
-            self.goal_to_start_path = get_path(self.path_getter, self.goal_pose, self.start_pose)
+            self.paths["start_to_goal_"] = get_path(self.path_getter, self.start_pose, self.goal_pose)
+            self.paths["goal_to_start_"] = get_path(self.path_getter, self.goal_pose, self.start_pose)
             rospy.loginfo("Sending the robot to start pose")
-            self.execute_path(path_constructor, path_executter, execution_analyzer, robot_to_start_path)
+            self.execute_path(robot_to_start_path)
 
         except:
             rospy.logwarn("Poses Config File not selected... Faking Paths")
-            [self.start_pose, self.goal_pose, self.start_to_goal_path, self.goal_to_start_path] = fake_path(distance=self.required_distance)
+            [self.start_pose, self.goal_pose, self.paths["start_to_goal_"], self.paths["goal_to_start_"]] = fake_path(distance=self.required_distance)
 
     def run_tests(self):
         execution_result = True
@@ -58,7 +59,7 @@ class AutomaticTestExecution:
                 self.configuration_manager.restart_params()
                 robot_pose = get_robot_pose()
                 robot_to_start_path = get_path(self.path_getter, robot_pose, self.start_pose)
-                self.execute_path(robot_to_start_path)
+                self.path_executter.execute(robot_to_start_path)
 
             self.configuration_manager.get_new_param_values(new_params)
             self.update_configuration(new_params)
@@ -78,35 +79,20 @@ class AutomaticTestExecution:
             rospy.logerr("Something goes wrong")
 
     def execute_cycle(self,results):
-        start_time = rospy.Time.now()
-        result = self.execute_path(self.start_to_goal_path)
-        end_time = rospy.Time.now()
-
-        if result:
-            data = calculate_curvature(self.path_constructor.get_path())
-            results["start_to_goal_curvature"] = TestSample(lenght=len(data), data = data).get_dict()
-            data = self.execution_analyzer.get_accumulated_error()
-            results["start_to_goal_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
-            data = self.execution_analyzer.get_accumulated_velocities()
-            results["start_to_goal_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
-            results["start_to_goal_exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
-        else:
-            return False
-
-        start_time = rospy.Time.now()
-        result = self.execute_path(self.goal_to_start_path)
-        end_time = rospy.Time.now()
-
-        if result:
-            data = calculate_curvature(self.path_constructor.get_path())
-            results["goal_to_start_curvature"] = TestSample(lenght=len(data), data = data).get_dict()
-            data = self.execution_analyzer.get_accumulated_error()
-            results["goal_to_start_accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
-            data = self.execution_analyzer.get_accumulated_velocities()
-            results["goal_to_start_accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
-            results["goal_to_start_exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
-        else:
-            return False
+        for key, path in self.paths.iteritems():
+            start_time = rospy.Time.now()
+            result = self.execute_path(path)
+            end_time = rospy.Time.now()
+            if result:
+                data = calculate_curvature(self.path_constructor.get_path())
+                results[key + "curvature"] = TestSample(lenght=len(data), data = data).get_dict()
+                data = self.execution_analyzer.get_accumulated_error()
+                results[key + "accumulated_error"] = TestSample(lenght=len(data), data = data).get_dict()
+                data = self.execution_analyzer.get_accumulated_velocities()
+                results[key + "accumulated_velocities"] = TestSample(lenght=len(data), data = data).get_dict()
+                results[key + "exection_time"] = TestSample(lenght=1, data = (end_time - start_time).to_sec()).get_dict()
+            else:
+                return False
 
         return True
 
