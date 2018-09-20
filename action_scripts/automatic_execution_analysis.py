@@ -4,6 +4,7 @@ import os
 import yaml
 import rospy
 
+from nav_msgs.msg import Path
 from dynamic_reconfigure.client import Client, DynamicReconfigureCallbackException
 from utilities.execution_tools import PathConstructor, ExecutionAnalyzer
 from utilities.configuration import ConfigurationManager, ResultSaver, TestSample
@@ -14,7 +15,7 @@ from interfaces.move_base_flex_interfaces import GetPathClass, ExePathClass
 __author__ = 'banos'
 
 class AutomaticTestExecution:
-    def __init__(self, environment='fake', number_cycles=3, distance = 0):
+    def __init__(self, environment='fake', number_cycles=3, distance = 0, step=0):
         rospy.init_node("banos_experimental_manager")
         self.number_cycles = number_cycles
         self.dyn_client = Client("/navigation/move_base_flex/OrientedDWAPlanner", None)
@@ -25,10 +26,12 @@ class AutomaticTestExecution:
         self.configuration_manager = ConfigurationManager()
         self.result_saver = ResultSaver(environment)
         self.required_distance = distance
+        self.required_step = step
         self.paths = dict()
         self.poses_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cfg/' + environment +".yaml")
+        self.path_publisher = rospy.Publisher("my_path", Path)
 
-    def init(self):
+    def init(self, curve_type = "straigth"):
         robot_pose = get_robot_pose()
         try:
             file_stream = file(self.poses_file, 'r')
@@ -43,7 +46,7 @@ class AutomaticTestExecution:
 
         except:
             rospy.logwarn("Poses Config File not selected... Faking Paths")
-            [self.start_pose, self.goal_pose, self.paths["start_to_goal_"], self.paths["goal_to_start_"]] = fake_path(distance=self.required_distance)
+            [self.start_pose, self.goal_pose, self.paths["start_to_goal_"], self.paths["goal_to_start_"]] = fake_path(distance=self.required_distance, step=self.required_step,curve_type=curve_type)
 
     def run_tests(self):
         execution_result = True
@@ -80,6 +83,7 @@ class AutomaticTestExecution:
 
     def execute_cycle(self,results):
         for key, path in self.paths.iteritems():
+            self.path_publisher.publish(path)
             start_time = rospy.Time.now()
             result = self.execute_path(path)
             end_time = rospy.Time.now()
@@ -97,8 +101,8 @@ class AutomaticTestExecution:
         return True
 
 if __name__ == '__main__':
-    automatic_tuning = AutomaticTestExecution(distance = 3.0)
-    automatic_tuning.init()
+    automatic_tuning = AutomaticTestExecution(distance = 1.0, step=0.1)
+    automatic_tuning.init(curve_type='left_curve')
     automatic_tuning.run_tests()
-    analyze_data()
-    get_best_configuration()
+    #analyze_data()
+    #get_best_configuration()

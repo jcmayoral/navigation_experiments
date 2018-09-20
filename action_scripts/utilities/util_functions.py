@@ -2,6 +2,7 @@ import tf
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Path
 import rospy
+from math import atan2
 from mag_common_py_libs.geometry import quaternion_from_yaw
 import numpy as np
 import copy
@@ -80,17 +81,16 @@ def calculate_curvature(path):
     #K = float(ddy * dx - ddx * dy) / float(np.power(dx, 2.) + np.power(dy, 2))
     return [sum(dx),sum(dy),sum(dz),sum(ddx),sum(ddy),sum(ddz)]
 
-def fake_path(mode = 'straigth', distance = 5.0, local_frame = "/base_link", step = 0.05):
+def fake_path(curve_type = 'straigth', distance = 3.0, local_frame = "/base_link", step = 0.05):
     listener = tf.TransformListener()
     rospy.sleep(4) #Give Time to the listener to charge the entire tf
-    print mode
     start_to_goal_fake_path = Path()
     goal_to_start_fake_path = Path()
     start_to_goal_fake_path.header.frame_id = "map"
     goal_to_start_fake_path.header.frame_id = "map"
 
     #TODO CURVES
-    if mode is 'straigth':
+    if curve_type is 'straigth':
         listener.waitForTransform("/map", local_frame, rospy.Time(0),rospy.Duration(3.0))
 
         for i in np.arange(0, distance, step):
@@ -99,6 +99,38 @@ def fake_path(mode = 'straigth', distance = 5.0, local_frame = "/base_link", ste
             new_pose.header.stamp = rospy.Time(0)
             new_pose.pose.position.x = i
             new_pose.pose.orientation = quaternion_from_yaw(0.0)
+            map_pose = listener.transformPose("map", new_pose)
+            start_to_goal_fake_path.poses.append(map_pose)
+
+    if 'curve' in curve_type:
+        listener.waitForTransform("/map", local_frame, rospy.Time(0),rospy.Duration(3.0))
+        x = 0
+        y = 0
+        yaw = 0
+        r = 20
+        nyaw = 0
+        counter = 0
+        for i in np.arange(0, distance, step):
+            print counter, i
+            counter +=1
+            new_pose = PoseStamped()
+            new_pose.header.frame_id = local_frame
+            new_pose.header.stamp = rospy.Time(0)
+            x= step*r*i*np.cos(nyaw)
+            ny= step*r*i*np.sin(nyaw)
+            nyaw +=step
+
+            if "right" in curve_type:
+                y= ny*-1
+                yaw = nyaw*-1
+            else:
+                y= ny
+                yaw = nyaw
+
+            new_pose.pose.orientation = quaternion_from_yaw(yaw+atan2(i*np.sin(yaw), i*np.cos(yaw)))
+            print x,y,yaw
+            new_pose.pose.position.x = x
+            new_pose.pose.position.y = y
             map_pose = listener.transformPose("map", new_pose)
             start_to_goal_fake_path.poses.append(map_pose)
 
