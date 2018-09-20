@@ -27,10 +27,10 @@ class TestSample(object):
         return self.__dict__
 
 class ResultSaver:
-    def __init__(self, output_file_path = 'results/results_sim.txt'):
+    def __init__(self, environment = 'fake'):
         self.configuration_queue = list()
         self.results_queue = list()
-        self.file_name = output_file_path
+        self.file_name = 'results/results_'+ environment+'.txt'
         self.counter = 0
 
     def save_results(self, configuration, results):
