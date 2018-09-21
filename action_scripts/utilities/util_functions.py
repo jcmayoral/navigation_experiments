@@ -102,33 +102,36 @@ def fake_path(curve_type = 'straigth', distance = 3.0, local_frame = "/base_link
             map_pose = listener.transformPose("map", new_pose)
             start_to_goal_fake_path.poses.append(map_pose)
 
-    if 'curve' in curve_type:
+    #if 'curve' in curve_type:
+    else:
+        rospy.loginfo("Generating Curve")
         listener.waitForTransform("/map", local_frame, rospy.Time(0),rospy.Duration(3.0))
         x = 0
         y = 0
         yaw = 0
-        r = 20
+        r = 2.0
         nyaw = 0
-        counter = 0
+        ny = 0
+
         for i in np.arange(0, distance, step):
-            print counter, i
-            counter +=1
             new_pose = PoseStamped()
             new_pose.header.frame_id = local_frame
             new_pose.header.stamp = rospy.Time(0)
-            x= step*r*i*np.cos(nyaw)
-            ny= step*r*i*np.sin(nyaw)
+            x+= r*step*np.cos(yaw)
+            ny+=r*step*np.sin(yaw)
             nyaw +=step
 
             if "right" in curve_type:
                 y= ny*-1
-                yaw = nyaw*-1
+                yaw = nyaw
+                new_pose.pose.orientation = quaternion_from_yaw(-yaw)
+
             else:
                 y= ny
                 yaw = nyaw
+                new_pose.pose.orientation = quaternion_from_yaw(yaw)
 
-            new_pose.pose.orientation = quaternion_from_yaw(yaw+atan2(i*np.sin(yaw), i*np.cos(yaw)))
-            print x,y,yaw
+
             new_pose.pose.position.x = x
             new_pose.pose.position.y = y
             map_pose = listener.transformPose("map", new_pose)
