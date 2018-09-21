@@ -81,7 +81,7 @@ def calculate_curvature(path):
     #K = float(ddy * dx - ddx * dy) / float(np.power(dx, 2.) + np.power(dy, 2))
     return [sum(dx),sum(dy),sum(dz),sum(ddx),sum(ddy),sum(ddz)]
 
-def fake_path(curve_type = 'straigth', distance = 3.0, local_frame = "/base_link", step = 0.05):
+def fake_path(curve_type = 'straigth', distance = 3.0, local_frame = "/base_link", step = 0.05, radius = 1.0):
     listener = tf.TransformListener()
     rospy.sleep(4) #Give Time to the listener to charge the entire tf
     start_to_goal_fake_path = Path()
@@ -89,7 +89,6 @@ def fake_path(curve_type = 'straigth', distance = 3.0, local_frame = "/base_link
     start_to_goal_fake_path.header.frame_id = "map"
     goal_to_start_fake_path.header.frame_id = "map"
 
-    #TODO CURVES
     if curve_type is 'straigth':
         listener.waitForTransform("/map", local_frame, rospy.Time(0),rospy.Duration(3.0))
 
@@ -108,29 +107,21 @@ def fake_path(curve_type = 'straigth', distance = 3.0, local_frame = "/base_link
         listener.waitForTransform("/map", local_frame, rospy.Time(0),rospy.Duration(3.0))
         x = 0
         y = 0
-        yaw = 0
-        r = 2.0
-        nyaw = 0
         ny = 0
 
         for i in np.arange(0, distance, step):
             new_pose = PoseStamped()
             new_pose.header.frame_id = local_frame
             new_pose.header.stamp = rospy.Time(0)
-            x+= r*step*np.cos(yaw)
-            ny+=r*step*np.sin(yaw)
-            nyaw +=step
+            x+= radius*step*np.cos(i)
+            ny+=radius*step*np.sin(i)
 
             if "right" in curve_type:
                 y= ny*-1
-                yaw = nyaw
-                new_pose.pose.orientation = quaternion_from_yaw(-yaw)
-
+                new_pose.pose.orientation = quaternion_from_yaw(-i)
             else:
                 y= ny
-                yaw = nyaw
-                new_pose.pose.orientation = quaternion_from_yaw(yaw)
-
+                new_pose.pose.orientation = quaternion_from_yaw(i)
 
             new_pose.pose.position.x = x
             new_pose.pose.position.y = y
