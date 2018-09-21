@@ -55,8 +55,12 @@ class AutomaticTestExecution:
             new_params = dict()
             new_results = dict()
             rospy.loginfo("Cycle %d of %d", i, self.number_cycles)
-
-            if not execution_result:
+            self.configuration_manager.get_new_param_values(new_params)
+            self.update_configuration(new_params)
+            execution_result = self.execute_cycle(new_results)
+            if execution_result:
+                self.result_saver.save_results(new_params, new_results)
+            else:
                 rospy.logerr("Error in Execution")
                 rospy.logerr("Set Default Parameters and sending the robot to Start Pose")
                 self.configuration_manager.restart_params()
@@ -64,10 +68,6 @@ class AutomaticTestExecution:
                 robot_to_start_path = get_path(self.path_getter, robot_pose, self.start_pose)
                 self.path_executter.execute(robot_to_start_path)
 
-            self.configuration_manager.get_new_param_values(new_params)
-            self.update_configuration(new_params)
-            execution_result = self.execute_cycle(new_results)
-            self.result_saver.save_results(new_params, new_results)
 
     def execute_path(self, path):
         self.path_constructor.reset()
@@ -101,8 +101,8 @@ class AutomaticTestExecution:
         return True
 
 if __name__ == '__main__':
-    automatic_tuning = AutomaticTestExecution(distance = 1.0, step=0.1)
-    automatic_tuning.init(curve_type='left_curve')
+    automatic_tuning = AutomaticTestExecution(distance = 1.0, step=0.025, number_cycles=50)
+    automatic_tuning.init(curve_type='right')
     automatic_tuning.run_tests()
     #analyze_data()
     #get_best_configuration()
