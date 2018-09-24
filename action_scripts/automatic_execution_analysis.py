@@ -36,8 +36,8 @@ class AutomaticTestExecution:
         try:
             file_stream = file(self.poses_file, 'r')
             self.poses = yaml.load(file_stream)
-            self.start_pose = get_pose(poses, 'start_pose')
-            self.goal_pose = get_pose(poses, 'goal_pose')
+            self.start_pose = get_pose(self.poses, 'start_pose')
+            self.goal_pose = get_pose(self.poses, 'goal_pose')
             robot_to_start_path = get_path(self.path_getter, robot_pose, self.start_pose)
             self.paths["start_to_goal_"] = get_path(self.path_getter, self.start_pose, self.goal_pose)
             self.paths["goal_to_start_"] = get_path(self.path_getter, self.goal_pose, self.start_pose)
@@ -101,8 +101,10 @@ class AutomaticTestExecution:
         return True
 
 if __name__ == '__main__':
-    automatic_tuning = AutomaticTestExecution(distance = 1.0, step=0.025, number_cycles=50)
-    automatic_tuning.init(curve_type='right')
+    #automatic_tuning = AutomaticTestExecution(distance = 1.0, step=0.025, number_cycles=50)
+    #automatic_tuning.init(curve_type='right')
+    automatic_tuning = AutomaticTestExecution(environment="sino_middle")
+    automatic_tuning.init()
     automatic_tuning.run_tests()
     #analyze_data()
     #get_best_configuration()

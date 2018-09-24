@@ -37,7 +37,7 @@ if __name__ == '__main__':
     result_saver = ResultSaver()
 
     rospy.logwarn("Fake path")
-    [start_pose, goal_pose, start_to_goal_path, goal_to_start_path] = fake_path(distance=0.8,curve_type='right')
+    [start_pose, goal_pose, start_to_goal_path, goal_to_start_path] = fake_path(distance=3.0)
 
     cycles_number = int(sys.argv[1]) if sys.argv[1] else 10
     execution_result = True
