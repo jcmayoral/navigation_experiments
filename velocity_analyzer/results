@@ -1,0 +1,62 @@
+
+FAKING PATH OVERAL ERROR
+
+MAX ERROR
+
+linear:
+  x: 0.310975413178
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.566650736305
+
+MAX COMMANDED ACCEL
+linear:
+  x: 0.0166666666667
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.261538475752
+
+
+OVERALL WITH SMOOTHER
+
+MAX ERROR linear:
+  x: 0.613563094481
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.398507793366
+MAX COMMANDED ACCEL linear:
+  x: 0.0166666666667
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.0666666666667
+
+
+OVERALL WITHOUT SMOOTHER
+^CMAX ERROR linear:
+  x: 0.655286409817
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.554948134722
+MAX COMMANDED ACCEL linear:
+  x: 0.60000000596
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.299468330073
