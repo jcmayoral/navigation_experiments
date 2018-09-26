@@ -157,24 +157,6 @@ test_2:
     start_to_goal_exection_time:
       data: 15.134456157
       lenght: 1
-test_3:
-  config:
-    goal_distance_bias: 18.0
-    path_distance_bias: 39.0
-    sim_granularity: 0.09999999999999999
-    sim_time: 1.5999999999999996
-    vth_samples: 26
-    vx_samples: 11
-  results: {}
-test_4:
-  config:
-    goal_distance_bias: 18.0
-    path_distance_bias: 45.0
-    sim_granularity: 0.08
-    sim_time: 2.1
-    vth_samples: 24
-    vx_samples: 8
-  results: {}
 test_5:
   config:
     goal_distance_bias: 16.0
@@ -811,15 +793,6 @@ test_5:
     start_to_goal_exection_time:
       data: 13.938183069
       lenght: 1
-test_6:
-  config:
-    goal_distance_bias: 14.0
-    path_distance_bias: 47.0
-    sim_granularity: 0.10999999999999999
-    sim_time: 1.9
-    vth_samples: 32
-    vx_samples: 6
-  results: {}
 test_7:
   config:
     goal_distance_bias: 16.0
