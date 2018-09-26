@@ -44,7 +44,7 @@ angular:
 
 
 OVERALL WITHOUT SMOOTHER
-^CMAX ERROR linear:
+^MAX ERROR linear:
   x: 0.655286409817
   y: 0.0
   z: 0.0
