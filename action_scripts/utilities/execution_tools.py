@@ -26,10 +26,10 @@ class ExecutionAnalyzer:
     def __init__(self):
         self.tss = ApproximateTimeSynchronizer([Subscriber("/odom",Odometry), Subscriber("/cmd_vel", Twist)],5,0.1, allow_headerless=True)
         self.tss.registerCallback(self.got_velocities)
-        self.accumulated_error = [0,0]
         self.samples_number = 0
         self.accumulated_vel = Twist()
         #Defining Operators between Twist messgaes
+        self.accumulated_error = [0,0]
         self.accumulateSpeed = lambda t1, t2: Twist(linear=Vector3(x=t1.linear.x + t2.linear.x), angular=Vector3(z=t1.angular.z + t2.angular.z))
         self.diffSpeed = lambda t1, t2: Twist(linear=Vector3(x=t1.linear.x - t2.linear.x), angular=Vector3(z=t1.angular.z - t2.angular.z))
 
