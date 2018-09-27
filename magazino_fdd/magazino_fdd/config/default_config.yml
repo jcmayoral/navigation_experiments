@@ -1,0 +1,4 @@
+## YAML Template.
+topics: 
+    - /odom
+    - /cmd_vel
