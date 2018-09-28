@@ -16,9 +16,11 @@
 
 #include <ros/ros.h>
 #include <mutex>
+#include <string>
 //#include <boost/thread/thread.hpp>
 //#include <boost/thread/mutex.hpp>
 //boost::mutex mtx; 
+#include <ctime>
  
 namespace magazino_fdd{
 
@@ -40,7 +42,24 @@ namespace magazino_fdd{
         }
 
     public:
-        DataContainer(std::string id = "data", bool required_statistics=true);
+        DataContainer(const std::string id, bool required_statistics=true);
+        DataContainer(const DataContainer& other)//:data_(other.data_)
+        {
+            //std::cout << "THIS IS USED BUT WHEN?" <<std::endl;
+            this->data_id_ = other.data_id_;
+            //this->last_time_ = std::chrono::system_clock::now();
+            this->last_time_ = std::clock();
+            this->window_size_ = other.window_size_;
+            this->window_mean_ = other.window_mean_;
+            this->window_std_ = other.window_std_;
+            this->delay_ = other.delay_;
+
+            for (auto i = other.data_.begin(); i!=other.data_.end(); ++i)
+                std::cout << " i " <<std::endl;
+            //TODO
+            this->check = std::bind(&DataContainer::statistics_check,this);
+
+        }
         virtual ~DataContainer();
         bool default_check();
         bool statistics_check();
@@ -48,16 +67,18 @@ namespace magazino_fdd{
         void updateTime();
         std::string getId();
         void updateData(double new_data);
+        std::mutex mtx_;
     
     private:
-        ros::Time last_time_;
+        std::clock_t last_time_;
         int window_size_;
         double window_mean_;
         double window_std_;
         double max_delay_; 
         std::list<double> data_;
         std::string data_id_;
-        std::mutex* mtx;
+        double delay_;
+    
     };
 };
 

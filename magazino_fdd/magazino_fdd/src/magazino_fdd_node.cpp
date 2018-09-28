@@ -18,14 +18,8 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "talker");
+  ros::init(argc, argv, "magazino_fault_detection");
   ros::NodeHandle node;
 
   monitor main_monitor;
-      
-  while (ros::ok()){
-      ros::spinOnce();
-      main_monitor.print_results();
-      //ros::Duration(2).sleep();
-  }
 }
