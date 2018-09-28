@@ -26,16 +26,19 @@ void DataContainer::updateData(double new_data){
     data_.push_front(new_data);
     
     if (data_.size() > window_size_){
-        //data_.pop_back();
-        data_.clear();
+        data_.pop_back();
+        //data_.clear();
     }
 }
 
+void DataContainer::reset(){
+    data_.clear();
+}
+
 DataContainer::DataContainer(const std::string id, bool required_statistics): last_time_(std::clock()),
-        window_size_(10), window_mean_(0.0), window_std_(0.0), max_delay_(0.1), data_id_(std::string(id)),
-        delay_(0.0)
+        window_size_(10), window_mean_(0.0), window_std_(0.0), max_delay_(0.25), data_id_(std::string(id)),
+        delay_(0.0), last_window_std_(0.0)
 {
-    ROS_INFO_STREAM("DATA CONTAINER NAMED" << data_id_);
     //std::strcpy(data_id_, id);
     if (required_statistics){
         check = std::bind(&DataContainer::statistics_check,this);
@@ -58,11 +61,16 @@ bool DataContainer::default_check(){
 
 bool DataContainer::statistics_check(){
     std::lock_guard<std::mutex> lk(mtx_);
-       
+    bool result = false;
+    
     if (data_.size() < 2){
         ROS_INFO_ONCE("Waiting for data");
         return false;
     } 
+
+    window_mean_ = std::accumulate(data_.begin(), data_.end(), 0.0)/data_.size();
+    window_std_ = std::sqrt(variance(data_, window_mean_));
+
     try 
     {
         //auto end = std::chrono::system_clock::now();
@@ -71,7 +79,9 @@ bool DataContainer::statistics_check(){
         //delay_ = double(elapsed_seconds.count());
         if (delay_> max_delay_){
             ROS_WARN_STREAM("Signal delayed " << delay_<< "in "<< data_id_);
-            return true;
+            last_window_std_ = window_std_;
+            result = true;
+            //return true;
         }
 
     }
@@ -83,18 +93,19 @@ bool DataContainer::statistics_check(){
     
     //std::cout << "DIFF on " << data_id_ << " is "<< delay_ << std::endl;
  
-    window_mean_ = std::accumulate(data_.begin(), data_.end(), 0.0)/data_.size();
-    window_std_ = std::sqrt(variance(data_, window_mean_));
  
-    if (window_std_ == 0.0){
-        ROS_WARN_STREAM("Signal frozen " << data_id_);
+    if (fabs(window_std_ - last_window_std_)> 0.1){
+        ROS_WARN_STREAM("Anomaly detected on  " << data_id_ << " with rate " << fabs(window_std_/last_window_std_));
         //mtx->unlock();
-        return true;
+        last_window_std_ = window_std_;
+        result = true;
+        //return true;
     }
     //lock.unlock();
     //mtx->unlock();
-    ROS_INFO_THROTTLE(5, "ALL GOOD");
-    return false;
+    //ROS_INFO_THROTTLE(5, "ALL GOOD");
+    last_window_std_ = window_std_;
+    return result;
 }
 
 DataContainer::~DataContainer() {

@@ -68,12 +68,14 @@ namespace magazino_fdd{
         std::string getId();
         void updateData(double new_data);
         std::mutex mtx_;
+        void reset();
     
     private:
         std::clock_t last_time_;
         int window_size_;
         double window_mean_;
         double window_std_;
+        double last_window_std_;
         double max_delay_; 
         std::list<double> data_;
         std::string data_id_;

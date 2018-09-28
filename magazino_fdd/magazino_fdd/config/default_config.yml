@@ -2,3 +2,8 @@
 topics: 
     - /odom
     - /cmd_vel
+
+nodes:
+    move_base_flex:
+        - /odom 
+        - /cmd_vel

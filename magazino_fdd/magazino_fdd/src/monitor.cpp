@@ -22,11 +22,13 @@ void monitor::empty_cb(const std_msgs::EmptyConstPtr msg, int index){
 void monitor::twist_cb(const geometry_msgs::TwistConstPtr msg, int index){
     data_containers_[index].updateTime();
     data_containers_[index].updateData(msg->linear.x);
+    data_containers_[index].updateData(msg->angular.z);
 }   
 
 void monitor::odom_cb(const nav_msgs::OdometryConstPtr msg, int index){
     data_containers_[index].updateTime();
     data_containers_[index].updateData(msg->twist.twist.linear.x);
+    data_containers_[index].updateData(msg->twist.twist.angular.z);
 }
     
 
@@ -87,6 +89,19 @@ monitor::monitor(std::string config_file) {
       //statistics_flags = !statistics_flags;
   }
    
+  const YAML::Node& nodes = config_yaml["nodes"];
+   for (YAML::const_iterator a= nodes.begin(); a != nodes.end(); ++a){
+       std::string n = a->first.as<std::string>();
+       //std::string v = a->second.as<std::string>();
+       std::list<std::string> v = a->second.as<std::list<std::string> >();
+       //std::cout << n << v <<std::endl;
+       for (auto i = v.begin(); i!= v.end(); ++i){
+           std::cout << *i << std::endl;
+       }
+   }
+
+   
+   
    
    ros::NodeHandle nh;
    timer_ = nh.createTimer(ros::Duration(0.1), &monitor::print_results,this);   
@@ -106,6 +121,7 @@ void monitor::print_results(const ros::TimerEvent&){
         if (it->check()){
             ROS_INFO_STREAM("Something Failed on observer " << it->getId());
         }
+        it->reset();
         //it->unlock();
     }
 }
