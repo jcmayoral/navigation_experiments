@@ -48,11 +48,12 @@ namespace magazino_fdd{
             //std::cout << "THIS IS USED BUT WHEN?" <<std::endl;
             this->data_id_ = other.data_id_;
             //this->last_time_ = std::chrono::system_clock::now();
-            this->last_time_ = std::clock();
+            this->last_time_ =ros::Time::now();
             this->window_size_ = other.window_size_;
             this->window_mean_ = other.window_mean_;
             this->window_std_ = other.window_std_;
-            this->delay_ = other.delay_;
+            this->is_signal_delayed_ = other.is_signal_delayed_;
+            this->max_delay_ = other.max_delay_;
 
             for (auto i = other.data_.begin(); i!=other.data_.end(); ++i)
                 std::cout << " i " <<std::endl;
@@ -71,7 +72,7 @@ namespace magazino_fdd{
         void reset();
     
     private:
-        std::clock_t last_time_;
+        ros::Time last_time_;
         int window_size_;
         double window_mean_;
         double window_std_;
@@ -79,7 +80,7 @@ namespace magazino_fdd{
         double max_delay_; 
         std::list<double> data_;
         std::string data_id_;
-        double delay_;
+        bool is_signal_delayed_;
     
     };
 };

@@ -17,32 +17,37 @@
 #include <geometry_msgs/Twist.h>
 #include <magazino_fdd/data_container.h>
 #include <nav_msgs/Odometry.h>
+#include <nav_msgs/OccupancyGrid.h>
 #include <yaml-cpp/yaml.h>
 #include <ros/package.h>
 #include <string>
 #include <mutex>
 
-#ifndef MONITOR_H
-#define MONITOR_H
+#ifndef MAINMONITOR_H
+#define MAINMONITOR_H
 
-class monitor {
+class MainMonitor {
 public:
-    monitor(std::string config_file="config/default_config.yml");
-    monitor(const monitor& orig);
+    MainMonitor(std::string config_file="config/default_config.yml");
+    MainMonitor(const MainMonitor& orig);
     void main_cb();
     void in_cb(const topic_tools::ShapeShifter::ConstPtr& msg, int index, std::string topic_name);
-    virtual ~monitor();
+    virtual ~MainMonitor();
+    // TODO CREATE TEMPLATE
     void empty_cb(const std_msgs::EmptyConstPtr msg, int index);
+    void map_cb(const nav_msgs::OccupancyGridConstPtr msg, int index);
     void twist_cb(const geometry_msgs::TwistConstPtr msg, int index);
     void odom_cb(const nav_msgs::OdometryConstPtr msg, int index);
     void print_results(const ros::TimerEvent&);
+    void isolate_components(std::list<std::string> error_topics);
     
 private:
     std::vector<ros::Subscriber> main_subscriber_;
     std::vector<magazino_fdd::DataContainer> data_containers_;
     ros::NodeHandle node;
     ros::Timer timer_;
+    std::string config_file_;
 };
 
-#endif /* MONITOR_H */
+#endif /* MAINMONITOR_H */
 

@@ -21,5 +21,5 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "magazino_fault_detection");
   ros::NodeHandle node;
 
-  monitor main_monitor;
+  MainMonitor main_monitor;
 }

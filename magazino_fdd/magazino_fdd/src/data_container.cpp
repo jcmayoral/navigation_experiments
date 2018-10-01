@@ -18,7 +18,17 @@ using namespace magazino_fdd;
 
 void DataContainer::updateTime(){
     //std::lock_guard<std::mutex> lk(mtx_);
-    last_time_ = std::clock();
+    /*
+   double delay = double((ros::Time::now()-last_time_).toSec());
+    is_signal_delayed_ = false;
+    //ROS_WARN_STREAM("Signal "<< data_id_ << " max" <<max_delay_ << "received "<<delay);
+
+    if (delay > max_delay_){
+        is_signal_delayed_ = true;
+        ROS_WARN_STREAM("Signal delayed in "<< data_id_ << "by" <<delay);
+    }
+     * */
+    last_time_ = ros::Time::now();
 }
 
 void DataContainer::updateData(double new_data){
@@ -35,9 +45,9 @@ void DataContainer::reset(){
     data_.clear();
 }
 
-DataContainer::DataContainer(const std::string id, bool required_statistics): last_time_(std::clock()),
-        window_size_(10), window_mean_(0.0), window_std_(0.0), max_delay_(0.25), data_id_(std::string(id)),
-        delay_(0.0), last_window_std_(0.0)
+DataContainer::DataContainer(const std::string id, bool required_statistics): last_time_(ros::Time::now()),
+        window_size_(10), window_mean_(0.0), window_std_(0.0), max_delay_(0.1), data_id_(std::string(id)),
+        is_signal_delayed_(false), last_window_std_(0.0)
 {
     //std::strcpy(data_id_, id);
     if (required_statistics){
@@ -71,25 +81,18 @@ bool DataContainer::statistics_check(){
     window_mean_ = std::accumulate(data_.begin(), data_.end(), 0.0)/data_.size();
     window_std_ = std::sqrt(variance(data_, window_mean_));
 
-    try 
-    {
-        //auto end = std::chrono::system_clock::now();
-        //std::chrono::duration<double> elapsed_seconds = end- last_time_;
-        delay_ = double(std::clock()-last_time_)/CLOCKS_PER_SEC;
-        //delay_ = double(elapsed_seconds.count());
-        if (delay_> max_delay_){
-            ROS_WARN_STREAM("Signal delayed " << delay_<< "in "<< data_id_);
-            last_window_std_ = window_std_;
-            result = true;
-            //return true;
-        }
+    double delay = double((ros::Time::now()-last_time_).toSec());
+    is_signal_delayed_ = false;
+    
+    if (delay > max_delay_){
+        is_signal_delayed_ = true;
+        ROS_WARN_STREAM("Signal delayed in "<< data_id_ << "by" <<delay);
+        last_window_std_ = window_std_;
+        result = true;
+        //return true;
+    }
 
-    }
-    catch(std::runtime_error& ex) {
-        ROS_ERROR("Exception: [%s]", ex.what());
-        ROS_ERROR("Error with delay");
-        return true;
-    }
+
     
     //std::cout << "DIFF on " << data_id_ << " is "<< delay_ << std::endl;
  

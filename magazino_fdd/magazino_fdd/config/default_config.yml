@@ -2,8 +2,15 @@
 topics: 
     - /odom
     - /cmd_vel
+    - /navigation/map
 
 nodes:
     move_base_flex:
-        - /odom 
+        - /cmd_vel 
+    odom:
+        - /odom
+    navigation_stack:
+        - /odom
         - /cmd_vel
+    navigation_map_server:
+        - /navigation/map
