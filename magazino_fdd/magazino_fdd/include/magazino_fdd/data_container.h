@@ -40,23 +40,21 @@ namespace magazino_fdd{
             };
             return std::accumulate(li.begin(), li.end(), 0.0, variance_func);
         }
-
+ 
     public:
-        DataContainer(const std::string id, bool required_statistics=true);
-        DataContainer(const DataContainer& other)//:data_(other.data_)
-        {
-            //std::cout << "THIS IS USED BUT WHEN?" <<std::endl;
-            this->data_id_ = other.data_id_;
-            //this->last_time_ = std::chrono::system_clock::now();
-            this->last_time_ =ros::Time::now();
-            this->window_size_ = other.window_size_;
-            this->window_mean_ = other.window_mean_;
-            this->window_std_ = other.window_std_;
-            this->is_signal_delayed_ = other.is_signal_delayed_;
-            this->max_delay_ = other.max_delay_;
-
-            for (auto i = other.data_.begin(); i!=other.data_.end(); ++i)
-                std::cout << " i " <<std::endl;
+        DataContainer(const std::string id, bool required_statistics=true, int samples_number=2);
+        DataContainer(const DataContainer& other): samples_number_(std::move(other.samples_number_)),
+                                                   data_id_(std::move(other.data_id_)), last_time_(ros::Time::now()),
+                                                   window_size_(std::move(other.window_size_)), is_signal_delayed_(std::move(other.is_signal_delayed_)),
+                                                   max_delay_(std::move(other.max_delay_)), max_diff_(other.max_diff_)
+        {             
+            
+            //std::cout << data_id_ << samples_number_ << std::endl;
+            //TODO
+            this->data_.resize(samples_number_);
+            this->window_mean_.resize(samples_number_);
+            this->window_std_.resize(samples_number_);
+            this->last_window_std_.resize(samples_number_);
             //TODO
             this->check = std::bind(&DataContainer::statistics_check,this);
 
@@ -67,20 +65,22 @@ namespace magazino_fdd{
         std::function<bool(void)> check;
         void updateTime();
         std::string getId();
-        void updateData(double new_data);
+        void updateData(double new_data, int index=0);
         std::mutex mtx_;
         void reset();
     
     private:
         ros::Time last_time_;
         int window_size_;
-        double window_mean_;
-        double window_std_;
-        double last_window_std_;
-        double max_delay_; 
-        std::list<double> data_;
+        std::vector<double> window_mean_;
+        std::vector<double> window_std_;
+        std::vector<double> last_window_std_;
+        double max_delay_;
+        double max_diff_;
+        std::vector<std::list<double>> data_;
         std::string data_id_;
         bool is_signal_delayed_;
+        int samples_number_;
     
     };
 };

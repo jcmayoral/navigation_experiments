@@ -17,37 +17,26 @@
 using namespace magazino_fdd;
 
 void DataContainer::updateTime(){
-    //std::lock_guard<std::mutex> lk(mtx_);
-    /*
-   double delay = double((ros::Time::now()-last_time_).toSec());
-    is_signal_delayed_ = false;
-    //ROS_WARN_STREAM("Signal "<< data_id_ << " max" <<max_delay_ << "received "<<delay);
-
-    if (delay > max_delay_){
-        is_signal_delayed_ = true;
-        ROS_WARN_STREAM("Signal delayed in "<< data_id_ << "by" <<delay);
-    }
-     * */
     last_time_ = ros::Time::now();
 }
 
-void DataContainer::updateData(double new_data){
-    //std::lock_guard<std::mutex> lk(mtx_);
-    data_.push_front(new_data);
+void DataContainer::updateData(double new_data, int index){
+    //std::cout << index <<  "," << data_.size() << std::endl;
+    data_[index].push_front(new_data);
     
-    if (data_.size() > window_size_){
-        data_.pop_back();
-        //data_.clear();
+    if (data_[index].size() > window_size_){
+        data_[index].pop_back();
     }
 }
 
 void DataContainer::reset(){
-    data_.clear();
+    for (int i=0; i<samples_number_;++i)
+        data_[i].clear();
 }
 
-DataContainer::DataContainer(const std::string id, bool required_statistics): last_time_(ros::Time::now()),
-        window_size_(10), window_mean_(0.0), window_std_(0.0), max_delay_(0.1), data_id_(std::string(id)),
-        is_signal_delayed_(false), last_window_std_(0.0)
+DataContainer::DataContainer(const std::string id, bool required_statistics, int samples_number): last_time_(ros::Time::now()),
+        window_size_(10), max_delay_(0.1), data_id_(std::string(id)),
+        is_signal_delayed_(false), samples_number_(samples_number), max_diff_(0.1)
 {
     //std::strcpy(data_id_, id);
     if (required_statistics){
@@ -56,7 +45,12 @@ DataContainer::DataContainer(const std::string id, bool required_statistics): la
     else{
         check = std::bind(&DataContainer::default_check,this);
     }
-            
+    
+    //TODO
+    data_.resize(samples_number);
+    window_mean_.resize(samples_number);
+    window_std_.resize(samples_number);
+    last_window_std_.resize(samples_number);
 }
 
 std::string DataContainer::getId(){
@@ -78,32 +72,47 @@ bool DataContainer::statistics_check(){
         return false;
     } 
 
-    window_mean_ = std::accumulate(data_.begin(), data_.end(), 0.0)/data_.size();
-    window_std_ = std::sqrt(variance(data_, window_mean_));
-
+    std::vector<std::list<double>>::iterator it = data_.begin();
+    double new_mean; 
+    double last_value, previous_value;
+    std::list<double> inner_list;
+ 
+    for (; it!= data_.end(); ++it){
+        new_mean = std::accumulate(it->begin(), it->end(), 0.0)/it->size();
+        window_mean_[std::distance(data_.begin(), it)] = new_mean;
+        window_std_[std::distance(data_.begin(), it)] = std::sqrt(variance(*it, new_mean));
+        inner_list = *it;
+        if (inner_list.size() < 1)
+            break;
+        last_value = inner_list.back();
+        inner_list.pop_back();
+        previous_value = inner_list.back();
+        if (last_value - previous_value > max_diff_){
+            ROS_WARN_STREAM("Maximum difference between values  "<< max_diff_ << " occurred on " << data_id_);
+            result = true;
+        }
+    }
     double delay = double((ros::Time::now()-last_time_).toSec());
     is_signal_delayed_ = false;
+    //std::cout << "TIMER" << delay << "," << data_id_ <<std::endl;
+
     
     if (delay > max_delay_){
         is_signal_delayed_ = true;
         ROS_WARN_STREAM("Signal delayed in "<< data_id_ << "by" <<delay);
-        last_window_std_ = window_std_;
         result = true;
         //return true;
     }
-
-
     
     //std::cout << "DIFF on " << data_id_ << " is "<< delay_ << std::endl;
- 
- 
-    if (fabs(window_std_ - last_window_std_)> 0.1){
-        ROS_WARN_STREAM("Anomaly detected on  " << data_id_ << " with rate " << fabs(window_std_/last_window_std_));
-        //mtx->unlock();
-        last_window_std_ = window_std_;
-        result = true;
-        //return true;
+    for (int i=0; i< samples_number_; ++i){
+        if (fabs(window_std_[i] - last_window_std_[i])> 0.1){
+            ROS_WARN_STREAM("Anomaly detected on  " << data_id_);// << " with rate " << fabs(window_std_/last_window_std_));
+            result = true;
+        }
+        last_window_std_[i] = window_std_[i];
     }
+    
     //lock.unlock();
     //mtx->unlock();
     //ROS_INFO_THROTTLE(5, "ALL GOOD");

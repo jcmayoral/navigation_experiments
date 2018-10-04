@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   topic_tools
   geometry_msgs
+  sensor_msgs
   yaml_cpp_0_3
   roslib
 )
@@ -109,7 +110,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES magazino_fdd
-  CATKIN_DEPENDS roscpp std_msgs topic_tools geometry_msgs yaml_cpp_0_3 roslib
+  CATKIN_DEPENDS roscpp std_msgs topic_tools sensor_msgs geometry_msgs yaml_cpp_0_3 roslib
 #  DEPENDS system_lib
 )
 

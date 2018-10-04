@@ -14,28 +14,34 @@
 #include <magazino_fdd/monitor.h>
 
 void MainMonitor::empty_cb(const std_msgs::EmptyConstPtr msg, int index){
-    data_containers_[index].updateData(0);
+    data_containers_[index].updateData(0,0);
     data_containers_[index].updateTime();
     
 }
 
 void MainMonitor::twist_cb(const geometry_msgs::TwistConstPtr msg, int index){
     data_containers_[index].updateTime();
-    data_containers_[index].updateData(msg->linear.x);
-    data_containers_[index].updateData(msg->angular.z);
+    data_containers_[index].updateData(msg->linear.x,0);
+    data_containers_[index].updateData(msg->angular.z,1);
 }   
 
 void MainMonitor::odom_cb(const nav_msgs::OdometryConstPtr msg, int index){
     data_containers_[index].updateTime();
-    data_containers_[index].updateData(msg->twist.twist.linear.x);
-    data_containers_[index].updateData(msg->twist.twist.angular.z);
+    data_containers_[index].updateData(msg->twist.twist.linear.x,0);
+    data_containers_[index].updateData(msg->twist.twist.angular.z,1);
 }
     
 
 void MainMonitor::map_cb(const nav_msgs::OccupancyGridConstPtr msg, int index){
     data_containers_[index].updateTime();
-    data_containers_[index].updateData(msg->info.origin.position.x);
-    data_containers_[index].updateData(msg->info.origin.position.y);
+    data_containers_[index].updateData(msg->info.origin.position.x,0);
+    data_containers_[index].updateData(msg->info.origin.position.y,1);
+}
+
+void MainMonitor::imu_cb(const sensor_msgs::ImuConstPtr msg, int index){
+    data_containers_[index].updateTime();
+    data_containers_[index].updateData(msg->linear_acceleration.x,0);
+    data_containers_[index].updateData(msg->angular_velocity.z,1);
 }
 
 void MainMonitor::in_cb(const topic_tools::ShapeShifter::ConstPtr& msg, int index, std::string topic_name){
@@ -73,7 +79,14 @@ void MainMonitor::in_cb(const topic_tools::ShapeShifter::ConstPtr& msg, int inde
         callback = boost::bind( &MainMonitor::map_cb, this, _1, index) ;
         main_subscriber_[index] = node.subscribe(topic_name, 1, callback);      
     }
-    
+
+    if (datatype.compare("sensor_msgs/Imu") == 0){
+        main_subscriber_[index].shutdown();
+        boost::function<void(const sensor_msgs::Imu::ConstPtr&) > callback;
+        callback = boost::bind( &MainMonitor::imu_cb, this, _1, index) ;
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);      
+    }
+        
     ROS_INFO("Monitor started");
     //ROS_INFO_STREAM(msg->getMessageDefinition());
     //ROS_INFO_STREAM(main_subscriber_.size());
@@ -88,20 +101,20 @@ MainMonitor::MainMonitor(std::string config_file) {
     
     const YAML::Node& topic_names = config_yaml["topics"];
     int id = 0;
-    
+ 
     for (int i=0; i< topic_names.size(); ++i){
         std::string name = topic_names[i].as<std::string>();
         ROS_INFO_STREAM("Signal to monitor "<< name);
         boost::function<void(const topic_tools::ShapeShifter::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::in_cb, this, _1, id, name) ;
+        data_containers_.emplace_back(name, statistics_flags,3);
         main_subscriber_.push_back( ros::Subscriber(node.subscribe(name, 10, callback)));
-        data_containers_.emplace_back(name, statistics_flags);
         //data_containers_.push_back(container);
         ++id;
         //statistics_flags = !statistics_flags;
     }
     ros::NodeHandle nh;
-    timer_ = nh.createTimer(ros::Duration(0.1), &MainMonitor::print_results,this);
+    timer_ = nh.createTimer(ros::Duration(0.5), &MainMonitor::print_results,this);
     ros::spin();
 }
 
@@ -138,10 +151,6 @@ void MainMonitor::isolate_components(std::list<std::string> error_topics){
                 ROS_ERROR_STREAM("ERROR in " << n);
         }
    }
-
-   
-   
-   
 }
 
 MainMonitor::MainMonitor(const MainMonitor& orig) {

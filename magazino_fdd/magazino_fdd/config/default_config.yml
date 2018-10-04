@@ -3,6 +3,8 @@ topics:
     - /odom
     - /cmd_vel
     - /navigation/map
+    - /imu/data_raw_transformed
+    - /imu/data_raw
 
 nodes:
     move_base_flex:
@@ -14,3 +16,11 @@ nodes:
         - /cmd_vel
     navigation_map_server:
         - /navigation/map
+    robot_stopped:
+        - /cmd_vel
+        - /navigation/map
+    cartographer:
+        - /imu/data_raw_transformed
+        - /odom
+    imu_manager:
+        - /imu/data_raw

@@ -18,6 +18,7 @@
 #include <magazino_fdd/data_container.h>
 #include <nav_msgs/Odometry.h>
 #include <nav_msgs/OccupancyGrid.h>
+#include <sensor_msgs/Imu.h>
 #include <yaml-cpp/yaml.h>
 #include <ros/package.h>
 #include <string>
@@ -38,6 +39,8 @@ public:
     void map_cb(const nav_msgs::OccupancyGridConstPtr msg, int index);
     void twist_cb(const geometry_msgs::TwistConstPtr msg, int index);
     void odom_cb(const nav_msgs::OdometryConstPtr msg, int index);
+    void imu_cb(const sensor_msgs::ImuConstPtr msg, int index);
+
     void print_results(const ros::TimerEvent&);
     void isolate_components(std::list<std::string> error_topics);
     
