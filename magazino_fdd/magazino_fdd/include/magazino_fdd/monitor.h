@@ -19,6 +19,7 @@
 #include <nav_msgs/Odometry.h>
 #include <nav_msgs/OccupancyGrid.h>
 #include <sensor_msgs/Imu.h>
+#include <sensor_msgs/JointState.h>
 #include <yaml-cpp/yaml.h>
 #include <ros/package.h>
 #include <string>
@@ -29,6 +30,7 @@
 
 class MainMonitor {
 public:
+
     MainMonitor(std::string config_file="config/default_config.yml");
     MainMonitor(const MainMonitor& orig);
     void main_cb();
@@ -40,7 +42,7 @@ public:
     void twist_cb(const geometry_msgs::TwistConstPtr msg, int index);
     void odom_cb(const nav_msgs::OdometryConstPtr msg, int index);
     void imu_cb(const sensor_msgs::ImuConstPtr msg, int index);
-
+    void joints_cb(const sensor_msgs::JointStateConstPtr msg, int index);
     void print_results(const ros::TimerEvent&);
     void isolate_components(std::list<std::string> error_topics);
     

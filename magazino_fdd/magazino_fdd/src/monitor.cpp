@@ -44,49 +44,56 @@ void MainMonitor::imu_cb(const sensor_msgs::ImuConstPtr msg, int index){
     data_containers_[index].updateData(msg->angular_velocity.z,1);
 }
 
+void MainMonitor::joints_cb(const sensor_msgs::JointStateConstPtr msg, int index){
+    data_containers_[index].updateTime();
+    data_containers_[index].updateData(msg->position[0],0);
+    data_containers_[index].updateData(msg->position[2],1);
+}
+
 void MainMonitor::in_cb(const topic_tools::ShapeShifter::ConstPtr& msg, int index, std::string topic_name){
     const std::string& datatype   = msg->getDataType();
     //const std::string& definition = msg->getMessageDefinition();
-    //ROS_INFO_STREAM(datatype);
-    //ROS_INFO_STREAM(definition);
     if (datatype.compare("std_msgs/Empty") == 0){
-        //ROS_INFO("EMPTY MESSAGE");
         main_subscriber_[index].shutdown();
         boost::function<void(const std_msgs::Empty::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::empty_cb, this, _1, index) ;
-        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);     
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);            
     }
     
-    if (datatype.compare("geometry_msgs/Twist") == 0){        
-        //ROS_INFO_STREAM("Twist MESSAGE index "<< index);
+    if (datatype.compare("geometry_msgs/Twist") == 0){
         main_subscriber_[index].shutdown();
         boost::function<void(const geometry_msgs::Twist::ConstPtr&) > callback;
-        callback = boost::bind( &MainMonitor::twist_cb, this, _1, index) ;
-        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);      
+        callback = boost::bind( &MainMonitor::twist_cb, this, _1, index) ;      
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);            
     }
 
-    if (datatype.compare("nav_msgs/Odometry") == 0){        
-        //ROS_INFO_STREAM("ODOM MESSAGE index "<< index);
+    if (datatype.compare("nav_msgs/Odometry") == 0){
         main_subscriber_[index].shutdown();
         boost::function<void(const nav_msgs::Odometry::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::odom_cb, this, _1, index) ;
-        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);      
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);            
     }
 
     if (datatype.compare("nav_msgs/OccupancyGrid") == 0){
         main_subscriber_[index].shutdown();
         boost::function<void(const nav_msgs::OccupancyGrid::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::map_cb, this, _1, index) ;
-        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);      
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);            
     }
 
     if (datatype.compare("sensor_msgs/Imu") == 0){
         main_subscriber_[index].shutdown();
         boost::function<void(const sensor_msgs::Imu::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::imu_cb, this, _1, index) ;
-        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);      
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);
     }
-        
+    
+    if (datatype.compare("sensor_msgs/JointState") == 0){
+        main_subscriber_[index].shutdown();
+        boost::function<void(const sensor_msgs::JointState::ConstPtr&) > callback;
+        callback = boost::bind( &MainMonitor::joints_cb, this, _1, index) ;
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);
+    }
     ROS_INFO("Monitor started");
     //ROS_INFO_STREAM(msg->getMessageDefinition());
     //ROS_INFO_STREAM(main_subscriber_.size());
@@ -109,7 +116,6 @@ MainMonitor::MainMonitor(std::string config_file) {
         callback = boost::bind( &MainMonitor::in_cb, this, _1, id, name) ;
         data_containers_.emplace_back(name, statistics_flags,3);
         main_subscriber_.push_back( ros::Subscriber(node.subscribe(name, 10, callback)));
-        //data_containers_.push_back(container);
         ++id;
         //statistics_flags = !statistics_flags;
     }

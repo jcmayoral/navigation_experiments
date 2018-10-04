@@ -87,8 +87,8 @@ bool DataContainer::statistics_check(){
         last_value = inner_list.back();
         inner_list.pop_back();
         previous_value = inner_list.back();
-        if (last_value - previous_value > max_diff_){
-            ROS_WARN_STREAM("Maximum difference between values  "<< max_diff_ << " occurred on " << data_id_);
+        if (fabs(last_value - previous_value) > max_diff_){
+            ROS_WARN_STREAM("Maximum difference between values  "<< max_diff_ << " occurred on " << data_id_ << " with value " << fabs(last_value - previous_value));
             result = true;
         }
     }
@@ -106,7 +106,7 @@ bool DataContainer::statistics_check(){
     
     //std::cout << "DIFF on " << data_id_ << " is "<< delay_ << std::endl;
     for (int i=0; i< samples_number_; ++i){
-        if (fabs(window_std_[i] - last_window_std_[i])> 0.1){
+        if (fabs(window_std_[i] - last_window_std_[i])> 0.4){
             ROS_WARN_STREAM("Anomaly detected on  " << data_id_);// << " with rate " << fabs(window_std_/last_window_std_));
             result = true;
         }
