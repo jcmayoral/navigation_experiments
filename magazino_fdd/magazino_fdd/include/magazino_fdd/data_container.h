@@ -42,7 +42,7 @@ namespace magazino_fdd{
         }
  
     public:
-        DataContainer(const std::string id, bool required_statistics=true, int samples_number=2);
+        DataContainer(const std::string id, bool required_statistics=true, int samples_number=2, int window_size=10, double max_delay=0.1, double max_diff=0.1);
         DataContainer(const DataContainer& other): samples_number_(std::move(other.samples_number_)),
                                                    data_id_(std::move(other.data_id_)), last_time_(ros::Time::now()),
                                                    window_size_(std::move(other.window_size_)), is_signal_delayed_(std::move(other.is_signal_delayed_)),

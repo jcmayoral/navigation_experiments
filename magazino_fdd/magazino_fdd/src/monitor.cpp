@@ -109,12 +109,19 @@ MainMonitor::MainMonitor(std::string config_file) {
     const YAML::Node& topic_names = config_yaml["topics"];
     int id = 0;
  
-    for (int i=0; i< topic_names.size(); ++i){
-        std::string name = topic_names[i].as<std::string>();
+    //for (int i=0; i< topic_names.size(); ++i){
+    for (YAML::const_iterator a= topic_names.begin(); a != topic_names.end(); ++a){
+    //for (YAML::Node::iterator it = topic_names.begin(); it != topic_names.end(); ++it){
+        std::string name = a->first.as<std::string>();
+        YAML::Node config = a->second;
+        double window_size = config["window_size"].as<double>();
+        double max_delay = config["max_delay"].as<double>();
+        double max_diff = config["max_delay"].as<double>();
+        int samples = config["samples"].as<int>();
         ROS_INFO_STREAM("Signal to monitor "<< name);
         boost::function<void(const topic_tools::ShapeShifter::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::in_cb, this, _1, id, name) ;
-        data_containers_.emplace_back(name, statistics_flags,3);
+        data_containers_.emplace_back(name, statistics_flags, samples, window_size,max_delay,max_diff);
         main_subscriber_.push_back( ros::Subscriber(node.subscribe(name, 10, callback)));
         ++id;
         //statistics_flags = !statistics_flags;

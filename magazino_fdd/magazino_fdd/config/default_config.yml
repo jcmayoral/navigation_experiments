@@ -1,20 +1,41 @@
 ## YAML Template.
 topics: 
-    - /odom
-    - /cmd_vel
-    #- /navigation/map
-    - /imu/data_raw_transformed
-    - /imu/data_raw
-    - /wheel_angles
+    /odom:
+        samples: 2
+        window_size: 5
+        max_delay: 0.05
+        max_diff: 0.1
+    /cmd_vel:
+        samples: 2
+        window_size: 10
+        max_delay: 0.1
+        max_diff: 0.3
+    /imu/data_raw_transformed:
+        samples: 2
+        window_size: 10
+        max_delay: 0.1
+        max_diff: 0.3
+    /imu/data_raw:
+        samples: 2
+        window_size: 10
+        max_delay: 0.1
+        max_diff: 0.3
+    /wheel_angles:
+        samples: 2
+        window_size: 5
+        max_delay: 0.1
+        max_diff: 0.05
 
 nodes:
     stopped_robot:
-        - /cmd_vel 
-    odometry_publisher:
+        - /cmd_vel
+    /canopen_interface/canopen_diff_drive:
         - /odom
     navigation_stack:
         - /odom
         - /cmd_vel
+    tf:
+        - /imu/data_raw_transformed
     cartographer:
         - /imu/data_raw_transformed
         - /odom
@@ -23,9 +44,6 @@ nodes:
         - /imu/data_raw_transformed
     imu_sensor:
         - /imu/data_raw
-    inertial_noise:
-        - /imu/data_raw
-        - /cmd_vel
     wheels:
         - /wheel_angles
     navigation_map_server:
