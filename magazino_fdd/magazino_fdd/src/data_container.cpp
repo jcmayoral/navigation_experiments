@@ -89,12 +89,13 @@ bool DataContainer::statistics_check(){
         
         for (std::list<double>::iterator inner_it = inner_list.begin();inner_it!=inner_list.end(); ++inner_it){
             if (fabs(last_value - *inner_it) > max_diff_){
-                ROS_WARN_STREAM("Anomaly detected on index "<< std::distance(data_.begin(), it));
                 ROS_WARN_STREAM("Maximum difference between values  "<< max_diff_ << " occurred on " << data_id_);
                 result = true;
             }
             last_value = *inner_it;
         }
+        
+        
     }
     double delay = double((ros::Time::now()-last_time_).toSec());
     is_signal_delayed_ = false;

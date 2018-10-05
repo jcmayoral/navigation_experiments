@@ -116,7 +116,7 @@ MainMonitor::MainMonitor(std::string config_file) {
         YAML::Node config = a->second;
         double window_size = config["window_size"].as<double>();
         double max_delay = config["max_delay"].as<double>();
-        double max_diff = config["max_delay"].as<double>();
+        double max_diff = config["max_diff"].as<double>();
         int samples = config["samples"].as<int>();
         ROS_INFO_STREAM("Signal to monitor "<< name);
         boost::function<void(const topic_tools::ShapeShifter::ConstPtr&) > callback;
