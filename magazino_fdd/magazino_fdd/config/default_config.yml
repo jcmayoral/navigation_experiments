@@ -29,11 +29,11 @@ topics:
 nodes:
     stopped_robot:
         - /cmd_vel
-    /canopen_interface/canopen_diff_drive:
+    canopen_interface/canopen_diff_drive:
         - /odom
-    navigation_stack:
-        - /odom
-        - /cmd_vel
+    #navigation_stack:
+    #    - /odom
+    #    - /cmd_vel
     tf:
         - /imu/data_raw_transformed
     cartographer:

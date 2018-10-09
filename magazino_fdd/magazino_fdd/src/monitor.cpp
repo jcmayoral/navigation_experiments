@@ -99,7 +99,7 @@ void MainMonitor::in_cb(const topic_tools::ShapeShifter::ConstPtr& msg, int inde
     //ROS_INFO_STREAM(main_subscriber_.size());
 }
 
-MainMonitor::MainMonitor(std::string config_file) {
+MainMonitor::MainMonitor(std::string config_file): last_cpu_usage_(0.0), last_cpu_total_(0.0) {
     ROS_INFO("Constructor Monitor");
     bool statistics_flags = true;
     config_file_ = config_file;
@@ -127,7 +127,7 @@ MainMonitor::MainMonitor(std::string config_file) {
         //statistics_flags = !statistics_flags;
     }
     ros::NodeHandle nh;
-    timer_ = nh.createTimer(ros::Duration(0.5), &MainMonitor::print_results,this);
+    timer_ = nh.createTimer(ros::Duration(0.3), &MainMonitor::print_results,this);
     ros::spin();
 }
 
@@ -187,5 +187,89 @@ void MainMonitor::print_results(const ros::TimerEvent&){
     if (detected_errors.size()>0){
         isolate_components(detected_errors);
     }
+    readStatsCPU();
+}
+
+double MainMonitor::getActiveTime(std::vector<double> e)
+{
+    //FROM http://blog.davidecoppola.com/2016/12/cpp-program-to-get-cpu-usage-from-command-line-in-linux/
+    return e[0] +
+           e[1] +
+           e[2] +
+           e[5] +
+           e[6] +
+           e[7] +
+           e[8] +
+           e[9];
+}
+
+double MainMonitor::readStatsCPU(){
+    std::ifstream fileStat("/proc/stat");
+
+    std::string line;
+
+    const std::string STR_CPU("cpu");
+    const std::size_t LEN_STR_CPU = STR_CPU.size();
+    const std::string STR_TOT("tot");
+    
+    std::vector <double> cpu_usage;
+    cpu_usage.resize(10);
+    bool flag;
+    flag = true;
+    
+    while(std::getline(fileStat, line))
+    {
+            // cpu stats line found
+            if(!line.compare(0, LEN_STR_CPU, STR_CPU))
+            {
+                    std::istringstream ss(line);
+                    std::string name;
+                    std::string cpu;
+                    ss >> name;
+                    //std::cout << ss.str() << std::endl;
+                    
+                    //if(tmp.size() > 3)//LEN_STR_CPU)
+                    //tmp.erase(0,3);
+			 //.erase(0, 3)//LEN_STR_CPU);
+                    //else
+                    //std::cout << tmp << std::endl;
+                        
+                    /*/
+                    // store entry
+                    std::cout <<< CPUData());
+                    CPUData & entry = entries.back();
+
+                    // read cpu label
+                    ss >> entry.cpu;
+
+                    if(entry.cpu.size() > LEN_STR_CPU)
+                            entry.cpu.erase(0, LEN_STR_CPU);
+                    else
+                            entry.cpu = STR_TOT;
+                     */
+                    // read times
+                    for(int i = 0; i < 10; ++i){
+                        double d;
+                        ss >> d;
+                        //std::cout <<  d << "," << i << std::endl;
+                        cpu_usage[i] = d;
+                    }
+                    
+                    if (flag){
+                        double current_cpu_usage = (getActiveTime(cpu_usage));
+                        double total_cpu = std::accumulate(cpu_usage.begin(), cpu_usage.end(),0.0);
+                                       
+                        double work_overperiod = last_cpu_usage_ - current_cpu_usage;
+                        double total_cpu_period = last_cpu_total_ - total_cpu;
+                    
+                        std::cout << "CPU: " << name << " usage percentage " << 100*work_overperiod/total_cpu_period << std::endl;
+                        last_cpu_usage_ = current_cpu_usage;
+                        last_cpu_total_ = total_cpu;
+                        flag = false;
+                    }
+                    
+            }
+    }
+    return 0.0;
 }
 

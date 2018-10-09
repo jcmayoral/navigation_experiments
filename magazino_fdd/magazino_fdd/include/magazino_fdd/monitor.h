@@ -24,12 +24,33 @@
 #include <ros/package.h>
 #include <string>
 #include <mutex>
+#include <fstream>
 
 #ifndef MAINMONITOR_H
 #define MAINMONITOR_H
 
 class MainMonitor {
 public:
+
+    //TODO IDEA Taken from Cartographer
+    /*
+    template <typename MessageType>
+     ::ros::Subscriber SubscribeWithHandler(
+                            void (MainMonitor * handler) (int, const std::string&, const typename MessageType::ConstPtr&),
+                            const int trajectory_id, 
+                            const std::string& topic,
+                            ::ros::NodeHandle* const node_handle, 
+                            ros::NodeHandle* const node) {
+        
+            return node_handle->subscribe<MessageType>(
+                                        topic, 5,
+                                        boost::function<void(const typename MessageType::ConstPtr&)>(
+                                                    [node, handler, trajectory_id, topic] (const typename MessageType::ConstPtr& msg) 
+                                                    {            
+                                                        (node->*handler)(trajectory_id, topic, msg); 
+                                                    }));
+    }
+    */
 
     MainMonitor(std::string config_file="config/default_config.yml");
     MainMonitor(const MainMonitor& orig);
@@ -45,13 +66,17 @@ public:
     void joints_cb(const sensor_msgs::JointStateConstPtr msg, int index);
     void print_results(const ros::TimerEvent&);
     void isolate_components(std::list<std::string> error_topics);
-    
+    double readStatsCPU();
+
 private:
+    double getActiveTime(std::vector<double> e);
     std::vector<ros::Subscriber> main_subscriber_;
     std::vector<magazino_fdd::DataContainer> data_containers_;
     ros::NodeHandle node;
     ros::Timer timer_;
     std::string config_file_;
+    double last_cpu_usage_;
+    double last_cpu_total_;
 };
 
 #endif /* MAINMONITOR_H */
