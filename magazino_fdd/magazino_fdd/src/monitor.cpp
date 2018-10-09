@@ -262,7 +262,9 @@ double MainMonitor::readStatsCPU(){
                         double work_overperiod = last_cpu_usage_ - current_cpu_usage;
                         double total_cpu_period = last_cpu_total_ - total_cpu;
                     
-                        std::cout << "CPU: " << name << " usage percentage " << 100*work_overperiod/total_cpu_period << std::endl;
+                        if (100*work_overperiod/total_cpu_period > 80){
+                            ROS_ERROR_STREAM("CPU: " << name << " usage percentage " << 100*work_overperiod/total_cpu_period << " more than " << 80);
+                        }
                         last_cpu_usage_ = current_cpu_usage;
                         last_cpu_total_ = total_cpu;
                         flag = false;
