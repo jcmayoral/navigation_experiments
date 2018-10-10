@@ -12,6 +12,7 @@
  */
 
 #include <ros/ros.h>
+#include <magazino_fdd/cpu_monitor.h>
 #include <topic_tools/shape_shifter.h>
 #include <std_msgs/Empty.h>
 #include <geometry_msgs/Twist.h>
@@ -69,14 +70,12 @@ public:
     double readStatsCPU();
 
 private:
-    double getActiveTime(std::vector<double> e);
     std::vector<ros::Subscriber> main_subscriber_;
     std::vector<magazino_fdd::DataContainer> data_containers_;
     ros::NodeHandle node;
     ros::Timer timer_;
     std::string config_file_;
-    double last_cpu_usage_;
-    double last_cpu_total_;
+    CPUMonitor cpu_monitor_;
 };
 
 #endif /* MAINMONITOR_H */

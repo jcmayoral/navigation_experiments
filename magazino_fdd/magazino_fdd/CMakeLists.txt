@@ -129,6 +129,7 @@ include_directories(
  add_library(${PROJECT_NAME}
    src/monitor.cpp
    src/data_container.cpp
+   src/cpu_monitor.cpp
  )
 
 ## Add cmake target dependencies of the library
