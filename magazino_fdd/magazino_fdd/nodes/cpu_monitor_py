@@ -1,0 +1,7 @@
+from fdd_monitor_py.cpu_monitor import CPUMonitor
+import rospy
+
+monitor = CPUMonitor()
+
+while not rospy.is_shutdown():
+    monitor.publish_cpu()
