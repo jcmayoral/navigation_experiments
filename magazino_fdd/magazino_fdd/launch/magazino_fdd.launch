@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="magazino_fdd" type="magazino_fdd_node" name="magazino_fdd" output="screen" respawn="true">
+  </node>
+  <node pkg="magazino_fdd" type="cpu_monitor_py" name="cpu_py_publisher" output="screen" respawn="true">
+  </node>
+</launch>
