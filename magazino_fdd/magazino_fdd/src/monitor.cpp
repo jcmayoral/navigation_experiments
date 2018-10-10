@@ -128,6 +128,7 @@ MainMonitor::MainMonitor(std::string config_file): cpu_monitor_() {
     }
     ros::NodeHandle nh;
     timer_ = nh.createTimer(ros::Duration(0.3), &MainMonitor::print_results,this);
+    monitor_status_pub_ = nh.advertise<std_msgs::Int8>("monitor_status", 10);
     ros::spin();
 }
 
@@ -174,16 +175,20 @@ MainMonitor::~MainMonitor() {
 
 void MainMonitor::print_results(const ros::TimerEvent&){
     std::list <std::string> detected_errors;
+    int status = 0;
     for (std::vector<magazino_fdd::DataContainer>::iterator it=data_containers_.begin(); it != data_containers_.end(); ++it){
         //std::lock_guard<std::mutex> lk(it->mtx_);
         //ROS_INFO_STREAM("Check Monitor " << it->getId());
         if (it->check()){
+            status = 100;
             detected_errors.push_back(it->getId());
         }
         it->reset();
         //it->unlock();
     }
-    
+
+    monitor_status_pub_.publish(status);
+
     if (detected_errors.size()>0){
         isolate_components(detected_errors);
     }
@@ -196,32 +201,29 @@ double MainMonitor::readStatsCPU(){
     bool flag;
     flag = true;
     
-    while(std::getline(fileStat, line))
-    {
-            // cpu stats line found
-            if(!line.compare(0, 3, "cpu"))
-            {
-                    std::istringstream ss(line);
-                    std::string name;
-                    std::string cpu;
-                    ss >> name;
+    while(std::getline(fileStat, line)){
+        // cpu stats line found
+        if(!line.compare(0, 3, "cpu")){
+            std::istringstream ss(line);
+            std::string name;
+            std::string cpu;
+            ss >> name;
 
-                    for(int i = 0; i < 10; ++i){
-                        double d;
-                        ss >> d;
-                        cpu_monitor_.updateData(i, d);
-                    }
-                    
-                    if (flag){
-                        double cpu_use = cpu_monitor_.getUsage();
-                        if (cpu_use > 80){
-                            ROS_ERROR_STREAM("CPU: " << name << " usage percentage " << cpu_use << " more than " << 80);
-                        }
-
-                        flag = false;
-                    }
-                    
+            for(int i = 0; i < 10; ++i){
+                double d;
+                ss >> d;
+                cpu_monitor_.updateData(i, d);
             }
+
+            if (flag){
+                double cpu_use = cpu_monitor_.getUsage();
+                if (cpu_use > 80){
+                    ROS_ERROR_STREAM("CPU: " << name << " usage percentage " << cpu_use << " more than " << 80);
+                }
+
+                flag = false;
+            }
+        }
     }
     return 0.0;
 }

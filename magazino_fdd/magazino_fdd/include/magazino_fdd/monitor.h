@@ -21,6 +21,7 @@
 #include <nav_msgs/OccupancyGrid.h>
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/JointState.h>
+#include <std_msgs/Int8.h>
 #include <yaml-cpp/yaml.h>
 #include <ros/package.h>
 #include <string>
@@ -76,6 +77,7 @@ private:
     ros::Timer timer_;
     std::string config_file_;
     CPUMonitor cpu_monitor_;
+    ros::Publisher monitor_status_pub_;
 };
 
 #endif /* MAINMONITOR_H */
