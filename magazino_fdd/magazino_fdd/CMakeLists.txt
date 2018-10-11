@@ -182,7 +182,7 @@ install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_node
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     )
 
-install(PROGRAMS nodes/cpu_monitor_py
+install(PROGRAMS nodes/cpu_monitor_py nodes/wheels_sync
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
