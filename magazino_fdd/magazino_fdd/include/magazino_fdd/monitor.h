@@ -22,6 +22,7 @@
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/JointState.h>
 #include <std_msgs/Int8.h>
+#include <std_msgs/Float64.h>
 #include <yaml-cpp/yaml.h>
 #include <ros/package.h>
 #include <string>
@@ -66,6 +67,7 @@ public:
     void odom_cb(const nav_msgs::OdometryConstPtr msg, int index);
     void imu_cb(const sensor_msgs::ImuConstPtr msg, int index);
     void joints_cb(const sensor_msgs::JointStateConstPtr msg, int index);
+    void float_cb(const std_msgs::Float64ConstPtr msg, int index);
     void print_results(const ros::TimerEvent&);
     void isolate_components(std::list<std::string> error_topics);
     double readStatsCPU();

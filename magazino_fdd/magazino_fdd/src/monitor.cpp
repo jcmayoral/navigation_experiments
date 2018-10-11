@@ -19,6 +19,11 @@ void MainMonitor::empty_cb(const std_msgs::EmptyConstPtr msg, int index){
     
 }
 
+void MainMonitor::float_cb(const std_msgs::Float64ConstPtr msg, int index){
+    data_containers_[index].updateData(msg->data);
+    data_containers_[index].updateTime();
+}
+
 void MainMonitor::twist_cb(const geometry_msgs::TwistConstPtr msg, int index){
     data_containers_[index].updateTime();
     data_containers_[index].updateData(msg->linear.x,0);
@@ -92,6 +97,13 @@ void MainMonitor::in_cb(const topic_tools::ShapeShifter::ConstPtr& msg, int inde
         main_subscriber_[index].shutdown();
         boost::function<void(const sensor_msgs::JointState::ConstPtr&) > callback;
         callback = boost::bind( &MainMonitor::joints_cb, this, _1, index) ;
+        main_subscriber_[index] = node.subscribe(topic_name, 1, callback);
+    }
+    
+    if (datatype.compare("std_msgs/Float64") == 0){
+        main_subscriber_[index].shutdown();
+        boost::function<void(const std_msgs::Float64::ConstPtr&) > callback;
+        callback = boost::bind( &MainMonitor::float_cb, this, _1, index) ;
         main_subscriber_[index] = node.subscribe(topic_name, 1, callback);
     }
     ROS_INFO("Monitor started");
