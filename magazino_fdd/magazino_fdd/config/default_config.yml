@@ -36,8 +36,8 @@ topics:
         max_delay: 0.1
         max_diff: 0.05
 nodes:
-    stopped_robot:
-        - /cmd_vel
+    # stopped_robot:
+    #    - /cmd_vel
     canopen_interface/canopen_diff_drive:
         - /odom
     canopen_odom_left_wheel:
@@ -45,9 +45,9 @@ nodes:
     canopen_odom_right_wheel:
         - /right_speed
 
-    #navigation_stack:
-    #    - /odom
-    #    - /cmd_vel
+    navigation_stack:
+        - /odom
+        - /cmd_vel
     tf:
         - /imu/data_raw_transformed
     cartographer:
