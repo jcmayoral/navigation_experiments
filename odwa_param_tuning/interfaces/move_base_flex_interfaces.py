@@ -24,8 +24,8 @@ class GetPathClass:
             self.path = result.path
             rospy.loginfo("Get path action succeeded")
         else:
-            rospy.logerr("Get path action failed; outcome [%d], error code [%d]: %s",
-                          result.outcome, result.error_code, result.error_msg)
+            rospy.logerr("Get path action failed; outcome [%d], %s",
+                          result.outcome, result.message)
 
     def get_path(self):
         return self.path
@@ -47,6 +47,6 @@ class ExePathClass:
             rospy.loginfo("Exec path action succeeded")
             self.result = True
         else:
-            rospy.logerr("Exec path action failed; outcome [%d], error code [%d]: %s",
-                          result.outcome, result.error_code, result.error_msg)
+            rospy.logerr("Exec path action failed; outcome [%d], %s",
+                          result.outcome, result.message)
             self.result = False
