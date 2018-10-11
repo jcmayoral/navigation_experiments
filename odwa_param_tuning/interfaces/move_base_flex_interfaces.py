@@ -20,12 +20,12 @@ class GetPathClass:
 
     def plan_done_cb(self,status, result):
         t1 = rospy.get_time()
-        if result.status == MoveBaseResult.SUCCESS:
+        if result.outcome == MoveBaseResult.SUCCESS:
             self.path = result.path
             rospy.loginfo("Get path action succeeded")
         else:
-            rospy.logerr("Get path action failed; status [%d], error code [%d]: %s",
-                          result.status, result.error_code, result.error_msg)
+            rospy.logerr("Get path action failed; outcome [%d], error code [%d]: %s",
+                          result.outcome, result.error_code, result.error_msg)
 
     def get_path(self):
         return self.path
@@ -47,6 +47,6 @@ class ExePathClass:
             rospy.loginfo("Exec path action succeeded")
             self.result = True
         else:
-            rospy.logerr("Exec path action failed; status [%d], error code [%d]: %s",
-                          result.status, result.error_code, result.error_msg)
+            rospy.logerr("Exec path action failed; outcome [%d], error code [%d]: %s",
+                          result.outcome, result.error_code, result.error_msg)
             self.result = False

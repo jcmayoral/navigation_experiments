@@ -1,0 +1,8 @@
+--- !extends:move_base_flex/oriented_dwa_planner.yaml
+
+# Extra debug information:
+vth_samples: 20
+goal_distance_bias: 16.0
+vx_samples: 9
+path_distance_bias: 43.0
+sim_granularity: 0.08
