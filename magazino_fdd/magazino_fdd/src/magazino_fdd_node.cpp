@@ -13,13 +13,10 @@
 
 #include <ros/ros.h>
 #include <magazino_fdd/monitor.h>
-#include <topic_tools/shape_shifter.h>
 using namespace std;
 
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "magazino_fault_detection");
-  ros::NodeHandle node;
-
   MainMonitor main_monitor;
 }
