@@ -43,7 +43,7 @@ class ExePathClass:
         return self.result
 
     def execution_done_cb(self,status, result):
-        if result.status == MoveBaseResult.SUCCESS:
+        if result.outcome == MoveBaseResult.SUCCESS:
             rospy.loginfo("Exec path action succeeded")
             self.result = True
         else:
