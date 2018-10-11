@@ -1,6 +1,6 @@
 import rospy
 import actionlib
-from move_base_flex_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, GetPathAction, GetPathGoal, GetPathActionResult
+from mbf_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, GetPathAction, GetPathGoal, GetPathActionResult
 from nav_msgs.msg import Path
 
 class GetPathClass:

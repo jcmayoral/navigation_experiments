@@ -49,14 +49,13 @@ class AutomaticTestExecution:
             [self.start_pose, self.goal_pose, self.paths["start_to_goal_"], self.paths["goal_to_start_"]] = fake_path(distance=self.required_distance, step=self.required_step,curve_type=curve_type)
 
     def run_tests(self):
-X        execution_result = True
+        execution_result = True
 
         for i in range(1,self.number_cycles):
             new_params = dict()
             new_results = dict()
             rospy.loginfo("Cycle %d of %d", i, self.number_cycles)
             self.configuration_manager.get_new_param_values(new_params)
-            #self.update_configuration(new_params)
             execution_result = self.execute_cycle(new_results)
             if execution_result:
                 self.result_saver.save_results(new_params, new_results)
@@ -72,6 +71,7 @@ X        execution_result = True
     def execute_path(self, path):
         self.path_constructor.reset()
         self.execution_analyzer.reset()
+        self.update_configuration(new_params)
         return self.path_executter.execute(path)
 
     def update_configuration(self,new_config):

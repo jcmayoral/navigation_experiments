@@ -1,0 +1,65 @@
+## YAML Template.
+topics: 
+    /odom:
+        samples: 2
+        window_size: 5
+        max_delay: 0.05
+        max_diff: 0.1
+    /cmd_vel:
+        samples: 2
+        window_size: 10
+        max_delay: 0.1
+        max_diff: 0.3
+    /imu/data_raw_transformed:
+        samples: 2
+        window_size: 10
+        max_delay: 0.1
+        max_diff: 0.3
+    /imu/data_raw:
+        samples: 2
+        window_size: 10
+        max_delay: 0.1
+        max_diff: 0.3
+    /wheel_angles:
+        samples: 2
+        window_size: 5
+        max_delay: 0.1
+        max_diff: 0.05
+    /left_speed:
+        samples: 2
+        window_size: 5
+        max_delay: 0.05
+        max_diff: 0.05
+    /right_speed:
+        samples: 2
+        window_size: 5
+        max_delay: 0.1
+        max_diff: 0.05
+nodes:
+    stopped_robot:
+        - /cmd_vel
+    canopen_interface/canopen_diff_drive:
+        - /odom
+    canopen_odom_left_wheel:
+        - /left_speed
+    canopen_odom_right_wheel:
+        - /right_speed
+
+    #navigation_stack:
+    #    - /odom
+    #    - /cmd_vel
+    tf:
+        - /imu/data_raw_transformed
+    cartographer:
+        - /imu/data_raw_transformed
+        - /odom
+    imu_manager:
+        - /imu/data_raw
+        - /imu/data_raw_transformed
+    imu_sensor:
+        - /imu/data_raw
+    wheels:
+        - /wheel_angles
+    navigation_map_server:
+        - /navigation/map
+ 
