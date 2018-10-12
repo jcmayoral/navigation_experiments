@@ -4,6 +4,8 @@ from std_msgs.msg import Empty, Bool
 from geometry_msgs.msg import Vector3
 import numpy as np
 
+#TODO Several poses (Integrate topological graph planner)
+
 class ContractNetTimeEstimator:
     def __init__(self):
         #rospy.init_node("time_estimator")
@@ -80,7 +82,7 @@ class ContractNetTimeEstimator:
 
         return statistic_estimation
 
-    def is_motion_finished(self,msg):
+    def is_motion_finished(self):
         measured_time = (rospy.Time.now() - self.start_time).to_sec()
 
         if self.is_training:

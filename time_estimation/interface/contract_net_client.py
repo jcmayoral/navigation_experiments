@@ -2,7 +2,7 @@ import rospy
 import actionlib
 from mbf_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, GetPathAction, GetPathGoal, GetPathActionResult
 from nav_msgs.msg import Path
-from std_msgs.msg import Float64, String
+from std_msgs.msg import Float64, String, Bool
 from geometry_msgs.msg import PoseStamped
 from time_estimator import ContractNetTimeEstimator
 
@@ -15,18 +15,23 @@ class ContractNetClient:
         self.time_estimator = ContractNetTimeEstimator()
         self.get_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/get_path", GetPathAction)
         self.publisher = rospy.Publisher("/multi_robots/propose", Float64, queue_size=50)
+        self.inform_publisher = rospy.Publisher("/multi_robots/inform", Bool, queue_size=50)
         self.cfg_subscriber = rospy.Subscriber("/multi_robots/cfg", PoseStamped, self.propose_cb, queue_size=1)
         self.response_subscriber = rospy.Subscriber("/multi_robots/response", String, self.responses_cb, queue_size=2)
         self.get_path_ac.wait_for_server(rospy.Duration(5))
+        self.exe_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/exe_path", ExePathAction)
+        self.exe_path_ac.wait_for_server(rospy.Duration(5))
         self.goal_pose = PoseStamped()
         self.path = Path()
         rospy.spin()
 
     def responses_cb(self,msg):
-        print msg.data
         if msg.data == self.name_id:
             rospy.loginfo("Proposal has been accepted")
             self.is_busy = True
+            self.inform_publisher.publish(Bool(data=self.execute_path()))
+            self.time_estimator.is_motion_finished()
+            self.is_busy = False
 
     def propose_cb(self, msg):
         if self.is_busy:
@@ -57,15 +62,8 @@ class ContractNetClient:
             rospy.logerr("Get path action failed; outcome [%d], %s",
                           result.outcome, result.message)
 
-
-class ExePathClass:
-    def __init__(self):
-        self.exe_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/exe_path", ExePathAction)
-        self.exe_path_ac.wait_for_server(rospy.Duration(5))
-        self.result = False
-
-    def execute(self, request_path):
-        goal = ExePathGoal(path=request_path)
+    def execute_path(self):
+        goal = ExePathGoal(path=self.path)
         self.exe_path_ac.send_goal(goal, done_cb=self.execution_done_cb)
         self.exe_path_ac.wait_for_result(timeout=rospy.Duration(120))
         return self.result

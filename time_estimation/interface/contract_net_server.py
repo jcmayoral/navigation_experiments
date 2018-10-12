@@ -3,7 +3,7 @@ import actionlib
 from mbf_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, GetPathAction, GetPathGoal, GetPathActionResult
 from nav_msgs.msg import Path
 from geometry_msgs.msg import PoseStamped
-from std_msgs.msg import Float64, String
+from std_msgs.msg import Float64, String, Bool
 
 class ContractNetServer:
     def __init__(self):
@@ -24,7 +24,13 @@ class ContractNetServer:
         #TODO msg str and proposes
         if len(self.proposes) > 0:
             min_proposal = min(self.proposes)
+            #TODO Attach id of the publisher to the message
             response_publisher.publish(String(data="Toru1"))
+            inform = rospy.wait_for_message("/multi_robots/inform", Bool)
+            if inform.data:
+                rospy.loginfo("Task Succedeed")
+            else:
+                rospy.logerr("Task Failed")
         else:
             rospy.logerr("Proposes not received")
 
