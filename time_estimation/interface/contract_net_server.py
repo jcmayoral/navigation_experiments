@@ -4,28 +4,29 @@ from mbf_msgs.msg import MoveBaseResult, ExePathGoal, ExePathAction, GetPathActi
 from nav_msgs.msg import Path
 from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import Float64, String, Bool
+from multi_robots_comm.msg import ContractNetMsg
 
 class ContractNetServer:
     def __init__(self):
         rospy.init_node("contract_net_server")
         cfg_publisher = rospy.Publisher("/multi_robots/cfg", PoseStamped, queue_size=1)
-        response_publisher = rospy.Publisher("/multi_robots/response", String, queue_size=1)
+        response_publisher = rospy.Publisher("/multi_robots/response", ContractNetMsg, queue_size=1)
 
         #TODO add id from goals
         self.proposes = list()
         rospy.loginfo("Subscribing to Proposals")
-        self.subscriber = rospy.Subscriber("/multi_robots/propose", Float64, self.propose_cb)
+        self.subscriber = rospy.Subscriber("/multi_robots/propose", ContractNetMsg, self.propose_cb)
         rospy.loginfo("Waiting for request")
         task = rospy.wait_for_message("/multi_robots/request", PoseStamped)
         rospy.loginfo("Received Request -> Calling For Proposal")
         cfg_publisher.publish(task)
-        rospy.sleep(2.0)
+        rospy.sleep(5.0)
 
         #TODO msg str and proposes
         if len(self.proposes) > 0:
             min_proposal = min(self.proposes)
             #TODO Attach id of the publisher to the message
-            response_publisher.publish(String(data="Toru1"))
+            response_publisher.publish(min_proposal)
             inform = rospy.wait_for_message("/multi_robots/inform", Bool)
             if inform.data:
                 rospy.loginfo("Task Succedeed")
@@ -37,5 +38,5 @@ class ContractNetServer:
         self.subscriber.unregister()
 
     def propose_cb(self, msg):
-        rospy.loginfo("Proposal with value "+ str(msg.data))
-        self.proposes.append(msg.data)
+        rospy.loginfo("Proposal from " + msg.robot_id + " with value "+ str(msg.propose_value))
+        self.proposes.append(msg)

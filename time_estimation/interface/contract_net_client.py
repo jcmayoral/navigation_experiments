@@ -5,6 +5,7 @@ from nav_msgs.msg import Path
 from std_msgs.msg import Float64, String, Bool
 from geometry_msgs.msg import PoseStamped
 from time_estimator import ContractNetTimeEstimator
+from multi_robots_comm.msg import ContractNetMsg
 
 class ContractNetClient:
     def __init__(self):
@@ -14,10 +15,10 @@ class ContractNetClient:
         self.response = "None"
         self.time_estimator = ContractNetTimeEstimator()
         self.get_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/get_path", GetPathAction)
-        self.publisher = rospy.Publisher("/multi_robots/propose", Float64, queue_size=50)
+        self.publisher = rospy.Publisher("/multi_robots/propose", ContractNetMsg, queue_size=50)
         self.inform_publisher = rospy.Publisher("/multi_robots/inform", Bool, queue_size=50)
         self.cfg_subscriber = rospy.Subscriber("/multi_robots/cfg", PoseStamped, self.propose_cb, queue_size=1)
-        self.response_subscriber = rospy.Subscriber("/multi_robots/response", String, self.responses_cb, queue_size=2)
+        self.response_subscriber = rospy.Subscriber("/multi_robots/response", ContractNetMsg, self.responses_cb, queue_size=2)
         self.get_path_ac.wait_for_server(rospy.Duration(5))
         self.exe_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/exe_path", ExePathAction)
         self.exe_path_ac.wait_for_server(rospy.Duration(5))
@@ -26,7 +27,7 @@ class ContractNetClient:
         rospy.spin()
 
     def responses_cb(self,msg):
-        if msg.data == self.name_id:
+        if msg.robot_id == self.name_id:
             rospy.loginfo("Proposal has been accepted")
             self.is_busy = True
             self.inform_publisher.publish(Bool(data=self.execute_path()))
@@ -49,8 +50,10 @@ class ContractNetClient:
         rospy.loginfo("Calling move_base_flex/get_path")
         self.get_path_ac.wait_for_result(timeout=rospy.Duration(10))
         rospy.loginfo("get_path is done")
-        propose = self.time_estimator.calculate_time(self.path)
-        self.publisher.publish(Float64(data=propose))
+        msg = ContractNetMsg()
+        msg.robot_id = self.name_id
+        msg.propose_value = self.time_estimator.calculate_time(self.path)
+        self.publisher.publish(msg)
         #TODO msg
         rospy.loginfo("Waiting for the response")
 
