@@ -34,19 +34,19 @@ class OdomPlotter:
         self.yaw = euler[2]
         self.lock.release()
 
+def reset_cb(event):
+    plt.clf()
+
 rospy.init_node("odom_comparison_plot")
 plt.ion()
 fig, ax = plt.subplots()
+plt.subplots_adjust(bottom=0.2)
 plot = OdomPlotter(topic_name="/odom")
 ekf_plot = OdomPlotter(topic_name="/fake_odom")
-r = 3.0
+r = 1.5
+plt.connect('button_press_event', reset_cb)
 
 while not rospy.is_shutdown():
-
-    if plot.clear:
-        plt.clf()
-        plot.clear = False
-
     if plot.is_started and ekf_plot.is_started:
         ax.legend()
 
@@ -63,13 +63,14 @@ while not rospy.is_shutdown():
         ekf_plot.lock.release()
         plt.scatter(x1, y1, c='r')
         #for x,y,w in zip(x1, y1, yaw1):
-        plt.arrow(x1, y1,r*np.cos(yaw1), r*np.sin(yaw1), color='r',  label='odom')
+        plt.arrow(x1, y1,r*np.cos(yaw1), r*np.sin(yaw1), color='r',  label='odom', head_width=0.025)
         plt.scatter(ox, oy, c='b')
-        plt.arrow(ox, oy,r*np.cos(oyaw), r*np.sin(oyaw), color='b',  label='fake_odom')
+        plt.arrow(ox, oy,r*np.cos(oyaw), r*np.sin(oyaw), color='b',  label='fake_odom', head_width=0.025)
         """
         if len(y1) > 0:
             plt.xlim(min(plot.x)-r, max(plot.x)+r)
             plt.xlim(min(plot.x)-r, max(plot.x)+r)
         """
         fig.canvas.draw_idle()
+        #plt.draw()
         plt.pause(0.1)
