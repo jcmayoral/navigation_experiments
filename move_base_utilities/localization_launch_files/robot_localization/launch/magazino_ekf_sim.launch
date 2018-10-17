@@ -1,7 +1,7 @@
 
 <launch>
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" clear_params="true">
-    <rosparam command="load" file="/home/banos/catkin_ws/src/navigation_experimets/localization/robot_localization/params/magazino_ekf_sim.yaml" />
+    <rosparam command="load" file="/home/banos/catkin_ws/src/navigation_experimets/move_base_utilities/localization_launch_files/robot_localization/params/magazino_ekf_sim.yaml" />
 
    <!--  Placeholder for output topic remapping -->
     <remap from="odometry/filtered" to="/odom"/>
