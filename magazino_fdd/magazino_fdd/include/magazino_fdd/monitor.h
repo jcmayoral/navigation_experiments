@@ -36,24 +36,24 @@ class MainMonitor {
 public:
 
     //TODO IDEA Taken from Cartographer
-    /*
+
     template <typename MessageType>
      ::ros::Subscriber SubscribeWithHandler(
-                            void (MainMonitor * handler) (int, const std::string&, const typename MessageType::ConstPtr&),
-                            const int trajectory_id, 
-                            const std::string& topic,
+                            void (MainMonitor::* handler) (int, const std::string&, const typename MessageType::ConstPtr&),
+                            const int index,
+                            const std::string& config_file,const std::string& topic,
                             ::ros::NodeHandle* const node_handle, 
-                            ros::NodeHandle* const node) {
+                            MainMonitor* const node) {
         
             return node_handle->subscribe<MessageType>(
                                         topic, 5,
                                         boost::function<void(const typename MessageType::ConstPtr&)>(
-                                                    [node, handler, trajectory_id, topic] (const typename MessageType::ConstPtr& msg) 
+                                                    [node, handler, config_file,index, topic] (const typename MessageType::ConstPtr& msg) 
                                                     {            
-                                                        (node->*handler)(trajectory_id, topic, msg); 
+                                                        (node->*handler)(msg, index); 
                                                     }));
     }
-    */
+
 
     MainMonitor(std::string config_file="config/default_config.yml");
     MainMonitor(const MainMonitor& orig);

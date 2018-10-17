@@ -10,7 +10,7 @@ class WheelSyncronizer:
         rospy.init_node("wheels_sync")
         #values copied from the diffdrive_controller file not available on parameter server
         self.R = 0.5
-        self.L = rospy.get_param("/filtered/canopen_interface/differential_drive/wheel_separation")
+        self.L = 0.512#rospy.get_param("/filtered/canopen_interface/differential_drive/wheel_separation")
         self.odom_vel_pub = rospy.Publisher("recomputed_odom_vel", Twist, queue_size = 1)
         self.diff_pub = rospy.Publisher("magazino_fdd/wheel_diff", Float64, queue_size = 1)
         self.tss = ApproximateTimeSynchronizer([Subscriber("/left_speed",Float64), Subscriber("/right_speed", Float64)],5,0.1, allow_headerless=True)
