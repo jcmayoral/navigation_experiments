@@ -40,37 +40,35 @@ def reset_cb(event):
 rospy.init_node("odom_comparison_plot")
 plt.ion()
 fig, ax = plt.subplots()
-plt.subplots_adjust(bottom=0.2)
+#plt.subplots_adjust(bottom=0.2)
 plot = OdomPlotter(topic_name="/odom")
 ekf_plot = OdomPlotter(topic_name="/fake_odom")
 r = 1.5
 plt.connect('button_press_event', reset_cb)
 
 while not rospy.is_shutdown():
-    if plot.is_started and ekf_plot.is_started:
+    if plot.is_started or ekf_plot.is_started:
         ax.legend()
 
-        plot.lock.acquire()
-        x1 = deepcopy(plot.x)
-        y1= deepcopy(plot.y)
-        yaw1= deepcopy(plot.yaw)
-        plot.lock.release()
+        if plot.is_started:
+            plot.lock.acquire()
+            x1 = deepcopy(plot.x)
+            y1= deepcopy(plot.y)
+            yaw1= deepcopy(plot.yaw)
+            plot.lock.release()
+            plt.scatter(x1, y1, c='r')
+            #for x,y,w in zip(x1, y1, yaw1):
+            plt.arrow(x1, y1,r*np.cos(yaw1), r*np.sin(yaw1), color='r',  label='odom', head_width=0.025)
 
-        ekf_plot.lock.acquire()
-        ox= deepcopy(ekf_plot.x)
-        oy= deepcopy(ekf_plot.y)
-        oyaw= deepcopy(ekf_plot.yaw)
-        ekf_plot.lock.release()
-        plt.scatter(x1, y1, c='r')
-        #for x,y,w in zip(x1, y1, yaw1):
-        plt.arrow(x1, y1,r*np.cos(yaw1), r*np.sin(yaw1), color='r',  label='odom', head_width=0.025)
-        plt.scatter(ox, oy, c='b')
-        plt.arrow(ox, oy,r*np.cos(oyaw), r*np.sin(oyaw), color='b',  label='fake_odom', head_width=0.025)
-        """
-        if len(y1) > 0:
-            plt.xlim(min(plot.x)-r, max(plot.x)+r)
-            plt.xlim(min(plot.x)-r, max(plot.x)+r)
-        """
+        if ekf_plot.is_started:
+            ekf_plot.lock.acquire()
+            ox= deepcopy(ekf_plot.x)
+            oy= deepcopy(ekf_plot.y)
+            oyaw= deepcopy(ekf_plot.yaw)
+            ekf_plot.lock.release()
+            plt.scatter(ox, oy, c='b')
+            plt.arrow(ox, oy,r*np.cos(oyaw), r*np.sin(oyaw), color='b',  label='fake_odom', head_width=0.025)
+
         fig.canvas.draw_idle()
         #plt.draw()
         plt.pause(0.1)

@@ -57,10 +57,10 @@ while not rospy.is_shutdown():
             plot.clear = False
         plt.scatter(plot.x, plot.y, c='r')
         for x,y,w in zip(plot.x, plot.y, plot.yaw):
-            plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='r')
+            plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='r', head_width=0.025)
         plt.scatter(plot.local_x, plot.local_y, c='b')
         for x,y,w in zip(plot.local_x, plot.local_y, plot.local_yaw):
-            plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='b')
+            plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='b', head_width=0.025)
 
         if len(plot.y) > 0:
             plt.ylim(min(plot.y)-r, max(plot.y)+r)

@@ -54,7 +54,7 @@ class Plotter:
         p.header = msg.header
         #p.header.stamp = rospy.Time.now()
         p.pose = msg.pose.pose
-        
+
 
         try:
             self.listener.waitForTransform("map", "odom", rospy.Time(0),rospy.Duration(1.0))
@@ -94,15 +94,15 @@ while not rospy.is_shutdown():
     plt.scatter(x1, y1, c='r')
 
     for x,y,w in zip(x1, y1, yaw1):
-       plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='r')
+       plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='r', head_width=0.025)
     plt.scatter(ox, oy, c='b')
 
     for x,y,w in zip(ox, oy, oyaw):
-       plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='b')
+       plt.arrow(x, y,r*np.cos(w), r*np.sin(w), color='b', head_width=0.025)
 
     if len(y1) > 0:
        plt.xlim(min(plot.x)-r, max(plot.x)+r)
        plt.xlim(min(plot.x)-r, max(plot.x)+r)
-    
+
     plot.fig.canvas.draw_idle()
     plt.pause(0.1)
