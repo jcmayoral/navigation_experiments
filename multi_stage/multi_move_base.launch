@@ -31,6 +31,10 @@
       <param name="robot_frame" value="robot_0/base_footprint"/>
       <param name="global_frame" value="robot_0/map"/>
       <rosparam param="global_frame_id" command="load" ns="OrientedDWAPlanner"> "robot_0/map" </rosparam>
+      <rosparam param="global_frame" command="load" ns="global_costmap"> "robot_0/map" </rosparam>
+      <rosparam param="robot_base_frame" command="load" ns="global_costmap"> "robot_0/base_footprint" </rosparam>
+      <rosparam param="global_frame" command="load" ns="local_costmap"> "robot_0/map" </rosparam>
+      <rosparam param="robot_base_frame" command="load" ns="local_costmap"> "robot_0/base_footprint" </rosparam>
     </node>
 
     <node pkg="mbf_costmap_nav" type="move_base_legacy_relay.py" name="move_base_legacy_relay_0" output="screen" respawn="true">
@@ -76,12 +80,10 @@
       <param name="robot_frame" value="robot_1/base_footprint"/>
       <param name="global_frame" value="robot_1/map"/>
       <rosparam param="global_frame_id" command="load" ns="OrientedDWAPlanner"> "robot_1/map" </rosparam>
-      <!--
       <rosparam param="global_frame" command="load" ns="global_costmap"> "robot_1/map" </rosparam>
       <rosparam param="robot_base_frame" command="load" ns="global_costmap"> "robot_1/base_footprint" </rosparam>
       <rosparam param="global_frame" command="load" ns="local_costmap"> "robot_1/map" </rosparam>
       <rosparam param="robot_base_frame" command="load" ns="local_costmap"> "robot_1/base_footprint" </rosparam>
-    -->
     </node>
 
     <node pkg="mbf_costmap_nav" type="move_base_legacy_relay.py" name="move_base_legacy_relay_1" output="screen" respawn="true">
