@@ -11,9 +11,9 @@
         <param name="odom_alpha3" value="0.2"/>                         <!-- default : 5.0  -->
         <param name="odom_alpha4" value="0.2"/>                         <!-- default : 5.0  -->
         <param name="odom_alpha5" value="0.2"/>                         <!-- default : 7.0  -->
-        <param name="odom_frame_id" value="/robot_0/odom"/>                     <!-- default : /odom -->
-        <param name="base_frame_id" value="/robot_0/base_link"/>                 <!-- default : base_footprint -->
-        <param name="global_frame_id" value="/robot_0/map"/>                     <!-- default : map -->
+        <param name="odom_frame_id" value="/robot_1/odom"/>                     <!-- default : /odom -->
+        <param name="base_frame_id" value="/robot_1/base_link"/>                 <!-- default : base_footprint -->
+        <param name="global_frame_id" value="/robot_1/map"/>                     <!-- default : map -->
 
         <!-- Overall filter parameters -->
         <param name="min_particles" value="100"/>                       <!-- default : 100 -->
