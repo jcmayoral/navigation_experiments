@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- map server -->
+  <arg name="map" default="/home/banos/catkin_ws/src/navigation_experimets/multi_stage/map.yaml" />
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)"/>
+
+  <group ns="robot_0">
+    <arg name="input_scans" default="[base_scan_0, base_scan_1]"/>
+    <remap from="map" to="map"/>
+
+    <!-- particle filter localization -->
+    <include file="/home/banos/catkin_ws/src/navigation_experimets/multi_stage/amcl_stage.launch" />
+
+    <node pkg="mbf_costmap_nav" type="mbf_costmap_nav" name="move_base_flex" output="screen" respawn="true">
+      <rosparam file="cman:move_base_flex/move_base_flex.yaml" command="load"/>
+    </node>
+
+    <node pkg="cob_scan_unifier" type="scan_unifier_node" name="scan_unifier" output="log">
+        <rosparam subst_value="True" param="input_scans">$(arg input_scans)</rosparam>
+    </node>
+  </group>
+
+</launch>
