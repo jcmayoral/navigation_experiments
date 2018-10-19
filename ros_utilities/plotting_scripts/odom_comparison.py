@@ -42,7 +42,7 @@ plt.ion()
 fig, ax = plt.subplots()
 #plt.subplots_adjust(bottom=0.2)
 plot = OdomPlotter(topic_name="/odom")
-ekf_plot = OdomPlotter(topic_name="/fake_odom")
+ekf_plot = OdomPlotter(topic_name="/canopen_odom")
 r = 1.5
 plt.connect('button_press_event', reset_cb)
 
