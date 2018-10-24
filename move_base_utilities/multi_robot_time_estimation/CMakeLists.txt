@@ -8,6 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
              message_generation
              message_runtime)
 
+catkin_python_setup()
+
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
@@ -21,4 +23,8 @@ generate_messages(
 
 catkin_package(
   CATKIN_DEPENDS std_msgs
+)
+
+install(PROGRAMS nodes/client.py nodes/server.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

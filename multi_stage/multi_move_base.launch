@@ -43,6 +43,8 @@
     <!--node pkg="cob_scan_unifier" type="scan_unifier_node" name="scan_unifier" output="log">
         <rosparam subst_value="True" param="input_scans">$(arg input_scans)</rosparam>
     </node-->
+    <node pkg="multi_robots_comm" type="client.py" name="move_base_comm_client_0" output="screen" respawn="true">
+    </node>
   </group>
 
 

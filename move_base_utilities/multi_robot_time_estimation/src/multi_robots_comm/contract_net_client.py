@@ -10,17 +10,17 @@ from multi_robots_comm.msg import ContractNetMsg
 class ContractNetClient:
     def __init__(self):
         rospy.init_node("contract_net_client")
-        self.name_id = "Toru1"
+        self.name_id = "robot_0"
         self.is_busy = False
         self.response = "None"
         self.time_estimator = ContractNetTimeEstimator()
-        self.get_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/get_path", GetPathAction)
+        self.get_path_ac = actionlib.SimpleActionClient("/move_base_flex/get_path", GetPathAction)
         self.publisher = rospy.Publisher("/multi_robots/propose", ContractNetMsg, queue_size=50)
         self.inform_publisher = rospy.Publisher("/multi_robots/inform", Bool, queue_size=50)
         self.cfg_subscriber = rospy.Subscriber("/multi_robots/cfg", PoseStamped, self.propose_cb, queue_size=1)
         self.response_subscriber = rospy.Subscriber("/multi_robots/response", ContractNetMsg, self.responses_cb, queue_size=2)
         self.get_path_ac.wait_for_server(rospy.Duration(5))
-        self.exe_path_ac = actionlib.SimpleActionClient("/navigation/move_base_flex/exe_path", ExePathAction)
+        self.exe_path_ac = actionlib.SimpleActionClient("/move_base_flex/exe_path", ExePathAction)
         self.exe_path_ac.wait_for_server(rospy.Duration(5))
         self.goal_pose = PoseStamped()
         self.path = Path()
