@@ -1,0 +1,121 @@
+waypoints:
+- frame_id: map
+  name: pose_1
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+      w: -0.016
+    position:
+      x: 7.075
+      y: -1.031
+      z: 0.0
+- frame_id: map
+  name: pose_2
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+      w: 0.028
+    position:
+      x: 5.780
+      y: 1.092
+      z: 0.0
+- frame_id: map
+  name: pose_3
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+      w: 0.007
+    position:
+      x: 1.448
+      y: -0.596
+      z: 0.0
+- frame_id: map
+  name: pose_4
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.970
+      w: 0.243
+    position:
+      x: -0.781
+      y: -0.524
+      z: 0.0
+- frame_id: map
+  name: pose_5
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.717
+      w: 0.697
+    position:
+      x: -1.513
+      y: 2.806
+      z: 0.0
+- frame_id: map
+  name: pose_6
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 1.0
+      w: -0.007
+    position:
+      x: 0.508
+      y: 1.352
+      z: 0.0
+- frame_id: map
+  name: pose_7
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -0.757
+      w: 0.654
+    position:
+      x: -1.021
+      y: 0.710
+      z: 0.0
+- frame_id: map
+  name: pose_8
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.021
+      w: 1.0
+    position:
+      x: 0.094
+      y: -0.567
+      z: 0.0
+- frame_id: map
+  name: pose_9
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: -0.656
+      w: 0.755
+    position:
+      x: 4.328
+      y: -1.470
+      z: 0.0
+- frame_id: map
+  name: pose_10
+  pose:
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.999
+      w: -0.042
+    position:
+      x: 6.383
+      y: -0.978
+      z: 0.0
