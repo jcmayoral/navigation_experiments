@@ -7,11 +7,9 @@ from numpy import fabs, sqrt, power
 from std_msgs.msg import Float32, Bool
 from nav_msgs.msg import Odometry
 
-global stop_flag
 stop_flag = False
 
 def stop_cb(msg):
-    global stop_flag
     print "Ehgpiashgpshapigsahpahgpshgdpi"
     stop_flag = msg.data
 
@@ -22,7 +20,7 @@ odom_frame = "odom"
 
 fb_publish = rospy.Publisher("tf_error", Float32, queue_size = 5)
 fb_angular_publish = rospy.Publisher("tf_angular_error", Float32, queue_size = 5)
-rospy.Subscriber("stop_grading", Bool, stop_cb)
+#rospy.Subscriber("stop_grading", Bool, stop_cb)
 
 first_odom = rospy.wait_for_message('/odom', Odometry)
 
@@ -38,7 +36,7 @@ tolerance = -1.0
 ang_tolerance = -1.0
 max_delay = 0.05
 
-while not stop_flag:
+while not rospy.is_shutdown():
     print stop_flag
     try:
         current_odom = rospy.wait_for_message('/odom', Odometry)
