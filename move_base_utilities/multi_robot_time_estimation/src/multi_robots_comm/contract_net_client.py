@@ -14,14 +14,23 @@ class ContractNetClient:
         self.is_busy = False
         self.response = "None"
         self.time_estimator = ContractNetTimeEstimator()
-        self.get_path_ac = actionlib.SimpleActionClient("/move_base_flex/get_path", GetPathAction)
+        if rospy.has_param("~namespace"):
+            ns = rospy.get_param("~namespace")
+            self.name_id = ns
+            self.get_path_ac = actionlib.SimpleActionClient("move_base_flex/get_path", GetPathAction)
+            self.exe_path_ac = actionlib.SimpleActionClient("move_base_flex/exe_path", ExePathAction)
+        else:
+            rospy.logwarn("NameSpace not set")
+            self.get_path_ac = actionlib.SimpleActionClient("/move_base_flex/get_path", GetPathAction)
+            self.exe_path_ac = actionlib.SimpleActionClient("/move_base_flex/exe_path", ExePathAction)
+
         self.publisher = rospy.Publisher("/multi_robots/propose", ContractNetMsg, queue_size=50)
         self.inform_publisher = rospy.Publisher("/multi_robots/inform", Bool, queue_size=50)
         self.cfg_subscriber = rospy.Subscriber("/multi_robots/cfg", PoseStamped, self.propose_cb, queue_size=1)
         self.response_subscriber = rospy.Subscriber("/multi_robots/response", ContractNetMsg, self.responses_cb, queue_size=2)
         self.get_path_ac.wait_for_server(rospy.Duration(5))
-        self.exe_path_ac = actionlib.SimpleActionClient("/move_base_flex/exe_path", ExePathAction)
         self.exe_path_ac.wait_for_server(rospy.Duration(5))
+        rospy.loginfo("allcorrect")
         self.goal_pose = PoseStamped()
         self.path = Path()
         rospy.spin()
