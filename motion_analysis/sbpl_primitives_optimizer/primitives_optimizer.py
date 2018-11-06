@@ -33,4 +33,14 @@ results_time = sh1["TIME"]
 calculate = lambda x,y,z: x+y+z
 arg_min = np.argmin(np.asarray(calculate(results_distance, results_turning, results_time)))
 
-print results_config[arg_min]
+print "Best primitives file name: " , results_config[arg_min]
+
+str_ = results_config[arg_min].replace("_", " ").split()[1:4]
+print "Looking for ", str_
+
+for k in current_configurations.keys():
+    if all(x in k for x in str_ ):
+        print "Str found at ", k
+        best_params = current_configurations[k]
+
+print "BEST params ", best_params
