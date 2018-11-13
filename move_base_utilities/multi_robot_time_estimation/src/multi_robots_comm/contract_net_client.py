@@ -15,14 +15,9 @@ class ContractNetClient:
         self.response = "None"
         self.time_estimator = ContractNetTimeEstimator()
         if rospy.has_param("~namespace"):
-            ns = rospy.get_param("~namespace")
-            self.name_id = ns
-            self.get_path_ac = actionlib.SimpleActionClient("move_base_flex/get_path", GetPathAction)
-            self.exe_path_ac = actionlib.SimpleActionClient("move_base_flex/exe_path", ExePathAction)
-        else:
-            rospy.logwarn("NameSpace not set")
-            self.get_path_ac = actionlib.SimpleActionClient("/move_base_flex/get_path", GetPathAction)
-            self.exe_path_ac = actionlib.SimpleActionClient("/move_base_flex/exe_path", ExePathAction)
+            self.name_id = rospy.get_param("~namespace")
+        self.get_path_ac = actionlib.SimpleActionClient("move_base_flex/get_path", GetPathAction)
+        self.exe_path_ac = actionlib.SimpleActionClient("move_base_flex/exe_path", ExePathAction)
 
         self.publisher = rospy.Publisher("/multi_robots/propose", ContractNetMsg, queue_size=50)
         self.inform_publisher = rospy.Publisher("/multi_robots/inform", Bool, queue_size=50)
@@ -53,6 +48,8 @@ class ContractNetClient:
 
     def get_path(self):
         rospy.loginfo("Sending To get_path server")
+        if self.is_busy:
+            return
         goal = GetPathGoal(use_start_pose=False,
                            target_pose=self.goal_pose)
         self.get_path_ac.send_goal(goal,done_cb = self.plan_done_cb)
