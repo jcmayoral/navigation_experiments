@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+	<rosparam file="/home/banos/catkin_ws/src/navigation_experimets/move_base_utilities/controller_manager/demo.yaml" command="load" />
+    
+    <node name="demo_manager" pkg="controller_manager" type="spawner"
+          respawn="false" output="screen" args="mobile_base_controller" />
+          
+          
+</launch>
