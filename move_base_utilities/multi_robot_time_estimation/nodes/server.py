@@ -6,9 +6,10 @@ import threading
 
 rospy.init_node("contract_net_server")
 
+current_jobs = list()
 while not rospy.is_shutdown():
     rospy.loginfo("Waiting for new request")
     task = rospy.wait_for_message("/multi_robots/request", PoseStamped)
     contractnet = ContractNetServer(task)
-    threading.Thread(target=contractnet.run).start()
+    current_jobs.append(threading.Thread(target=contractnet.run).start())
     #new_thread.join()

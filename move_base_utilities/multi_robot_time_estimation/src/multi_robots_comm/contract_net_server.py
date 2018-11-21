@@ -20,7 +20,7 @@ class ContractNetServer(threading.Thread):
 
         rospy.loginfo("Received Request -> Calling For Proposal")
         self.cfg_publisher.publish(task)
-        rospy.sleep(5.0)
+        rospy.sleep(3.0)
 
     def run(self):
         #TODO msg str and proposes
