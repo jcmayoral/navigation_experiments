@@ -25,6 +25,6 @@ catkin_package(
   CATKIN_DEPENDS std_msgs
 )
 
-install(PROGRAMS nodes/client.py nodes/server.py
+install(PROGRAMS nodes/client.py nodes/server.py nodes/simple_client.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

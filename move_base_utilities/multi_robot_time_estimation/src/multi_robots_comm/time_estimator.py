@@ -23,7 +23,7 @@ class ContractNetTimeEstimator:
         self.coefficients = None
         #rospy.spin()
 
-    def training_cb(self,path):
+    def training_cb(self,msg):
         self.is_training = msg.data
         if not self.is_training:
             print "OFF SET per primitive is ", self.mean_primitive_error/self.samples
