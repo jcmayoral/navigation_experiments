@@ -26,9 +26,6 @@ class RobotTimeEstimator:
         self.path = Path()
         rospy.spin()
 
-    def responses_cb(self,msg):
-        rospy.loginfo("Proposal has been accepted")
-
     def simple_goal_cb(self, msg):
         rospy.loginfo("CFP received from server")
         self.goal_pose = msg
@@ -45,7 +42,7 @@ class RobotTimeEstimator:
         rospy.loginfo("Calling move_base_flex/get_path")
         self.get_path_ac.wait_for_result(timeout=rospy.Duration(10))
         rospy.loginfo("get_path is done")
-        rospy.loginfo(self.time_estimator.calculate_time(self.path))
+        self.time_estimator.calculate_time(self.path)
         #TODO msg
         rospy.loginfo("Waiting for the response")
 
