@@ -113,7 +113,7 @@ class ContractNetTimeEstimator:
             self.samples = self.samples+1
             self.mean_primitive_error += (measured_time - self.estimated_time)/self.lenght
 
-        print "MEASURED TIME", measured_time
+        print "MEASURED TIME",  measured_time
         #print "ERROR IN SECONDS", self.estimated_time - measured_time
         new_measurement = self.K
         #new_measurement.append(self.estimated_time)
