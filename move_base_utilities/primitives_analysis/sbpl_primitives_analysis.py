@@ -7,7 +7,6 @@ class SBPLPrimitiveAnalysis:
         rospy.init_node("sbpl_primitive_analysis")
         self.results = dict()
         rospy.Subscriber("/navigation/move_base_flex/SBPLLatticePlanner/plan_marker", MarkerArray, self.primitives_cb)
-        rospy.spin()
 
     def primitives_cb(self, msg):
         for marker in msg.markers:
@@ -28,4 +27,5 @@ class SBPLPrimitiveAnalysis:
 
 if __name__ == '__main__':
     primitives_analyzer = SBPLPrimitiveAnalysis()
+    rospy.spin()
     primitives_analyzer.print_results()
