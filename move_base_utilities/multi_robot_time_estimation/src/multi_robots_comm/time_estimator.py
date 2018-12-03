@@ -37,7 +37,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitives_coefficients = np.zeros(self.primitives_number)
         self.timed_positions = list()
         self.is_robot_moving = False
-        self.y_primitives = list()
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
 
@@ -200,7 +199,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #new_measurement.append(self.estimated_time)
         self.A.append(new_measurement)
         self.A_primitives.append(self.primitives_count)
-        self.y_primitives.append(measured_time)
         self.y.append(measured_time)
         self.y_diff.append(measured_time - self.estimated_time)
 
