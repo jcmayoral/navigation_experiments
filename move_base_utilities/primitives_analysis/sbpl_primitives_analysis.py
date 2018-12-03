@@ -25,5 +25,7 @@ class SBPLPrimitiveAnalysis:
         for keys,values in self.results.items():
             print(keys, ":", values)
 
-primitives_analyzer = SBPLPrimitiveAnalysis()
-primitives_analyzer.print_results()
+
+if __name__ == '__main__':
+    primitives_analyzer = SBPLPrimitiveAnalysis()
+    primitives_analyzer.print_results()

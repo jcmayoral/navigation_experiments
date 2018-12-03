@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>primitives_analysis</name>
+  <version>0.0.2</version>
+  <description>Package used by  multi_robots_comm package</description>
+
+  <maintainer email="banos@magazino.eu">Jose M Banos</maintainer>
+
+  <license>LGPLv3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+
+  <run_depend>rospy</run_depend>
+
+</package>
