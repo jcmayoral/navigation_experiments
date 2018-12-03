@@ -181,8 +181,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             self.timed_positions.append([tmp_time, tmp_pose])
 
         self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
-        print "Complete Linearization Estimation " , self.lst_estimated_time
-        print "Curvature Linearization Estimation " , self.estimated_time + np.sum(self.coefficients[4] * np.array([curvature]))
+        rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
         return (statistic_estimation + self.lst_estimated_time)/2
 
     def is_motion_finished(self):
