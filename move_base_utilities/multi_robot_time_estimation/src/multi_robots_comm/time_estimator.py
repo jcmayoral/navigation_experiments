@@ -4,15 +4,19 @@ from std_msgs.msg import Empty, Bool
 from geometry_msgs.msg import Vector3
 import numpy as np
 from scipy.optimize import minimize, curve_fit, least_squares
+from sbpl_primitives_analysis import SBPLPrimitiveAnalysis
+
 
 #TODO Several poses (Integrate topological graph planner)
 
-class ContractNetTimeEstimator:
+class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
     def __init__(self):
         #rospy.init_node("time_estimator")
+        SBPLPrimitiveAnalysis.__init__(self)
         self.mean_primitive_error = 0
         self.samples = 0
         self.is_training = True
+        self.primitives_number = 25
         #rospy.Subscriber("/time_estimator/training", Bool, self.training_cb, queue_size=1)
         self.feedback_pub = rospy.Publisher("time_estimator/fb", Vector3, queue_size=1)
         self.start_time = rospy.Time.now()
@@ -20,12 +24,16 @@ class ContractNetTimeEstimator:
         self.lst_estimated_time = None
         self.lenght = 1
         self.K =0
+        self.counter = 0
         self.A = list()
         self.y = list()
+        self.A_primitives = list()
         self.y_diff = list()
         self.W = list()
-        self.coefficients = np.zeros(5)
-        self.min_coefficients = np.zeros(5)
+        self.coefficients = np.zeros(6)
+        self.min_coefficients = np.zeros(6)
+        self.primitives_count = np.zeros(self.primitives_number)
+        self.primitives_coefficients = np.zeros(self.primitives_number)
         #rospy.spin()
 
     def train_data(self):
@@ -44,14 +52,29 @@ class ContractNetTimeEstimator:
 
         #TODO TOTEST XXX
         a = np.asarray(self.A)
-        mean = np.mean(self.y_diff)
-        f = lambda x: np.fabs(np.sum(self.coefficients*x) - mean)
-        x = [0,0,0,0,0]
-        self.min_coefficients = minimize(f,x).x
+        mean = np.mean(self.y)
+        x = [0,0,0,0,0,0]
         #self.coefficients = least_squares(f, x, ftol=np.mean(self.y_diff)).x
         self.coefficients = np.linalg.lstsq(self.A, self.y)[0]
+        f = lambda x: np.fabs(np.sum(self.coefficients*x)) - mean
+        #self.min_coefficients = minimize(f,x, tol=mean).x
+        if self.counter == len(self.coefficients):
+            self.min_coefficients += np.linalg.solve(self.A[-6:], self.y[-6:])/2.0
+            self.counter = 0
+        self.counter += 1
+        print "new coefficients" , self.coefficients
+        print "new coefficients" , self.min_coefficients
 
-        #print self.coefficients
+
+
+        #TODO
+        prim_a = np.asarray(self.A_primitives)
+        prim_mean = np.mean(self.y)
+        x = np.zeros(self.primitives_number)
+        print "Primitives coefficients " , np.linalg.lstsq(prim_a, self.y)[0]
+        self.reset_primitives_count()
+        self.primitives_count = np.zeros(self.primitives_number)
+
 
     def calculate_time(self,msg):
         self.lenght = len(msg.poses)
@@ -87,9 +110,15 @@ class ContractNetTimeEstimator:
         ddy = np.mean(ddy,axis=0)
 
         curvature = (ddy * dx - ddx * dy) / (np.power(dx, 2) + np.power(dy, 2))
-        self.K = [dx,dy,ddx,ddy,curvature]
+        self.K = [dx,dy,ddx,ddy,curvature, self.lenght]
         #print "Curvature " , self.K
         statistic_estimation = 0
+
+
+        # For sbpl primitives
+        for i in range(self.primitives_number):
+            self.primitives_count[i] = self.get_primitive_count(i)
+        print "Current primitives ", self.current_results
 
         if self.samples >0 :# not self.is_training:
             statistic_estimation = self.estimated_time + self.lenght* self.mean_primitive_error/self.samples
@@ -98,11 +127,13 @@ class ContractNetTimeEstimator:
         else:
             statistic_estimation = self.estimated_time
 
-        self.lst_estimated_time = self.estimated_time + np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature]))
+        self.lst_estimated_time = self.estimated_time + np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         print "Complete Linearization Estimation " , self.lst_estimated_time
+        print "Estimation with primitives ", self.estimated_time + np.sum(self.primitives_coefficients *self.primitives_count)
+
         print "Curvature Linearization Estimation " , self.estimated_time + np.sum(self.coefficients[4] * np.array([curvature]))
-        #print "Minimizing ", self.estimated_time +  np.sum(self.min_coefficients * np.array([dx, dy, ddx, ddy, curvature]))
-        #print "Minimizing ", -np.mean(self.y_diff) +  np.sum(self.min_coefficients * np.array([dx, dy, ddx, ddy, curvature]))
+        print "Minimized Estimation of the complete parameter set ", self.estimated_time +  np.sum(self.min_coefficients * np.array([dx, dy, ddx, ddy, curvature, self.lenght]))
+        print "Minimized Estimation just with Curvature coefficient " , self.estimated_time + np.sum(self.min_coefficients[4] * np.array([curvature]))
 
         return (statistic_estimation + self.lst_estimated_time)/2
 
@@ -118,6 +149,7 @@ class ContractNetTimeEstimator:
         new_measurement = self.K
         #new_measurement.append(self.estimated_time)
         self.A.append(new_measurement)
+        self.A_primitives.append(self.primitives_count)
         self.y.append(measured_time)
         self.y_diff.append(measured_time - self.estimated_time)
 
