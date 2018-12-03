@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>multi_robots_comm</name>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
   <description>The multi_robots_comm package</description>
 
   <maintainer email="banos@magazino.eu">Jose M Banos</maintainer>
@@ -11,10 +11,18 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
   <build_depend>message_generation</build_depend>
 
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+
   <run_depend>message_runtime</run_depend>
 
 </package>

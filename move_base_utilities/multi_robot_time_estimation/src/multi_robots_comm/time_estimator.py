@@ -1,13 +1,13 @@
 import rospy
-from nav_msgs.msg import Path
-from std_msgs.msg import Empty, Bool
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Vector3
+from nav_msgs.msg import Path,Odometry
+from std_msgs.msg import Empty, Boolx`
+from geometry_msgs.msg import Vector3, PoseStamped
 import numpy as np
 from scipy.optimize import minimize, curve_fit, least_squares
 from sbpl_primitives_analysis import SBPLPrimitiveAnalysis
 import time
-
+import tf2_ros
+import tf2_geometry_msgs
 
 #TODO Several poses (Integrate topological graph planner)
 
@@ -37,7 +37,10 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitives_coefficients = np.zeros(self.primitives_number)
         self.timed_positions = list()
         self.is_robot_moving = False
-        rospy.Timer(rospy.Duration(0.5), self.odom_cb)
+        self.tfBuffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
+
+        rospy.Timer(rospy.Duration(0.5), self.timer_cb)
         #rospy.Subscriber("/odom", Odometry, self.odom_cb, queue_size=1)
 
         #rospy.spin()
@@ -81,13 +84,28 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.reset_primitives_count()
         self.primitives_count = np.zeros(self.primitives_number)
 
-    def odom_cb(self, odom):
+    def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0:
             if (time.time() - self.init_time) > self.timed_positions[0][0]:
                 print "time elapsed",  time.time() - self.init_time
                 expected_pose = self.timed_positions.pop(0)
-                print "Expected time ", expected_pose[0]
-                print "Expected pose ", expected_pose[1]
+                odom_pose = rospy.wait_for_message("odom", Odometry).pose
+                odom_pose_stamped = PoseStamped()
+                odom_pose_stamped.header.stamp = rospy.Time.now()
+                odom_pose_stamped.pose = odom_pose.pose
+
+                transform = self.tfBuffer.lookup_transform("map",
+                                       "odom", #source frame
+                                       rospy.Time(0), #get the tf at first available time
+                                       rospy.Duration(1.0)) #wait for 1 second
+                pose_transformed = tf2_geometry_msgs.do_transform_pose(odom_pose_stamped, transform)
+                #print "Expected time ", expected_pose[0]
+                #print "Expected pose ", pose_transformed
+                #print "Odom pose", odom_pose
+                diff_x = pose_transformed.pose.position.x- expected_pose[1].position.x
+                diff_y = pose_transformed.pose.position.x- expected_pose[1].position.x
+                if np.sqrt(np.power(diff_x,2) + np.power(diff_y,2)) > 1:
+                    rospy.logerr("ROBOT getting delayed")
 
     def start_timer(self):
         rospy.loginfo("start timer")
@@ -137,7 +155,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #print "Curvature " , self.K
         statistic_estimation = 0
 
-
         # For sbpl primitives
         for i in range(self.primitives_number):
             self.primitives_count[i] = self.get_primitive_count(i)
@@ -154,17 +171,15 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         rospy.logwarn("Estimation with primitives %f ", primitive_estimation)
         time_segments = round(primitive_estimation)
         time_lapse = np.arange(0,time_segments,1) #one check pose every second
-        print "lenght ", self.lenght
 
         self.timed_positions = list()
 
         for t in time_lapse:
             tmp_time = primitive_estimation * t/time_segments
             tmp_pose = msg.poses[int(self.lenght * t/time_segments)].pose
-            print " At time %f robot should be at pose " % tmp_time
-            print tmp_pose
+            #print " At time %f robot should be at pose " % tmp_time
+            #print tmp_pose
             self.timed_positions.append([tmp_time, tmp_pose])
-
 
         self.lst_estimated_time = self.estimated_time + np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         print "Complete Linearization Estimation " , self.lst_estimated_time

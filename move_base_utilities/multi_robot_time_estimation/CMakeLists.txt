@@ -5,6 +5,10 @@ find_package(catkin REQUIRED COMPONENTS
              genmsg
              rospy
              std_msgs
+             nav_msgs
+             geometry_msgs
+             tf2_ros
+             tf2_geometry_msgs
              message_generation
              message_runtime)
 
