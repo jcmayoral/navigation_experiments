@@ -29,7 +29,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.A = list()
         self.y = list()
         self.A_primitives = list()
-        self.y_diff = list()
+        #self.y_diff = list()
         self.W = list()
         self.coefficients = np.zeros(6)
         self.min_coefficients = np.zeros(6)
@@ -78,7 +78,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         prim_a = np.asarray(self.A_primitives)
         prim_mean = np.mean(self.y)
         x = np.zeros(self.primitives_number)
-        self.primitives_coefficients = np.linalg.lstsq(prim_a, self.y_diff)[0]
+        self.primitives_coefficients = np.linalg.lstsq(prim_a, self.y)[0]
         #print "Primitives coefficients " , np.linalg.lstsq(prim_a, self.y_diff)[0]
         self.reset_primitives_count()
         self.primitives_count = np.zeros(self.primitives_number)
@@ -166,7 +166,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         else:
             statistic_estimation = self.estimated_time
 
-        self.primitive_estimation = self.estimated_time + np.sum(self.primitives_coefficients *self.primitives_count)
+        self.primitive_estimation = np.sum(self.primitives_coefficients *self.primitives_count)
         rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
         time_segments = round(self.primitive_estimation)
         time_lapse = np.arange(0,time_segments,1) #one check pose every second
@@ -180,7 +180,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             #print tmp_pose
             self.timed_positions.append([tmp_time, tmp_pose])
 
-        self.lst_estimated_time = self.estimated_time + np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
+        self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         print "Complete Linearization Estimation " , self.lst_estimated_time
         print "Curvature Linearization Estimation " , self.estimated_time + np.sum(self.coefficients[4] * np.array([curvature]))
         return (statistic_estimation + self.lst_estimated_time)/2
@@ -200,7 +200,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.A.append(new_measurement)
         self.A_primitives.append(self.primitives_count)
         self.y.append(measured_time)
-        self.y_diff.append(measured_time - self.estimated_time)
+        #self.y_diff.append(measured_time - self.estimated_time)
 
         #TODO Weighting lstsq not working properly
         self.W.append(1)
