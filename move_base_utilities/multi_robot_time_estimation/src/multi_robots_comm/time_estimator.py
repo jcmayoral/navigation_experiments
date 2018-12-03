@@ -1,6 +1,6 @@
 import rospy
 from nav_msgs.msg import Path,Odometry
-from std_msgs.msg import Empty, Boolx`
+from std_msgs.msg import Empty, Bool
 from geometry_msgs.msg import Vector3, PoseStamped
 import numpy as np
 from scipy.optimize import minimize, curve_fit, least_squares
@@ -37,6 +37,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitives_coefficients = np.zeros(self.primitives_number)
         self.timed_positions = list()
         self.is_robot_moving = False
+        self.y_primitives = list()
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
 
@@ -74,13 +75,12 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         print "new coefficients" , self.coefficients
         print "new coefficients" , self.min_coefficients
 
-
-
         #TODO
         prim_a = np.asarray(self.A_primitives)
         prim_mean = np.mean(self.y)
         x = np.zeros(self.primitives_number)
-        print "Primitives coefficients " , np.linalg.lstsq(prim_a, self.y)[0]
+        self.primitives_coefficients = np.linalg.lstsq(prim_a, self.y_diff)[0]
+        #print "Primitives coefficients " , np.linalg.lstsq(prim_a, self.y_diff)[0]
         self.reset_primitives_count()
         self.primitives_count = np.zeros(self.primitives_number)
 
@@ -158,7 +158,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         # For sbpl primitives
         for i in range(self.primitives_number):
             self.primitives_count[i] = self.get_primitive_count(i)
-        print "Current primitives ", self.current_results
+        print "Current primitives ", self.primitives_count
 
         if self.samples >0 :# not self.is_training:
             statistic_estimation = self.estimated_time + self.lenght* self.mean_primitive_error/self.samples
@@ -167,15 +167,15 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         else:
             statistic_estimation = self.estimated_time
 
-        primitive_estimation = self.estimated_time + np.sum(self.primitives_coefficients *self.primitives_count)
-        rospy.logwarn("Estimation with primitives %f ", primitive_estimation)
-        time_segments = round(primitive_estimation)
+        self.primitive_estimation = self.estimated_time + np.sum(self.primitives_coefficients *self.primitives_count)
+        rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
+        time_segments = round(self.primitive_estimation)
         time_lapse = np.arange(0,time_segments,1) #one check pose every second
 
         self.timed_positions = list()
 
         for t in time_lapse:
-            tmp_time = primitive_estimation * t/time_segments
+            tmp_time = self.primitive_estimation * t/time_segments
             tmp_pose = msg.poses[int(self.lenght * t/time_segments)].pose
             #print " At time %f robot should be at pose " % tmp_time
             #print tmp_pose
@@ -200,6 +200,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #new_measurement.append(self.estimated_time)
         self.A.append(new_measurement)
         self.A_primitives.append(self.primitives_count)
+        self.y_primitives.append(measured_time)
         self.y.append(measured_time)
         self.y_diff.append(measured_time - self.estimated_time)
 
