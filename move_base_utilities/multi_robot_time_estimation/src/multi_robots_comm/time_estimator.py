@@ -1,10 +1,12 @@
 import rospy
 from nav_msgs.msg import Path
 from std_msgs.msg import Empty, Bool
+from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Vector3
 import numpy as np
 from scipy.optimize import minimize, curve_fit, least_squares
 from sbpl_primitives_analysis import SBPLPrimitiveAnalysis
+import time
 
 
 #TODO Several poses (Integrate topological graph planner)
@@ -17,7 +19,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.samples = 0
         self.is_training = True
         self.primitives_number = 25
-        #rospy.Subscriber("/time_estimator/training", Bool, self.training_cb, queue_size=1)
         self.feedback_pub = rospy.Publisher("time_estimator/fb", Vector3, queue_size=1)
         self.start_time = rospy.Time.now()
         self.estimated_time = 0
@@ -34,6 +35,11 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.min_coefficients = np.zeros(6)
         self.primitives_count = np.zeros(self.primitives_number)
         self.primitives_coefficients = np.zeros(self.primitives_number)
+        self.timed_positions = list()
+        self.is_robot_moving = False
+        rospy.Timer(rospy.Duration(0.5), self.odom_cb)
+        #rospy.Subscriber("/odom", Odometry, self.odom_cb, queue_size=1)
+
         #rospy.spin()
 
     def train_data(self):
@@ -75,6 +81,23 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.reset_primitives_count()
         self.primitives_count = np.zeros(self.primitives_number)
 
+    def odom_cb(self, odom):
+        if self.is_robot_moving and len(self.timed_positions) > 0:
+            if (time.time() - self.init_time) > self.timed_positions[0][0]:
+                print "time elapsed",  time.time() - self.init_time
+                expected_pose = self.timed_positions.pop(0)
+                print "Expected time ", expected_pose[0]
+                print "Expected pose ", expected_pose[1]
+
+    def start_timer(self):
+        rospy.loginfo("start timer")
+        self.init_time = time.time()
+        self.is_robot_moving = True
+
+    def stop_timer(self):
+        rospy.loginfo("stop timer")
+        self.is_robot_moving = False
+        self.init_time = time.time()
 
     def calculate_time(self,msg):
         self.lenght = len(msg.poses)
@@ -122,29 +145,41 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
         if self.samples >0 :# not self.is_training:
             statistic_estimation = self.estimated_time + self.lenght* self.mean_primitive_error/self.samples
-            print "Statistical Estimation " , statistic_estimation
+            rospy.logwarn("Statistical Estimation %f" , statistic_estimation)
 
         else:
             statistic_estimation = self.estimated_time
 
+        primitive_estimation = self.estimated_time + np.sum(self.primitives_coefficients *self.primitives_count)
+        rospy.logwarn("Estimation with primitives %f ", primitive_estimation)
+        time_segments = round(primitive_estimation)
+        time_lapse = np.arange(0,time_segments,1) #one check pose every second
+        print "lenght ", self.lenght
+
+        self.timed_positions = list()
+
+        for t in time_lapse:
+            tmp_time = primitive_estimation * t/time_segments
+            tmp_pose = msg.poses[int(self.lenght * t/time_segments)].pose
+            print " At time %f robot should be at pose " % tmp_time
+            print tmp_pose
+            self.timed_positions.append([tmp_time, tmp_pose])
+
+
         self.lst_estimated_time = self.estimated_time + np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         print "Complete Linearization Estimation " , self.lst_estimated_time
-        print "Estimation with primitives ", self.estimated_time + np.sum(self.primitives_coefficients *self.primitives_count)
-
         print "Curvature Linearization Estimation " , self.estimated_time + np.sum(self.coefficients[4] * np.array([curvature]))
-        print "Minimized Estimation of the complete parameter set ", self.estimated_time +  np.sum(self.min_coefficients * np.array([dx, dy, ddx, ddy, curvature, self.lenght]))
-        print "Minimized Estimation just with Curvature coefficient " , self.estimated_time + np.sum(self.min_coefficients[4] * np.array([curvature]))
-
         return (statistic_estimation + self.lst_estimated_time)/2
 
     def is_motion_finished(self):
+        self.is_robot_moving = False
         measured_time = (rospy.Time.now() - self.start_time).to_sec()
 
         if self.is_training:
             self.samples = self.samples+1
             self.mean_primitive_error += (measured_time - self.estimated_time)/self.lenght
 
-        print "MEASURED TIME",  measured_time
+        rospy.logerr("MEASURED TIME %f",  measured_time)
         #print "ERROR IN SECONDS", self.estimated_time - measured_time
         new_measurement = self.K
         #new_measurement.append(self.estimated_time)

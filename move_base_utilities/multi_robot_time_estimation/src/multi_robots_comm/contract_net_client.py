@@ -73,8 +73,10 @@ class ContractNetClient:
 
     def execute_path(self):
         goal = ExePathGoal(path=self.path)
+        self.time_estimator.start_timer()
         self.exe_path_ac.send_goal(goal, done_cb=self.execution_done_cb)
         self.exe_path_ac.wait_for_result(timeout=rospy.Duration(120))
+        self.time_estimator.stop_timer()
         return self.result
 
     def execution_done_cb(self,status, result):
