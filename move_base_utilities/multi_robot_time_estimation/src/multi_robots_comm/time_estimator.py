@@ -53,34 +53,37 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
     def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0: #the robot must be moving and the timed_positions array must contain values
-            if (time.time() - self.init_time) >= self.timed_positions[0][0]: #map time to expected
-                expected_pose = self.timed_positions.pop(0)
+            for index in range(0,len(self.timed_positions)):
+                if (time.time() - self.init_time) >= self.timed_positions[index][0]: #map time to expected
+                    expected_pose = self.timed_positions[index]
 
-                #Convert pose from odom to map frame
-                odom_pose = rospy.wait_for_message("odom", Odometry).pose
-                odom_pose_stamped = PoseStamped()
-                odom_pose_stamped.header.stamp = rospy.Time.now()
-                odom_pose_stamped.pose = odom_pose.pose
+                    #Convert pose from odom to map frame
+                    odom_pose = rospy.wait_for_message("odom", Odometry).pose
+                    odom_pose_stamped = PoseStamped()
+                    odom_pose_stamped.header.stamp = rospy.Time.now()
+                    odom_pose_stamped.pose = odom_pose.pose
 
-                transform = self.tfBuffer.lookup_transform("map",
-                                       "odom", #source frame
-                                       rospy.Time(0), #get the tf at first available time
-                                       rospy.Duration(1.0)) #wait for 1 second
-                pose_transformed = tf2_geometry_msgs.do_transform_pose(odom_pose_stamped, transform)
+                    transform = self.tfBuffer.lookup_transform("map",
+                                           "odom", #source frame
+                                           rospy.Time(0), #get the tf at first available time
+                                           rospy.Duration(1.0)) #wait for 1 second
+                    pose_transformed = tf2_geometry_msgs.do_transform_pose(odom_pose_stamped, transform)
 
-                #publishing expected position on map frame
-                fb_msgs = PoseStamped()
-                fb_msgs.header.frame_id = "map"
-                fb_msgs.header.stamp = rospy.Time.now()
-                fb_msgs.pose = expected_pose[1]
-                self.feedback_pub.publish(fb_msgs)
+                    #publishing expected position on map frame
+                    fb_msgs = PoseStamped()
+                    fb_msgs.header.frame_id = "map"
+                    fb_msgs.header.stamp = rospy.Time.now()
+                    fb_msgs.pose = expected_pose[1]
+                    self.feedback_pub.publish(fb_msgs)
 
-                #What is the difference between expected and real
-                diff_x = pose_transformed.pose.position.x- expected_pose[1].position.x
-                diff_y = pose_transformed.pose.position.y- expected_pose[1].position.y
-                bias = np.sqrt(np.power(diff_x,2) + np.power(diff_y,2))
-                if bias > self.distance_tolerance:
-                    rospy.logerr("ROBOT out of plan by %f" % bias)
+                    #What is the difference between expected and real
+                    diff_x = pose_transformed.pose.position.x- expected_pose[1].position.x
+                    diff_y = pose_transformed.pose.position.y- expected_pose[1].position.y
+                    bias = np.sqrt(np.power(diff_x,2) + np.power(diff_y,2))
+                    if bias > self.distance_tolerance:
+                        rospy.logerr("ROBOT out of plan by %f" % bias)
+                    del self.timed_positions[0:index+1]
+                    break
 
     def start_timer(self):
         rospy.loginfo("start timer")
