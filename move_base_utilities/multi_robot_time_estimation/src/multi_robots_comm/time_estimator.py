@@ -17,8 +17,8 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #rospy.init_node("time_estimator")
         SBPLPrimitiveAnalysis.__init__(self)
         self.is_robot_moving = False
-        self.distance_tolerance = 1.0
-        self.prediction_time = 0.5
+        self.distance_tolerance = 2.0
+        self.prediction_time = 0.25
         self.mean_primitive_error = 0
         self.samples = 0
         self.primitives_number = 25
@@ -54,7 +54,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
     def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0: #the robot must be moving and the timed_positions array must contain values
             if (time.time() - self.init_time) >= self.timed_positions[0][0]: #map time to expected
-                print "time elapsed",  time.time() - self.init_time
                 expected_pose = self.timed_positions.pop(0)
 
                 #Convert pose from odom to map frame
@@ -166,15 +165,17 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                 pass
             progressive_costs.append(total_cost) #ignoring front_search, back_search values
 
+        min_range = 0
         for t  in time_lapse:
             if time_segments > 0:
-                tmp_time = self.primitive_estimation * t/time_segments #expected time
+                tmp_time = t #expected time
                 tmp_pose = msg.poses[0].pose
                 expected_cost = t/time_segments * total_cost #expected cost on the current time t TODO improve
-                for c in range(0,len(progressive_costs)):
+                for c in range(min_range,len(progressive_costs)):
                     #mapping path poses with percentage of the total_cost
-                    if progressive_costs[c] > expected_cost:
+                    if progressive_costs[c] >= expected_cost:
                         tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose
+                        min_range = c
                         break
                 self.timed_positions.append([tmp_time, tmp_pose])
 
