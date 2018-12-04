@@ -16,73 +16,40 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
     def __init__(self):
         #rospy.init_node("time_estimator")
         SBPLPrimitiveAnalysis.__init__(self)
+        self.is_robot_moving = False
+        self.distance_tolerance = 1.0
+        self.prediction_time = 0.5
         self.mean_primitive_error = 0
         self.samples = 0
         self.primitives_number = 25
-        self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
         self.start_time = rospy.Time.now()
         self.estimated_time = 0
         self.lst_estimated_time = None
         self.lenght = 1
-        self.K =0
+        self.features =0
         self.counter = 0
         self.A = list()
-        self.y = list()
         self.A_primitives = list()
-        #self.y_diff = list()
+        self.y = list()
         self.W = list()
         self.coefficients = np.zeros(6)
         self.min_coefficients = np.zeros(6)
         self.primitives_count = np.zeros(self.primitives_number)
         self.primitives_coefficients = np.zeros(self.primitives_number)
         self.timed_positions = list()
-        self.is_robot_moving = False
+
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
-        self.distance_tolerance = 2.0
-        self.prediction_time = 0.5
+        self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
         rospy.Timer(rospy.Duration(self.prediction_time), self.timer_cb)
-        #rospy.Subscriber("/odom", Odometry, self.odom_cb, queue_size=1)
-
-        #rospy.spin()
 
     def train_data(self):
-        #print "OFF SET per primitive is ", self.mean_primitive_error/self.samples
-
-        #offset = np.ones(len(self.y))
-        #self.C = np.vstack([self.A, offset]).T
-        """
-        if len(self.W) > 1:
-            W = np.sqrt(np.diag(self.W))
-            Aw = np.dot(W,self.A)
-            Bw = np.dot(W,self.y)
-        """
-
-        #print "new coefficients "  , self.coefficients
-
-        #TODO TOTEST XXX
-        a = np.asarray(self.A)
-        mean = np.mean(self.y)
-        x = [0,0,0,0,0,0]
-        #self.coefficients = least_squares(f, x, ftol=np.mean(self.y_diff)).x
         self.coefficients = np.linalg.lstsq(self.A, self.y)[0]
-        f = lambda x: np.fabs(np.sum(self.coefficients*x)) - mean
-        #self.min_coefficients = minimize(f,x, tol=mean).x
-        if self.counter == len(self.coefficients):
-            self.min_coefficients += np.linalg.solve(self.A[-6:], self.y[-6:])/2.0
-            self.counter = 0
-        self.counter += 1
-        print "new coefficients" , self.coefficients
-        print "new coefficients" , self.min_coefficients
 
-        #TODO
-        prim_a = np.asarray(self.A_primitives)
-        prim_mean = np.mean(self.y)
-        x = np.zeros(self.primitives_number)
-        self.primitives_coefficients = np.linalg.lstsq(prim_a, self.y)[0]
-        #print "Primitives coefficients " , np.linalg.lstsq(prim_a, self.y_diff)[0]
+        self.primitives_coefficients = np.linalg.lstsq(self.A_primitives, self.y)[0]
+
+        #reset_counter
         self.reset_primitives_count()
-        self.primitives_count = np.zeros(self.primitives_number)
 
     def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0: #the robot must be moving and the timed_positions array must contain values
@@ -129,11 +96,10 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
     def calculate_time(self,msg):
         self.lenght = len(msg.poses)
         self.estimated_time = 0.1*len(msg.poses)
-        print "ORIGINAL ESTIMATION" , self.estimated_time
         self.start_time = rospy.Time.now()
 
         p0 = msg.poses[0]
-        self.K = 0
+        self.features = 0
 
         dx = list()
         dy = list()
@@ -160,24 +126,27 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         ddy = np.mean(ddy,axis=0)
 
         curvature = (ddy * dx - ddx * dy) / (np.power(dx, 2) + np.power(dy, 2))
-        self.K = [dx,dy,ddx,ddy,curvature, self.lenght]
+        self.features = [dx,dy,ddx,ddy,curvature, self.lenght]
 
         statistic_estimation = 0
 
-        # For sbpl primitives
+        # For sbpl primitives , get how many primitive of i type are on the path
+        self.primitives_count = np.zeros(self.primitives_number)
         for i in range(self.primitives_number):
             self.primitives_count[i] = self.get_primitive_count(i)
-        print "Current primitives ", self.primitives_count
 
-        if self.samples >0 :# not self.is_training:
+        if self.samples >0 :
             statistic_estimation = self.estimated_time + self.lenght* self.mean_primitive_error/self.samples
             rospy.logwarn("Statistical Estimation %f" , statistic_estimation)
 
         else:
             statistic_estimation = self.estimated_time
 
+        #This approache takes longer to converge
         self.primitive_estimation = np.sum(self.primitives_coefficients *self.primitives_count)
         rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
+
+        #time variables used for predicition
         time_segments = round(self.primitive_estimation)
         time_lapse = np.arange(0,time_segments,self.prediction_time) #one check pose every second
 
@@ -190,23 +159,22 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #NOTE with additional knowledge we could know the execution time per primitive
         for prim in current_primitives:
             try:
+                #getting cost per primitive
                 prim_cost = int(prim) * self.primitives_coefficients[int(prim)]
                 total_cost += prim_cost
             except ValueError:
                 pass
-
             progressive_costs.append(total_cost) #ignoring front_search, back_search values
 
-        print "Total cost ", total_cost
-        print "progresive cost ", progressive_costs
         for t  in time_lapse:
             if time_segments > 0:
                 tmp_time = self.primitive_estimation * t/time_segments #expected time
                 tmp_pose = msg.poses[0].pose
-                expected_cost = t/time_segments * total_cost #this should be the cost I expected on the current time
+                expected_cost = t/time_segments * total_cost #expected cost on the current time t TODO improve
                 for c in range(0,len(progressive_costs)):
+                    #mapping path poses with percentage of the total_cost
                     if progressive_costs[c] > expected_cost:
-                        tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose #mapping path poses with percentage of the total_cost
+                        tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose
                         break
                 self.timed_positions.append([tmp_time, tmp_pose])
 
@@ -216,22 +184,22 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
     def is_motion_finished(self):
         self.is_robot_moving = False
-        measured_time = (rospy.Time.now() - self.start_time).to_sec()
 
+        #Used for statistical estimation
         self.samples = self.samples+1
+        measured_time = (rospy.Time.now() - self.start_time).to_sec()
         self.mean_primitive_error += (measured_time - self.estimated_time)/self.lenght
 
         rospy.logerr("MEASURED TIME %f",  measured_time)
-        #print "ERROR IN SECONDS", self.estimated_time - measured_time
-        new_measurement = self.K
-        #new_measurement.append(self.estimated_time)
+        new_measurement = self.features
+
+        #used for Linearization
         self.A.append(new_measurement)
+
+        #used for primitive base linearization
         self.A_primitives.append(self.primitives_count)
         self.y.append(measured_time)
-        #self.y_diff.append(measured_time - self.estimated_time)
 
-        #TODO Weighting lstsq not working properly
+        #TODO Weighting
         self.W.append(1)
-
         self.train_data()
-        #print "ERROR per primitive ", (self.estimated_time - measured_time)/self.lenght
