@@ -152,7 +152,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
 
         #time variables used for predicition
-        time_segments = round(self.primitive_estimation)
+        time_segments = self.primitive_estimation
         time_lapse = np.arange(0,time_segments,self.prediction_time) #one check pose every second
 
         self.timed_positions = list()
