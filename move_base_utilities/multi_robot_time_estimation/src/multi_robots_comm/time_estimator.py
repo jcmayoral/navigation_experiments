@@ -53,37 +53,33 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
     def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0: #the robot must be moving and the timed_positions array must contain values
-            for index in range(0,len(self.timed_positions)):
-                if (time.time() - self.init_time) >= self.timed_positions[index][0]: #map time to expected
-                    expected_pose = self.timed_positions[index]
+            t, expected_pose = self.timed_positions.pop(0)
 
-                    #Convert pose from odom to map frame
-                    odom_pose = rospy.wait_for_message("odom", Odometry).pose
-                    odom_pose_stamped = PoseStamped()
-                    odom_pose_stamped.header.stamp = rospy.Time.now()
-                    odom_pose_stamped.pose = odom_pose.pose
+            #Convert pose from odom to map frame
+            odom_pose = rospy.wait_for_message("odom", Odometry).pose
+            odom_pose_stamped = PoseStamped()
+            odom_pose_stamped.header.stamp = rospy.Time.now()
+            odom_pose_stamped.pose = odom_pose.pose
 
-                    transform = self.tfBuffer.lookup_transform("map",
-                                           "odom", #source frame
-                                           rospy.Time(0), #get the tf at first available time
-                                           rospy.Duration(1.0)) #wait for 1 second
-                    pose_transformed = tf2_geometry_msgs.do_transform_pose(odom_pose_stamped, transform)
+            transform = self.tfBuffer.lookup_transform("map",
+                                   "odom", #source frame
+                                   rospy.Time(0), #get the tf at first available time
+                                   rospy.Duration(1.0)) #wait for 1 second
+            pose_transformed = tf2_geometry_msgs.do_transform_pose(odom_pose_stamped, transform)
 
-                    #publishing expected position on map frame
-                    fb_msgs = PoseStamped()
-                    fb_msgs.header.frame_id = "map"
-                    fb_msgs.header.stamp = rospy.Time.now()
-                    fb_msgs.pose = expected_pose[1]
-                    self.feedback_pub.publish(fb_msgs)
+            #publishing expected position on map frame
+            fb_msgs = PoseStamped()
+            fb_msgs.header.frame_id = "map"
+            fb_msgs.header.stamp = rospy.Time.now()
+            fb_msgs.pose = expected_pose
+            self.feedback_pub.publish(fb_msgs)
 
-                    #What is the difference between expected and real
-                    diff_x = pose_transformed.pose.position.x- expected_pose[1].position.x
-                    diff_y = pose_transformed.pose.position.y- expected_pose[1].position.y
-                    bias = np.sqrt(np.power(diff_x,2) + np.power(diff_y,2))
-                    if bias > self.distance_tolerance:
-                        rospy.logerr("ROBOT out of plan by %f" % bias)
-                    del self.timed_positions[0:index+1]
-                    break
+            #What is the difference between expected and real
+            diff_x = pose_transformed.pose.position.x- expected_pose.position.x
+            diff_y = pose_transformed.pose.position.y- expected_pose.position.y
+            bias = np.sqrt(np.power(diff_x,2) + np.power(diff_y,2))
+            if bias > self.distance_tolerance:
+                rospy.logerr("ROBOT out of plan by %f" % bias)
 
     def start_timer(self):
         rospy.loginfo("start timer")
@@ -174,12 +170,13 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                 tmp_time = t #expected time
                 tmp_pose = msg.poses[0].pose
                 expected_cost = t/time_segments * total_cost #expected cost on the current time t TODO improve
+                flag = False
                 for c in range(min_range,len(progressive_costs)):
                     #mapping path poses with percentage of the total_cost
-                    if progressive_costs[c] >= expected_cost:
+                    if progressive_costs[c] >= expected_cost and not flag:
                         tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose
                         min_range = c
-                        break
+                        flag = True
                 self.timed_positions.append([tmp_time, tmp_pose])
 
         self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
