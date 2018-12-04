@@ -1,0 +1,17 @@
+How to use...
+
+Four terminals are required for running it with toru_nav_sim:
+  1. roscore
+  2. run toru_nav_sim simulation
+  3. rosrun multi_robots_comm server.py
+  4. rosrun multi_robots_comm simple_client.py
+
+Additionally on rviz change on the tools properties the 2dnav goal topic from /move_base_simple/goal to
+/move_base_simple_time/goal.
+
+Relevant topics:
+
+-> /move_base_simple_time/goal provides goal.
+-> /trajectory_estimator publishes the poses where the robot supposes to be during motion execution (it is not fully reliable yet).
+
+Additionally under development, it exists a multi robot coordination version of this algorithm where the robots negotiate who will performa a navigation task.
