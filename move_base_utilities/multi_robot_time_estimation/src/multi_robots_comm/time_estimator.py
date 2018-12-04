@@ -53,11 +53,12 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
     def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0:
+            print 'new cycle'
             selected_index = 0
+            current_time = time.time() - self.init_time
             for i in range(len(self.timed_positions)):
-                if time.time() - self.init_time > self.timed_positions[i][0]:
+                if current_time > self.timed_positions[i][0]:
                     selected_index = i
-                    break
 
             del self.timed_positions[0:selected_index]
 
@@ -155,7 +156,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #time variables used for predicition
         time_segments = self.primitive_estimation
         time_lapse = np.arange(0,time_segments,self.prediction_time) #one check pose every second
-
         self.timed_positions = list()
         current_primitives = self.get_primitive_list()
         progressive_costs = list()
