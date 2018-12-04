@@ -8,6 +8,7 @@ from sbpl_primitives_analysis import SBPLPrimitiveAnalysis
 import time
 import tf2_ros
 import tf2_geometry_msgs
+import copy
 
 #TODO Several poses (Integrate topological graph planner)
 
@@ -17,9 +18,8 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         SBPLPrimitiveAnalysis.__init__(self)
         self.mean_primitive_error = 0
         self.samples = 0
-        self.is_training = True
         self.primitives_number = 25
-        self.feedback_pub = rospy.Publisher("time_estimator/fb", Vector3, queue_size=1)
+        self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
         self.start_time = rospy.Time.now()
         self.estimated_time = 0
         self.lst_estimated_time = None
@@ -39,8 +39,9 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.is_robot_moving = False
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
-
-        rospy.Timer(rospy.Duration(0.5), self.timer_cb)
+        self.distance_tolerance = 2.0
+        self.prediction_time = 0.5
+        rospy.Timer(rospy.Duration(self.prediction_time), self.timer_cb)
         #rospy.Subscriber("/odom", Odometry, self.odom_cb, queue_size=1)
 
         #rospy.spin()
@@ -84,10 +85,12 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitives_count = np.zeros(self.primitives_number)
 
     def timer_cb(self, event):
-        if self.is_robot_moving and len(self.timed_positions) > 0:
-            if (time.time() - self.init_time) > self.timed_positions[0][0]:
+        if self.is_robot_moving and len(self.timed_positions) > 0: #the robot must be moving and the timed_positions array must contain values
+            if (time.time() - self.init_time) >= self.timed_positions[0][0]: #map time to expected
                 print "time elapsed",  time.time() - self.init_time
                 expected_pose = self.timed_positions.pop(0)
+
+                #Convert pose from odom to map frame
                 odom_pose = rospy.wait_for_message("odom", Odometry).pose
                 odom_pose_stamped = PoseStamped()
                 odom_pose_stamped.header.stamp = rospy.Time.now()
@@ -98,13 +101,20 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                                        rospy.Time(0), #get the tf at first available time
                                        rospy.Duration(1.0)) #wait for 1 second
                 pose_transformed = tf2_geometry_msgs.do_transform_pose(odom_pose_stamped, transform)
-                #print "Expected time ", expected_pose[0]
-                #print "Expected pose ", pose_transformed
-                #print "Odom pose", odom_pose
+
+                #publishing expected position on map frame
+                fb_msgs = PoseStamped()
+                fb_msgs.header.frame_id = "map"
+                fb_msgs.header.stamp = rospy.Time.now()
+                fb_msgs.pose = expected_pose[1]
+                self.feedback_pub.publish(fb_msgs)
+
+                #What is the difference between expected and real
                 diff_x = pose_transformed.pose.position.x- expected_pose[1].position.x
-                diff_y = pose_transformed.pose.position.x- expected_pose[1].position.x
-                if np.sqrt(np.power(diff_x,2) + np.power(diff_y,2)) > 1:
-                    rospy.logerr("ROBOT getting delayed")
+                diff_y = pose_transformed.pose.position.y- expected_pose[1].position.y
+                bias = np.sqrt(np.power(diff_x,2) + np.power(diff_y,2))
+                if bias > self.distance_tolerance:
+                    rospy.logerr("ROBOT out of plan by %f" % bias)
 
     def start_timer(self):
         rospy.loginfo("start timer")
@@ -151,7 +161,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
         curvature = (ddy * dx - ddx * dy) / (np.power(dx, 2) + np.power(dy, 2))
         self.K = [dx,dy,ddx,ddy,curvature, self.lenght]
-        #print "Curvature " , self.K
+
         statistic_estimation = 0
 
         # For sbpl primitives
@@ -169,16 +179,36 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitive_estimation = np.sum(self.primitives_coefficients *self.primitives_count)
         rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
         time_segments = round(self.primitive_estimation)
-        time_lapse = np.arange(0,time_segments,1) #one check pose every second
+        time_lapse = np.arange(0,time_segments,self.prediction_time) #one check pose every second
 
         self.timed_positions = list()
+        current_primitives = self.get_primitive_list()
+        progressive_costs = list()
+        total_cost = 0
 
-        for t in time_lapse:
-            tmp_time = self.primitive_estimation * t/time_segments
-            tmp_pose = msg.poses[int(self.lenght * t/time_segments)].pose
-            #print " At time %f robot should be at pose " % tmp_time
-            #print tmp_pose
-            self.timed_positions.append([tmp_time, tmp_pose])
+        #accumulate cost -> we could know which primitive takes more time to execute
+        #NOTE with additional knowledge we could know the execution time per primitive
+        for prim in current_primitives:
+            try:
+                prim_cost = int(prim) * self.primitives_coefficients[int(prim)]
+                total_cost += prim_cost
+            except ValueError:
+                pass
+
+            progressive_costs.append(total_cost) #ignoring front_search, back_search values
+
+        print "Total cost ", total_cost
+        print "progresive cost ", progressive_costs
+        for t  in time_lapse:
+            if time_segments > 0:
+                tmp_time = self.primitive_estimation * t/time_segments #expected time
+                tmp_pose = msg.poses[0].pose
+                expected_cost = t/time_segments * total_cost #this should be the cost I expected on the current time
+                for c in range(0,len(progressive_costs)):
+                    if progressive_costs[c] > expected_cost:
+                        tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose #mapping path poses with percentage of the total_cost
+                        break
+                self.timed_positions.append([tmp_time, tmp_pose])
 
         self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
@@ -188,9 +218,8 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.is_robot_moving = False
         measured_time = (rospy.Time.now() - self.start_time).to_sec()
 
-        if self.is_training:
-            self.samples = self.samples+1
-            self.mean_primitive_error += (measured_time - self.estimated_time)/self.lenght
+        self.samples = self.samples+1
+        self.mean_primitive_error += (measured_time - self.estimated_time)/self.lenght
 
         rospy.logerr("MEASURED TIME %f",  measured_time)
         #print "ERROR IN SECONDS", self.estimated_time - measured_time
@@ -204,10 +233,5 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #TODO Weighting lstsq not working properly
         self.W.append(1)
 
-        fb_msgs = Vector3()
-        fb_msgs.x = abs(self.estimated_time - measured_time)/measured_time
-        fb_msgs.y = self.lenght
-        fb_msgs.z = self.K
-        self.feedback_pub.publish(fb_msgs)
         self.train_data()
         #print "ERROR per primitive ", (self.estimated_time - measured_time)/self.lenght

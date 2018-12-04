@@ -5,10 +5,17 @@ from visualization_msgs.msg import MarkerArray
 class SBPLPrimitiveAnalysis:
     def __init__(self):
         self.current_results = dict()
+        self.primitive_list = list()
         rospy.Subscriber("/navigation/move_base_flex/SBPLLatticePlanner/plan_marker", MarkerArray, self.primitives_cb)
 
+    def get_primitive_list(self):
+        return self.primitive_list
+
     def primitives_cb(self, msg):
+        self.primitive_list = list()
+
         for marker in msg.markers:
+            self.primitive_list.append(marker.text)
             if marker.text in self.current_results:
                 self.current_results[marker.text]+=1
             else:
