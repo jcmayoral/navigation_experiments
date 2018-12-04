@@ -41,7 +41,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
         self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
-        rospy.Timer(rospy.Duration(self.prediction_time), self.timer_cb)
+        rospy.Timer(rospy.Duration(self.prediction_time*4), self.timer_cb)
 
     def train_data(self):
         self.coefficients = np.linalg.lstsq(self.A, self.y)[0]
@@ -57,6 +57,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             for i in range(len(self.timed_positions)):
                 if time.time() - self.init_time > self.timed_positions[i][0]:
                     selected_index = i
+                    break
 
             del self.timed_positions[0:selected_index]
 
@@ -171,20 +172,22 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                 pass
             progressive_costs.append(total_cost) #ignoring front_search, back_search values
 
+        expected_cost = 0
         min_range = 0
         for t  in time_lapse:
             if time_segments > 0:
                 tmp_time = t #expected time
                 tmp_pose = msg.poses[0].pose
-                expected_cost = t/time_segments * total_cost #expected cost on the current time t TODO improve
                 flag = False
                 for c in range(min_range,len(progressive_costs)):
                     #mapping path poses with percentage of the total_cost
-                    if progressive_costs[c] >= expected_cost and not flag:
+                    if progressive_costs[c] > expected_cost and not flag:
                         tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose
+                        expected_cost = progressive_costs[c]
                         min_range = c
                         flag = True
-                self.timed_positions.append([tmp_time, tmp_pose])
+                if flag:
+                    self.timed_positions.append([tmp_time, tmp_pose])
 
         self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
