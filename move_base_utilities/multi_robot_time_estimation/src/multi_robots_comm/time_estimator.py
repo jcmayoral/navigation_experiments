@@ -41,7 +41,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
         self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
-        rospy.Timer(rospy.Duration(self.prediction_time/4), self.timer_cb)
+        rospy.Timer(rospy.Duration(self.prediction_time), self.timer_cb)
 
     def train_data(self):
         self.coefficients = np.linalg.lstsq(self.A, self.y)[0]
