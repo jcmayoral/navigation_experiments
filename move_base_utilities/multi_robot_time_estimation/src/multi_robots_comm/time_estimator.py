@@ -17,7 +17,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #rospy.init_node("time_estimator")
         SBPLPrimitiveAnalysis.__init__(self)
         self.is_robot_moving = False
-        self.distance_tolerance = 2.0
+        self.distance_tolerance = 1000 # disable
         self.prediction_time = 0.25
         self.mean_primitive_error = 0
         self.samples = 0
