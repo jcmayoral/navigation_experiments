@@ -1,3 +1,5 @@
+Required to install primitives_analysis (python setup.py install) package on the parent directory.
+
 How to use...
 
 Four terminals are required for running it with toru_nav_sim:
