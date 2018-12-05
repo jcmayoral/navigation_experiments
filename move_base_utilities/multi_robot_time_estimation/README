@@ -2,7 +2,7 @@ Required to install primitives_analysis (python setup.py install) package on the
 
 How to use...
 
-Four terminals are required for running it with toru_nav_sim:
+Four terminals are required for running it with a robot simulation:
   1. roscore
   2. run toru_nav_sim simulation
   3. rosrun multi_robots_comm server.py
