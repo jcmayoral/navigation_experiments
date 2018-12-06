@@ -163,9 +163,24 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #This approache takes longer to converge
         self.primitive_estimation = np.sum(self.primitives_coefficients *self.primitives_count)
         rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
+
+        self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
+        rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
+
+        ransac_primitive_estimatiom = 0
+        ransac_lst_estimation = 0
+
+        if self.ransac_fit:
+            ransac_primitive_estimatiom = self.primitive_ransac.predict(self.primitives_count.reshape(1,-1))
+            ransac_lst_estimation = self.ransac.predict(np.array([dx, dy, ddx, ddy,curvature, self.lenght]).reshape(1, -1))
+            rospy.logwarn("Primitives with ransac %f" % ransac_primitive_estimatiom)
+            rospy.logwarn("Linearization with ransac %f" % ransac_lst_estimation)
+
+        mean_expected_time = (self.lst_estimated_time + self.primitive_estimation + statistic_estimation + ransac_primitive_estimatiom + ransac_lst_estimation)/5
+        rospy.logerr("Average expected %f seconds" % mean_expected_time)
+
         #time variables used for predicition
-        time_segments = self.primitive_estimation
-        time_lapse = np.arange(0,time_segments,self.prediction_time) #one check pose every second
+        time_lapse = np.arange(0,mean_expected_time+self.prediction_time,self.prediction_time) #one check pose every second
         self.timed_positions = list()
         current_primitives = self.get_primitive_list()
         progressive_costs = list()
@@ -184,35 +199,17 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
         expected_cost = 0
         min_range = 0
+
+        path_sampling = self.lenght/len(time_lapse)
+        counter = 0
+
         for t  in time_lapse:
-            if time_segments > 0:
-                tmp_time = t #expected time
-                tmp_pose = msg.poses[0].pose
-                flag = False
-                for c in range(min_range,len(progressive_costs)):
-                    #mapping path poses with percentage of the total_cost
-                    if progressive_costs[c] > expected_cost and not flag:
-                        tmp_pose = msg.poses[int(self.lenght * c/len(progressive_costs))].pose
-                        expected_cost = progressive_costs[c]
-                        min_range = c
-                        flag = True
-                if flag:
-                    self.timed_positions.append([tmp_time, tmp_pose])
+            tmp_time = t #expected time
+            tmp_pose = msg.poses[counter].pose
+            self.timed_positions.append([tmp_time, tmp_pose])
+            counter += path_sampling
 
-        self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
-        rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
 
-        ransac_primitive_estimatiom = 0
-        ransac_lst_estimation = 0
-
-        if self.ransac_fit:
-            ransac_primitive_estimatiom = self.primitive_ransac.predict(self.primitives_count.reshape(1,-1))
-            ransac_lst_estimation = self.ransac.predict(np.array([dx, dy, ddx, ddy,curvature, self.lenght]).reshape(1, -1))
-            rospy.logwarn("Primitives with ransac %f" % ransac_primitive_estimatiom)
-            rospy.logwarn("Linearization with ransac %f" % ransac_lst_estimation)
-
-        mean_expected_time = (self.lst_estimated_time + self.primitive_estimation + statistic_estimation + ransac_primitive_estimatiom + ransac_lst_estimation)/5
-        rospy.logerr("Average expected %f seconds" % mean_expected_time)
         return mean_expected_time
 
     def is_motion_finished(self):
