@@ -9,6 +9,8 @@ import time
 import tf2_ros
 import tf2_geometry_msgs
 import copy
+from sklearn import linear_model
+
 
 #TODO Several poses (Integrate topological graph planner)
 
@@ -37,15 +39,20 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitives_count = np.zeros(self.primitives_number)
         self.primitives_coefficients = np.zeros(self.primitives_number)
         self.timed_positions = list()
-
+        self.ransac = linear_model.RANSACRegressor(min_samples = 1, residual_threshold = 1)
+        self.primitive_ransac = linear_model.RANSACRegressor(min_samples = 1, residual_threshold = 1)
+        self.ransac_fit = False
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
         self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
         rospy.Timer(rospy.Duration(self.prediction_time*4), self.timer_cb)
 
     def train_data(self):
-        self.coefficients = np.linalg.lstsq(self.A, self.y)[0]
+        self.ransac.fit(np.array(self.A), np.array(self.y).reshape(len(self.y), 1))
+        self.primitive_ransac.fit(np.array(self.A_primitives), np.array(self.y).reshape(len(self.y), 1))
+        self.ransac_fit = True
 
+        self.coefficients = np.linalg.lstsq(self.A, self.y)[0]
         self.primitives_coefficients = np.linalg.lstsq(self.A_primitives, self.y)[0]
 
         #reset_counter
@@ -53,7 +60,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
     def timer_cb(self, event):
         if self.is_robot_moving and len(self.timed_positions) > 0:
-            print 'new cycle'
             selected_index = 0
             current_time = time.time() - self.init_time
             for i in range(len(self.timed_positions)):
@@ -152,7 +158,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #This approache takes longer to converge
         self.primitive_estimation = np.sum(self.primitives_coefficients *self.primitives_count)
         rospy.logwarn("Estimation with primitives %f ", self.primitive_estimation)
-
         #time variables used for predicition
         time_segments = self.primitive_estimation
         time_lapse = np.arange(0,time_segments,self.prediction_time) #one check pose every second
@@ -191,6 +196,11 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
         self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
+
+        if self.ransac_fit:
+            rospy.logwarn("Primitives with ransac %f" % self.primitive_ransac.predict(self.primitives_count.reshape(1,-1)))
+            rospy.logwarn("Linearization with ransac %f" % self.ransac.predict(np.array([dx, dy, ddx, ddy,curvature, self.lenght]).reshape(1, -1)))
+
         return (statistic_estimation + self.lst_estimated_time)/2
 
     def is_motion_finished(self):
@@ -205,6 +215,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         new_measurement = self.features
 
         #used for Linearization
+
         self.A.append(new_measurement)
 
         #used for primitive base linearization
@@ -212,5 +223,10 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.y.append(measured_time)
 
         #TODO Weighting
-        self.W.append(1)
+        mean_error = np.fabs(measured_time - self.estimated_time)
+        mean_error += np.fabs(measured_time - self.lst_estimated_time)
+        mean_error += np.fabs(measured_time - self.primitive_estimation)
+        mean_error = mean_error/(3 * measured_time)
+
+        self.W.append(mean_error)
         self.train_data()
