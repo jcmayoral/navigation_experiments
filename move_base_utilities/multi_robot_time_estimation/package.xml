@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>multi_robots_comm</name>
-  <version>0.1.6</version>
+  <version>0.1.7</version>
   <description>The multi_robots_comm package</description>
 
   <maintainer email="banos@magazino.eu">Jose M Banos</maintainer>
