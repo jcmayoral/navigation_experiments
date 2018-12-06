@@ -197,10 +197,6 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                 pass
             progressive_costs.append(total_cost) #ignoring front_search, back_search values
 
-        expected_cost = 0
-        min_range = 0
-
-        path_sampling = self.lenght/len(time_lapse)
         counter = 0
 
         #mapping time with cost
