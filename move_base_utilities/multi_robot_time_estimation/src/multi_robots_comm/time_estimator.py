@@ -49,9 +49,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
 
     def train_data(self):
         n_samples = int(np.floor(len(self.y)*0.6))
-
         n_samples = 1 if n_samples < 1 else n_samples
-
 
         self.ransac = linear_model.RANSACRegressor(min_samples = n_samples, residual_threshold = 0.5)
         self.primitive_ransac = linear_model.RANSACRegressor(min_samples = n_samples, residual_threshold = 0.5)
@@ -204,11 +202,18 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.lst_estimated_time = np.sum(self.coefficients * np.array([dx, dy, ddx, ddy,curvature, self.lenght]))
         rospy.logwarn("Complete Linearization Estimation %f " % self.lst_estimated_time)
 
-        if self.ransac_fit:
-            rospy.logwarn("Primitives with ransac %f" % self.primitive_ransac.predict(self.primitives_count.reshape(1,-1)))
-            rospy.logwarn("Linearization with ransac %f" % self.ransac.predict(np.array([dx, dy, ddx, ddy,curvature, self.lenght]).reshape(1, -1)))
+        ransac_primitive_estimatiom = 0
+        ransac_lst_estimation = 0
 
-        return (statistic_estimation + self.lst_estimated_time)/2
+        if self.ransac_fit:
+            ransac_primitive_estimatiom = self.primitive_ransac.predict(self.primitives_count.reshape(1,-1))
+            ransac_lst_estimation = self.ransac.predict(np.array([dx, dy, ddx, ddy,curvature, self.lenght]).reshape(1, -1))
+            rospy.logwarn("Primitives with ransac %f" % ransac_primitive_estimatiom)
+            rospy.logwarn("Linearization with ransac %f" % ransac_lst_estimation)
+
+        mean_expected_time = (self.lst_estimated_time + self.primitive_estimation + statistic_estimation + ransac_primitive_estimatiom + ransac_lst_estimation)/5
+        rospy.logerr("Average expected %f seconds" % mean_expected_time)
+        return mean_expected_time
 
     def is_motion_finished(self):
         self.is_robot_moving = False
