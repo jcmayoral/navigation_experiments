@@ -39,7 +39,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.primitives_count = np.zeros(self.primitives_number)
         self.primitives_coefficients = np.zeros(self.primitives_number)
         self.timed_positions = list()
-        self.ransac = linear_model.RANSACRegressor(min_samples = 1, residual_threshold = 1)
+        self.ransac = linear_model.RANSACRegressor(min_samples = 1, residual_threshold = 0.5)
         self.primitive_ransac = linear_model.RANSACRegressor(min_samples = 1, residual_threshold = 1)
         self.ransac_fit = False
         self.tfBuffer = tf2_ros.Buffer()
@@ -48,6 +48,13 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         rospy.Timer(rospy.Duration(self.prediction_time*4), self.timer_cb)
 
     def train_data(self):
+        n_samples = int(np.floor(len(self.y)*0.6))
+
+        n_samples = 1 if n_samples < 1 else n_samples
+
+
+        self.ransac = linear_model.RANSACRegressor(min_samples = n_samples, residual_threshold = 0.5)
+        self.primitive_ransac = linear_model.RANSACRegressor(min_samples = n_samples, residual_threshold = 0.5)
         self.ransac.fit(np.array(self.A), np.array(self.y).reshape(len(self.y), 1))
         self.primitive_ransac.fit(np.array(self.A_primitives), np.array(self.y).reshape(len(self.y), 1))
         self.ransac_fit = True
