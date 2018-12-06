@@ -176,7 +176,9 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             rospy.logwarn("Primitives with ransac %f" % ransac_primitive_estimatiom)
             rospy.logwarn("Linearization with ransac %f" % ransac_lst_estimation)
 
-        mean_expected_time = (self.lst_estimated_time + self.primitive_estimation + statistic_estimation + ransac_primitive_estimatiom + ransac_lst_estimation)/5
+        results_array = np.array([self.lst_estimated_time , self.primitive_estimation, statistic_estimation, ransac_primitive_estimatiom , ransac_lst_estimation])
+        rospy.loginfo("Standard Deviation %f " % np.std(results_array))
+        mean_expected_time = np.sum(results_array)/5
         rospy.logerr("Average expected %f seconds" % mean_expected_time)
 
         #time variables used for predicition
