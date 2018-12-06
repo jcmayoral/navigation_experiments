@@ -201,14 +201,16 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         min_range = 0
 
         path_sampling = self.lenght/len(time_lapse)
-        counter = 0
+        counter = -path_sampling
 
         for t  in time_lapse:
+            counter += path_sampling
             tmp_time = t #expected time
             tmp_pose = msg.poses[counter].pose
             self.timed_positions.append([tmp_time, tmp_pose])
-            counter += path_sampling
 
+        if counter != len(time_lapse):
+            self.timed_positions[-1] = [time_lapse[-1], msg.poses[-1].pose]
 
         return mean_expected_time
 
