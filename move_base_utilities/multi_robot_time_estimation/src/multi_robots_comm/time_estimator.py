@@ -20,7 +20,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         SBPLPrimitiveAnalysis.__init__(self)
         self.is_robot_moving = False
         self.distance_tolerance = 1000 # disable
-        self.prediction_time = 0.25
+        self.prediction_time = 1.0
         self.mean_primitive_error = 0
         self.samples = 0
         self.primitives_number = 25
@@ -45,7 +45,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.tfBuffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tfBuffer)
         self.feedback_pub = rospy.Publisher("/trajectory_estimator", PoseStamped, queue_size=1)
-        rospy.Timer(rospy.Duration(self.prediction_time*4), self.timer_cb)
+        rospy.Timer(rospy.Duration(self.prediction_time/2), self.timer_cb)
 
     def train_data(self):
         n_samples = int(np.floor(len(self.y)*0.6))
@@ -180,7 +180,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         rospy.logerr("Average expected %f seconds" % mean_expected_time)
 
         #time variables used for predicition
-        time_lapse = np.arange(0,mean_expected_time+self.prediction_time,self.prediction_time) #one check pose every second
+        time_lapse = np.arange(0,self.primitive_estimation+self.prediction_time,self.prediction_time) #one check pose every second
         self.timed_positions = list()
         current_primitives = self.get_primitive_list()
         progressive_costs = list()
@@ -201,16 +201,22 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         min_range = 0
 
         path_sampling = self.lenght/len(time_lapse)
-        counter = -path_sampling
+        counter = 0
 
+        #mapping time with cost
+        #main assumption time and costs are linear not exponential
+        #TODO mean value of coefficients -> problem each model has different number of coefficients
         for t  in time_lapse:
-            counter += path_sampling
-            tmp_time = t #expected time
-            tmp_pose = msg.poses[counter].pose
-            self.timed_positions.append([tmp_time, tmp_pose])
+            if counter == len(progressive_costs) -1:
+                break
 
-        if counter != len(time_lapse):
-            self.timed_positions[-1] = [time_lapse[-1], msg.poses[-1].pose]
+            tmp_pose = msg.poses[int(self.lenght * counter)/len(progressive_costs)].pose
+            self.timed_positions.append([t, tmp_pose])
+
+            while progressive_costs[counter]/total_cost < t/time_lapse[-1]:
+                counter = counter + 1
+                if counter == len(progressive_costs) -1:
+                    break
 
         return mean_expected_time
 
