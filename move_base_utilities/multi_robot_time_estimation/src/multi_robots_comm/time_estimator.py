@@ -30,6 +30,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         self.lenght = 1
         self.features =0
         self.counter = 0
+        self.mean_expected_time = 0.0
         self.A = list()
         self.A_primitives = list()
         self.y = list()
@@ -183,8 +184,8 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         results_array = np.array([self.lst_estimated_time , self.primitive_estimation, statistic_estimation, ransac_primitive_estimatiom , ransac_lst_estimation])
         std_dev = np.std(results_array)
         rospy.loginfo("Standard Deviation %f " % std_dev)
-        mean_expected_time = np.sum(results_array)/5
-        rospy.logerr("Average expected %f seconds" % mean_expected_time)
+        self.mean_expected_time = np.sum(results_array)/5
+        rospy.logerr("Average expected %f seconds" % self.mean_expected_time)
 
         #time variables used for predicition
         time_lapse = np.arange(0,self.primitive_estimation+self.prediction_time,self.prediction_time) #one check pose every second
@@ -220,7 +221,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             if counter == len(progressive_costs) -1:
                 break
             """
-            index = int(self.lenght * t /mean_expected_time)
+            index = int(self.lenght * t /self.mean_expected_time)
 
             if self.samples > 1:
                 index = int (index * (1-self.mean_primitive_error))
@@ -246,7 +247,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                     break
             """
 
-        return mean_expected_time
+        return self.mean_expected_time
 
     def is_motion_finished(self):
         self.is_robot_moving = False
@@ -256,7 +257,8 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         measured_time = (rospy.Time.now() - self.start_time).to_sec()
         self.mean_primitive_error += (measured_time - self.estimated_time)/self.lenght
 
-        rospy.logerr("MEASURED TIME %f",  measured_time)
+        rospy.logerr("Measured Time %f",  measured_time)
+        rospy.logwarn("Accuracy %f", np.fabs(measured_time - self.mean_expected_time)/measured_time)
         new_measurement = self.features
 
         #used for Linearization
