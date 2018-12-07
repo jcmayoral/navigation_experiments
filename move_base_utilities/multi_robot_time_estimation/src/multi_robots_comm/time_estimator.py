@@ -205,8 +205,25 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         #main assumption time and costs are linear not exponential
         #TODO mean value of coefficients -> problem each model has different number of coefficients
         for t  in time_lapse:
+
+            """
+            ### Protection for cost based approach
             if counter == len(progressive_costs) -1:
                 break
+            """
+
+            if counter == len(time_lapse) - 1:
+                break
+
+            #This approach is simpler mapping the time lapse and lenght of Path
+            #Drift over time, a correction is required
+            counter = counter + 1
+            tmp_pose = msg.poses[int(self.lenght * counter)/len(time_lapse)].pose
+            self.timed_positions.append([t, tmp_pose])
+
+            """
+            #This approach should select the expected pose according to cost but cost seems not to be proportional
+            #Linearization not warranty, this
 
             tmp_pose = msg.poses[int(self.lenght * counter)/len(progressive_costs)].pose
             self.timed_positions.append([t, tmp_pose])
@@ -215,6 +232,7 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
                 counter = counter + 1
                 if counter == len(progressive_costs) -1:
                     break
+            """
 
         return mean_expected_time
 
