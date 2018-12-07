@@ -153,6 +153,10 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         for i in range(self.primitives_number):
             self.primitives_count[i] = self.get_primitive_count(i)
 
+        #HACK  TODO RIP primitives store on the last value
+        self.primitives_count[self.primitives_number-1] = self.get_primitive_count('rip')
+
+
         if self.samples >0 :
             statistic_estimation = self.estimated_time + self.lenght* self.mean_primitive_error/self.samples
             rospy.logwarn("Statistical Estimation %f" , statistic_estimation)
@@ -177,7 +181,8 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             rospy.logwarn("Linearization with ransac %f" % ransac_lst_estimation)
 
         results_array = np.array([self.lst_estimated_time , self.primitive_estimation, statistic_estimation, ransac_primitive_estimatiom , ransac_lst_estimation])
-        rospy.loginfo("Standard Deviation %f " % np.std(results_array))
+        std_dev = np.std(results_array)
+        rospy.loginfo("Standard Deviation %f " % std_dev)
         mean_expected_time = np.sum(results_array)/5
         rospy.logerr("Average expected %f seconds" % mean_expected_time)
 
@@ -193,7 +198,11 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
         for prim in current_primitives:
             try:
                 #getting cost per primitive
-                prim_cost = int(prim) * self.primitives_coefficients[int(prim)]
+                if "rip" in prim:
+                    print "rip find"
+                    prim_cost = int(prim) * self.primitives_coefficients[self.primitives_number-1]
+                else:
+                    prim_cost = int(prim) * self.primitives_coefficients[int(prim)]
                 total_cost += prim_cost
             except ValueError:
                 pass
@@ -211,7 +220,10 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             if counter == len(progressive_costs) -1:
                 break
             """
-            index = int(self.lenght * t/mean_expected_time)
+            index = int(self.lenght * t /mean_expected_time)
+
+            if self.samples > 1:
+                index = int (index * (1-self.mean_primitive_error))
 
             if index >= self.lenght - 1:
                 break

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>primitives_analysis</name>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <description>Package used by  multi_robots_comm package</description>
 
   <maintainer email="banos@magazino.eu">Jose M Banos</maintainer>

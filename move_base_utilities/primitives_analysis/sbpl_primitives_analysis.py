@@ -17,9 +17,15 @@ class SBPLPrimitiveAnalysis:
         for marker in msg.markers:
             self.primitive_list.append(marker.text)
             if marker.text in self.current_results:
-                self.current_results[marker.text]+=1
+                if 'rip' in marker.text:
+                    self.current_results['rip']+=1
+                else:
+                    self.current_results[marker.text]+=1
             else:
-                self.current_results[marker.text]=1
+                if 'rip' in marker.text:
+                    self.current_results['rip']=1
+                else:
+                    self.current_results[marker.text]=1
         #self.reset()
 
     def get_primitive_count(self, key):
