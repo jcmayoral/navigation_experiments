@@ -211,14 +211,14 @@ class ContractNetTimeEstimator(SBPLPrimitiveAnalysis):
             if counter == len(progressive_costs) -1:
                 break
             """
+            index = int(self.lenght * t/mean_expected_time)
 
-            if counter == len(time_lapse) - 1:
+            if index >= self.lenght - 1:
                 break
 
             #This approach is simpler mapping the time lapse and lenght of Path
             #Drift over time, a correction is required
-            counter = counter + 1
-            tmp_pose = msg.poses[int(self.lenght * counter)/len(time_lapse)].pose
+            tmp_pose = msg.poses[index].pose
             self.timed_positions.append([t, tmp_pose])
 
             """
