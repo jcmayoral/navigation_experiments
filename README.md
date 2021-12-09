@@ -1,4 +1,4 @@
-Hi!
+Hi! This repository is a bit not-uptodate
 
 This are just first version implementation. Some libraries are also provided on my ros_experiments repository which will be required for some of the code on the current repository
 
